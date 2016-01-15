@@ -1,0 +1,24 @@
+{
+  "name": "mkstream",
+  "version": "1.0.0",
+  "description": "Group thesis project for MakerSquare",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kcvan/MKSTream.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kcvan/MKSTream/issues"
+  },
+  "homepage": "https://github.com/kcvan/MKSTream#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.3.5",
+    "nodemon": "^1.8.1"
+  }
+}
