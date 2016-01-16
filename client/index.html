@@ -1,0 +1,27 @@
+<html ng-app='MKSTream'>
+
+<head>
+  <title></title>
+
+  <!-- Add additional dependencies -->
+  <!-- <script src='./lib/angular.js'></script>
+  // <script src='./lib/angular-ui-router.js'></script> -->
+  <!-- Minified libs -->
+  <script src='lib/dest/libs.min.js'></script>
+  <!-- Add additional controller scripts -->
+  <script src='./app/components/feat_sample/feat.js'></script>
+
+  <!-- Add additional factories -->
+
+  <!-- Added module and routes -->
+  <script src='./app/app_modules.js'></script>
+  <script src='./app/app_routes.js'></script>
+</head>
+
+<body ng-controller='featController'>
+  <h1>testing index.html</h1>
+  <button ng-click='clicker()'>button</button>
+  <div ui-view></div>
+</body>
+
+</html>

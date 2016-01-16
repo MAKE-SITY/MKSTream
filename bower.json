@@ -1,0 +1,22 @@
+{
+  "name": "mkstream",
+  "description": "Group thesis project for MakerSquare",
+  "main": "./client/index.html",
+  "authors": [
+    "MAKE-SITY"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/MAKE-SITY/MKSTream",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "ui-router#~0.2.15"
+  }
+}
