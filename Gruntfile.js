@@ -10,8 +10,16 @@ module.exports = function(grunt) {
       }
     },
 
+    uglify: {
+      my_target: {
+        files: {
+          'client/lib/dest/libs.min.js': ['client/lib/angular.js', 'client/lib/angular-ui-router.js']
+          
+        }
+      }
+    },
     // TODO: add uglify, concat, cssmin tasks
-    
+
     watch: {
       files: ['client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
       tasks: ['jshint']
