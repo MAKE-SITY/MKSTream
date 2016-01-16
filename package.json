@@ -4,7 +4,7 @@
   "description": "Group thesis project for MakerSquare",
   "main": "./server/server.js",
   "scripts": {
-    "start": "nodemon ./server/server.js",
+    "start": "nf start",
     "postinstall": "bower install"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
+    "foreman": "^1.4.1",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-concat": "^0.5.1",
@@ -29,6 +30,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-notify": "^0.4.3",
     "kerberos": "~0.0.17",
+    "mongodb": "^2.1.4",
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1",
     "nodemon": "^1.8.1"
