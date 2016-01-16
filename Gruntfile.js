@@ -2,11 +2,18 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     jshint: {
-      files: ['!client/bower_components/*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
+      files: ['*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
+      options: {
+        ignores: [
+          // (TODO: add lib files here)
+        ]
+      }
     },
 
+    // TODO: add uglify, concat, cssmin tasks
+    
     watch: {
-      files: ['!client/bower_components/*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
+      files: ['client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
       tasks: ['jshint']
     }
   });
@@ -15,6 +22,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   /*************************************************************
   Run `$ grunt jshint` before submitting PR
