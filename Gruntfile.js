@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     jshint: {
-      files: ['*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
+      files: ['*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js', '*.json'],
       options: {
         ignores: [
           // (TODO: add lib files here)
