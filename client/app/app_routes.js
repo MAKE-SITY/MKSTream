@@ -1,11 +1,11 @@
 angular.module('clientRoutes', [])
 
-  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-    $stateProvider
+  $stateProvider
 
-      .state('test', {
-        url: '/test',
-        templateUrl: './app/components/feat_sample/feat.html'
-      })
-  }])
+    .state('test', {
+    url: '/test',
+    templateUrl: './app/components/feat_sample/feat.html'
+  });
+}]);

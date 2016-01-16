@@ -16,7 +16,13 @@
   "homepage": "https://github.com/kcvan/MKSTream#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "kerberos": "~0.0.17",
     "express": "^4.13.3",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-notify": "^0.4.3",
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1",
     "nodemon": "^1.8.1"
