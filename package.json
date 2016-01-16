@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Group thesis project for MakerSquare",
   "main": "./server/server.js",
-  "scripts": {},
+  "scripts": {
+      "start": "nodemon ./server/server.js",
+      "postinstall": "bower install"
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kcvan/MKSTream.git"
