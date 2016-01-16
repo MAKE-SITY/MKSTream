@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Group thesis project for MakerSquare",
   "main": "./server/server.js",
-  "scripts": {
-   
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kcvan/MKSTream.git"
@@ -17,8 +15,10 @@
   },
   "homepage": "https://github.com/kcvan/MKSTream#readme",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "mongoose": "^4.3.5",
+    "morgan": "^1.6.1",
     "nodemon": "^1.8.1"
   }
 }
