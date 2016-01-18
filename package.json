@@ -4,8 +4,7 @@
   "description": "Group thesis project for MakerSquare",
   "main": "./server/server.js",
   "scripts": {
-    "start": "nf start",
-    "postinstall": "bower install"
+    "start": "nf start"
   },
   "repository": {
     "type": "git",
