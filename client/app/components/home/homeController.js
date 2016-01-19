@@ -1,13 +1,15 @@
-angular.module('home', [])
+angular.module('home', [
+  'utils'
+  ])
 
-.controller('homeController', function($scope, $state, $stateParams, $location) {
+.controller('homeController', ['$scope', '$state', '$stateParams', '$location', 'fileUpload', function($scope, $state, $stateParams, $location, fileUpload) {
   $scope.myItems = [];
   $scope.guid = function() {
     var s4 = function() {
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
     return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
-  }
+  };
   $scope.file = 'sample.txt';
 
   $scope.generateLink = function() {
@@ -30,7 +32,7 @@ angular.module('home', [])
   };
 
   $scope.fileGetTest = function() {
-    $scope.myItems.push(document.getElementById('filesId').files);
+    $scope.myItems.push(fileUpload.getFiles());
     console.log($scope.myItems);
   }
-});
+}]);
