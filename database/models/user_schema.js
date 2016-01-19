@@ -6,3 +6,5 @@ var userSchema = new mongoose.Schema({
   receiverID : Number,
   created_at : Array
 });
+
+module.exports = mongoose.model('User', userSchema);
