@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-  linkHash: {type: String},
-  senderID: {type: String},
-  receiverID: {type: Array}
+  linkHash: String,
+  senderID: String,
+  receiverID: Array
 });
 
 module.exports = mongoose.model('User', userSchema);
