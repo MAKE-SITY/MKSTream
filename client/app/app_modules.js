@@ -3,4 +3,7 @@ angular.module('MKSTream', [
   'clientRoutes',
   'home',
   'feat'
-]);
+])
+.run(['$scope', function($scope){
+  
+}]);
