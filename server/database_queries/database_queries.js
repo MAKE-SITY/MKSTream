@@ -28,6 +28,12 @@ exportObj.addReceiver = function(senderID, receiverID) {
   );
 };
 
-exportObj.deleteUser = function() {
-
+exportObj.deleteUser = function(senderID) {
+  User.find({senderID: senderID}).remove(function(err) {
+    if (err) {
+      console.log('could not delete', senderID, ':', err);
+    } else {
+      console.log('deleted', senderID);
+    }
+  }).exec();
 };
