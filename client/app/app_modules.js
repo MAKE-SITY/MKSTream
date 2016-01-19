@@ -1,5 +1,10 @@
 angular.module('MKSTream', [
   'ui.router',
   'clientRoutes',
-  'feat'
-]);
+  'home',
+  'feat',
+  'utils'
+])
+.run([function(){
+  
+}]);

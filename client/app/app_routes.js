@@ -1,11 +1,17 @@
 angular.module('clientRoutes', [])
 
-.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
+.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
 
-    .state('test', {
-    url: '/test',
-    templateUrl: './app/components/feat_sample/feat.html'
-  });
+    .state('home', {
+      url: '/',
+      controller: 'homeController',
+      templateUrl: './app/components/home/homeView.html'
+    })
+    .state('link', {
+      url: '/:test',
+      controller: 'featController',
+      templateUrl: './app/components/feat_sample/featView.html'
+    });
 }]);

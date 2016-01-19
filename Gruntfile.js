@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     jshint: {
-      files: ['*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
+      files: ['*.js', 'client/app/*.js', 'server/**/*.js', 'database/**/*.js', '*.json'],
       options: {
         ignores: [
           // (TODO: add lib files here)
@@ -11,14 +11,27 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      my_target: {
+      options: {
+        mangle: false
+      },
+      target: {
         files: {
-          'client/lib/dest/libs.min.js': ['client/lib/angular.js', 'client/lib/angular-ui-router.js']
-          
+          // uncomment this if you need to re-uglify new library files.
+          // You can also set mangle to true for lib files, but do not mangle client files.
+          // 'client/lib/dest/libs.min.js': ['client/lib/angular.js', 'client/lib/angular-ui-router.js']
+          'client/appmincode.js': ['client/app/**/*.js']
+        }
+      }
+
+    },
+
+    cssmin: {
+      target: {
+        files: {
+          'client/assets/dest/styles.min.css': ['styles.css']
         }
       }
     },
-    // TODO: add uglify, concat, cssmin tasks
 
     watch: {
       files: ['client/app/*.js', 'server/**/*.js', 'database/**/*.js'],
