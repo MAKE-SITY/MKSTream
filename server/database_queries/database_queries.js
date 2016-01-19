@@ -11,8 +11,9 @@ exportObj.addUser = function(linkHash, senderID, receiverID) {
   }).save(function(err, addedUser) {
     if(err) {
       console.log('error trying to save user to DB:', err);
+    } else {
+      console.log(addedUser, 'addedUser');
     }
-    console.log(addedUser, 'addedUser');
   });
 };
 
