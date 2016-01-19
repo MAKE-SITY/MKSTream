@@ -7,20 +7,27 @@ exportObj.addUser = function(linkHash, senderID, receiverID) {
   new User({
     linkHash: linkHash,
     senderID: senderID,
-    receiverID: receiverID
+    receiverIDArray: receiverID
   }).save(function(err, addedUser) {
     if(err) {
       console.log('error trying to save user to DB:', err);
     } else {
-      console.log(addedUser, 'addedUser');
+      console.log('addedUser:', addedUser);
     }
   });
 };
 
-var addReceiver = function(senderID, receiverID) {
-  User.update({senderID: senderID}, {});
+exportObj.addReceiver = function(senderID, receiverID) {
+  User.findOneAndUpdate(
+    {senderID: senderID},
+    {$push: {receiverIDArray: receiverID}},
+    {safe: true, upsert: true},
+    function(err, model) {
+      console.log(err);
+    }
+  );
 };
 
-var deleteUser = function() {
+exportObj.deleteUser = function() {
 
 };
