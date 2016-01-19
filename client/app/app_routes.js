@@ -1,6 +1,6 @@
 angular.module('clientRoutes', [])
 
-.config(function($stateProvider) {
+.config(['$stateProvider', function($stateProvider) {
 
   $stateProvider
 
@@ -14,4 +14,4 @@ angular.module('clientRoutes', [])
       controller: 'featController',
       templateUrl: './app/components/feat_sample/featView.html'
     });
-});
+}]);

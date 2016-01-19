@@ -2,8 +2,9 @@ angular.module('MKSTream', [
   'ui.router',
   'clientRoutes',
   'home',
-  'feat'
+  'feat',
+  'utils'
 ])
-.run(['$scope', function($scope){
+.run([function(){
   
 }]);

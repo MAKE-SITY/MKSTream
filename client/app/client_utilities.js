@@ -1,14 +1,12 @@
 angular.module('utils', [])
 
-.factory('webRTC', ['$scope' ,'$http', function($scope, $http){
+.factory('webRTC', ['$http', function($http){
   /**
    * user uploaded file
    * retrieve file & convert it to binary
    **/ 
 
   var createPeer = function(){
-
-    var peerKit = {};
 
     var peer = new Peer({
     config: {'iceServers': [
@@ -33,7 +31,7 @@ angular.module('utils', [])
         {url:'stun:stun.xten.com'} ]
     },
     key: 'slp678osk0oa8aor'});
-
+    //place key in env variable
     return peer;
 
   }
@@ -56,7 +54,7 @@ angular.module('utils', [])
     return conn;
   }
 
-  var sendData = function(conn, data, filename){
+  var sendData = function(conn, data, filename, size){
     conn.send({
       file: data,
       name: filename,

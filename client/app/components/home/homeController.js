@@ -2,7 +2,7 @@ angular.module('home', [
   'utils'
   ])
 
-.controller('homeController', function($scope, $state, $stateParams, $location, fileUpload) {
+.controller('homeController', ['$scope', '$state', '$stateParams', '$location', 'fileUpload', function($scope, $state, $stateParams, $location, fileUpload) {
   $scope.myItems = [];
   $scope.guid = function() {
     var s4 = function() {
@@ -35,4 +35,4 @@ angular.module('home', [
     $scope.myItems.push(fileUpload.getFiles());
     console.log($scope.myItems);
   }
-});
+}]);
