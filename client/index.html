@@ -4,23 +4,30 @@
   <title></title>
 
   <!-- Add additional dependencies -->
-  <!-- <script src='./lib/angular.js'></script>
-  // <script src='./lib/angular-ui-router.js'></script> -->
+  <!-- <script src='./lib/angular.js'></script> -->
+  <!-- <script src='./lib/angular-ui-router.js'></script> -->
+
   <!-- Minified libs -->
   <script src='lib/dest/libs.min.js'></script>
+
   <!-- Add additional controller scripts -->
-  <script src='./app/components/feat_sample/feat.js'></script>
+  <script src='./app/components/feat_sample/featController.js'></script>
+  <script src='./app/components/home/homeController.js'></script>
 
   <!-- Add additional factories -->
 
   <!-- Added module and routes -->
   <script src='./app/app_modules.js'></script>
   <script src='./app/app_routes.js'></script>
+
+  <!-- Run grunt uglify to update the app's source code-->
+  <!-- // <script src='appmincode.js'></script> -->
 </head>
 
-<body ng-controller='featController'>
+<body ng-controller='homeController'>
   <h1>testing index.html</h1>
-  <button ng-click='clicker()'>button</button>
+  <button ng-click='generateLink()'>Generate Link</button>
+  <button ng-click='home()'>Get home</button>
   <div ui-view></div>
 </body>
 
