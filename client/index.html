@@ -2,29 +2,27 @@
 
 <head>
   <title></title>
-
   <!-- Add additional dependencies -->
   <!-- <script src='./lib/angular.js'></script> -->
   <!-- <script src='./lib/angular-ui-router.js'></script> -->
-
   <!-- Minified libs -->
   <script src='lib/dest/libs.min.js'></script>
-
   <!-- Add additional controller scripts -->
   <script src='./app/components/feat_sample/featController.js'></script>
   <script src='./app/components/home/homeController.js'></script>
-
   <!-- Add additional factories -->
-
   <!-- Added module and routes -->
   <script src='./app/app_modules.js'></script>
   <script src='./app/app_routes.js'></script>
-
   <!-- Run grunt uglify to update the app's source code-->
   <!-- // <script src='appmincode.js'></script> -->
 </head>
 
 <body ng-controller='homeController'>
+  <button ng-click='clicker2()'>kcvan test</button>
+  <input type="file" id="filesId" name="files" multiple/>
+  <output id="list"></output>
+  <button ng-click='fileGetTest()'>get file</button>
   <h1>testing index.html</h1>
   <button ng-click='generateLink()'>Generate Link</button>
   <button ng-click='home()'>Get home</button>
