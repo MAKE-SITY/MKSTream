@@ -2,13 +2,13 @@ angular.module('feat', [
 		'utils'
 	])
 
-.controller('featController', [function($scope, $state) {
+.controller('featController', ['$scope', '$state', function($scope, $state) {
 	
 	$scope.clicker = function() {
     console.log('im executing');
     $state.go('test');
   };
-})
+}])
 
 .controller('webRTCController', ['$scope', '$http', 'webRTC', 'fileUpload', function($scope, $http, webRTC, fileUpload){
 	/**
