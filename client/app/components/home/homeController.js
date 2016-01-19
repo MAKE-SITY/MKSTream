@@ -6,18 +6,21 @@ angular.module('home', [])
     var s4 = function() {
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
-    return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
+    return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
   }
   $scope.file = 'sample.txt';
 
   $scope.generateLink = function() {
-    $scope.hash = $scope.guid($scope.userType);
+    $scope.hash = $scope.guid();
     $stateParams.test = $scope.hash;
+    $state.go('link');
   };
 
-  $scope.goToLink = function() {
-    $state.go('link');
-  }
   $scope.testParams = $stateParams;
-  $state.go('home');
+
+  $scope.home = function() {
+    $state.go('home');
+  }
+  $scope.home();
+  console.log($stateParams.test);
 });
