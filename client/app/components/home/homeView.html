@@ -1,0 +1,9 @@
+<div ng-controller="homeController">
+<form name="myForm" class="my-form">
+  Test Input <input name="input" ng-model="file" required>
+  <span class="error" ng-show="myForm.input.$error.required">Required!</span>
+  <br>
+  filename: {{ file }}<br>
+  link: {{ test }}<br>
+ </form>
+ </div>
