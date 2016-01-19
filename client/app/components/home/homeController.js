@@ -1,6 +1,6 @@
 angular.module('home', [])
 
-.controller('homeController', function($scope, $state, $stateParams) {
+.controller('homeController', function($scope, $state, $stateParams, $location) {
 
   $scope.guid = function() {
     var s4 = function() {
@@ -13,7 +13,7 @@ angular.module('home', [])
   $scope.generateLink = function() {
     $scope.hash = $scope.guid();
     $stateParams.test = $scope.hash;
-    $state.go('link');
+    $location.path('/' + $scope.hash);
   };
 
   $scope.testParams = $stateParams;
@@ -22,5 +22,5 @@ angular.module('home', [])
     $state.go('home');
   }
   $scope.home();
-  console.log($stateParams.test);
+
 });
