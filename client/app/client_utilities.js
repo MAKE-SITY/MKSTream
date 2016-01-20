@@ -34,7 +34,7 @@ angular.module('utils', [])
     //place key in env variable
     return peer;
 
-  }
+  };
 
   
   var ping = function(conn){
@@ -45,14 +45,14 @@ angular.module('utils', [])
     return $http({
       method: 'GET',
       url: '/api/webrtc/users'
-    })
+    });
   };
   //TODO:need an event listener for every time a file is added to send that file
 
   var connectToPeer = function(caller, targetId){
     var conn = caller.connect(targetId);
     return conn;
-  }
+  };
 
   var sendData = function(conn, data, filename, size){
     conn.send({
@@ -60,7 +60,7 @@ angular.module('utils', [])
       name: filename,
       size: size
     });
-  }
+  };
 
   return {
     createPeer: createPeer,
@@ -80,7 +80,7 @@ angular.module('utils', [])
 
   var convertToBinary = function(file){
     //TODO: make this
-  }
+  };
 
   var convertFromBinary = function(data){
     var blob = new window.Blob(data.file);
@@ -89,7 +89,7 @@ angular.module('utils', [])
     kit.name = data.name;
     kit.size = data.size;
     return kit;
-  }
+  };
 
   return {
     getFiles: getFiles
