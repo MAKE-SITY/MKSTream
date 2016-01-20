@@ -5,6 +5,6 @@ angular.module('MKSTream', [
   'connecting',
   'utils'
 ])
-.run([function(){
+// .run([function(){
   
-}]);
+// }]);
