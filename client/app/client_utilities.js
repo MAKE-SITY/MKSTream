@@ -75,12 +75,8 @@ angular.module('utils', [])
     return conn;
   };
 
-  var sendData = function(conn, data, filename, size) {
-    conn.send({
-      file: data,
-      name: filename,
-      size: size
-    });
+  var sendData = function(conn, obj) {
+    conn.send(obj);
   };
 
   return {
