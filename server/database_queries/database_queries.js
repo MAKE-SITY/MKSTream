@@ -3,7 +3,7 @@ var db = require('./../../database/config.js');
 
 var exportObj = {};
 
-exportObj.addUser = function(linkHash, senderID, receiverID) {
+exportObj.addLink = function(linkHash, senderID, receiverID) {
   new User({
     linkHash: linkHash,
     senderID: senderID,
@@ -17,7 +17,7 @@ exportObj.addUser = function(linkHash, senderID, receiverID) {
   });
 };
 
-exportObj.addReceiver = function(senderID, receiverID) {
+exportObj.addReceiverToSender = function(senderID, receiverID) {
   User.findOneAndUpdate(
     {senderID: senderID},
     {$push: {receiverIDArray: receiverID}},
@@ -28,7 +28,7 @@ exportObj.addReceiver = function(senderID, receiverID) {
   );
 };
 
-exportObj.deleteUser = function(senderID) {
+exportObj.deleteLink = function(senderID) {
   User.find({senderID: senderID}).remove(function(err) {
     if (err) {
       console.log('could not delete', senderID, ':', err);
