@@ -2,7 +2,7 @@ angular.module('home', [
   'utils'
 ])
 
-.controller('homeController', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', function($scope, $http, $state, $stateParams, $location, $rootScope, fileUpload, linkGeneration, webRTC) {
+.controller('homeController', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', 'fileReader', function($scope, $http, $state, $stateParams, $location, $rootScope, fileUpload, linkGeneration, webRTC, fileReader) {
   $rootScope.myItems = [];
   $scope.file = 'sample.txt';
 
@@ -19,8 +19,9 @@ angular.module('home', [
     for (var i = 0; i < files.length; i++) {
       $rootScope.myItems.push(files[i]);
     }
-
-    console.log('myItems', $rootScope.myItems);
+    fileReader.readAsArrayBuffer($rootScope.myItems[0], $scope).then(function(result){
+      console.dir(result);
+    });
 
 
     if (!$rootScope.peer) {
@@ -41,7 +42,35 @@ angular.module('home', [
         // TODO: add file inside call to send
         $rootScope.conn = conn;
         console.log('does this ever happen', conn);
+        
+        for (var i = 0; i < $rootScope.myItems.length; i++) {
+          console.log('conn.send obj', {
+            name: $rootScope.myItems[i].name,
+            size: $rootScope.myItems[i].size,
+          });
+          conn.send({
+            name: $rootScope.myItems[i].name,
+            size: $rootScope.myItems[i].size,
+            type: 'file-offer'
+          });
+        }
+
         $rootScope.conn.on('data', function(data) {
+          if (data.type === 'file-accepted') {
+            $rootScope.myItems.forEach(function(val) {
+              if (val.name === data.name && val.size === data.size) {
+                fileReader.readAsArrayBuffer(val, $scope)
+                  .then(function(result) {
+                    webRTC.sendData(conn, {
+                      file: result,
+                      name: data.name,
+                      size: data.size,
+                      type: 'file-transfer'
+                    });
+                  });
+              }
+            });
+          }
           console.log('data response from bitches', data);
         });
       });
