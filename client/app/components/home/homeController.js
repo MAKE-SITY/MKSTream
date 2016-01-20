@@ -3,6 +3,7 @@ angular.module('home', [
 ])
 
 .controller('homeController', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', 'fileReader', function($scope, $http, $state, $stateParams, $location, $rootScope, fileUpload, linkGeneration, webRTC, fileReader) {
+  console.log('home controller loaded');
   $rootScope.myItems = [];
   $scope.file = 'sample.txt';
 
@@ -17,15 +18,17 @@ angular.module('home', [
 
     var files = this.files;
     for (var i = 0; i < files.length; i++) {
+      if($rootScope.myItems.indexOf(files[i]) > -1){
+        continue;
+      }
       $rootScope.myItems.push(files[i]);
     }
-    fileReader.readAsArrayBuffer($rootScope.myItems[0], $scope).then(function(result) {
-      console.dir(result);
-    });
 
 
     if (!$rootScope.peer) {
+
       $rootScope.peer = webRTC.createPeer();
+      console.log('SENDER peer created');
       $rootScope.peer.on('open', function(id) {
         // TODO: create special link to send with post in data
         $http({
@@ -35,25 +38,33 @@ angular.module('home', [
             userId: id,
             hash: $scope.hash
           }
+        })
+        .then(function(result){
+          console.log('SENDER\'s POST response', result.data);
         });
       });
 
       $rootScope.peer.on('connection', function(conn) {
         // TODO: add file inside call to send
+        console.log('peerJS on Connection event', conn);
         $rootScope.conn = conn;
-        console.log('does this ever happen', conn);
+        console.log('peerJS connection object', conn);
 
-        for (var i = 0; i < $rootScope.myItems.length; i++) {
-          console.log('conn.send obj', {
-            name: $rootScope.myItems[i].name,
-            size: $rootScope.myItems[i].size,
-          });
-          conn.send({
-            name: $rootScope.myItems[i].name,
-            size: $rootScope.myItems[i].size,
-            type: 'file-offer'
-          });
-        }
+        setTimeout(function(){
+          console.log($rootScope.myItems);
+
+          for (var i = 0; i < $rootScope.myItems.length; i++) {
+            console.log('conn.send obj', {
+              name: $rootScope.myItems[i].name,
+              size: $rootScope.myItems[i].size,
+            });
+            conn.send({
+              name: $rootScope.myItems[i].name,
+              size: $rootScope.myItems[i].size,
+              type: 'file-offer'
+            });
+          }
+        }, 500);
 
         $rootScope.conn.on('data', function(data) {
           if (data.type === 'file-accepted') {
@@ -71,7 +82,6 @@ angular.module('home', [
               }
             });
           }
-          console.log('data response from bitches', data);
         });
       });
       generateLink();
