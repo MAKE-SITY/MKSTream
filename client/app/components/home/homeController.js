@@ -19,7 +19,7 @@ angular.module('home', [
     for (var i = 0; i < files.length; i++) {
       $rootScope.myItems.push(files[i]);
     }
-    fileReader.readAsArrayBuffer($rootScope.myItems[0], $scope).then(function(result){
+    fileReader.readAsArrayBuffer($rootScope.myItems[0], $scope).then(function(result) {
       console.dir(result);
     });
 
@@ -42,7 +42,7 @@ angular.module('home', [
         // TODO: add file inside call to send
         $rootScope.conn = conn;
         console.log('does this ever happen', conn);
-        
+
         for (var i = 0; i < $rootScope.myItems.length; i++) {
           console.log('conn.send obj', {
             name: $rootScope.myItems[i].name,
