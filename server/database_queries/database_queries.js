@@ -38,7 +38,7 @@ exportObj.deleteUser = function(senderID) {
   }).exec();
 };
 
-exportObj.getUser = function(linkHash) {
+exportObj.getSenderID = function(linkHash) {
   User.findOne({linkHash: linkHash}, function(err, user) {
     if (err) {
       console.log('could not get user', user, ':', err);
@@ -48,3 +48,5 @@ exportObj.getUser = function(linkHash) {
     }
   })
 };
+
+module.exports = exportObj;
