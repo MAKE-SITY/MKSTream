@@ -4,7 +4,4 @@ angular.module('MKSTream', [
   'home',
   'connecting',
   'utils'
-])
-.run([function(){
-  
-}]);
+]);

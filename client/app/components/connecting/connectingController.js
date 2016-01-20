@@ -11,9 +11,7 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-
     if (!$rootScope.peer) {
-
       $rootScope.myItems = [];
 
       $rootScope.peer = webRTC.createPeer();
@@ -26,29 +24,29 @@ angular.module('connecting', [
             // TODO: change 
             // url: '/api/webrtc/recipient',
             data: {
-              hash: $stateParams.test
+              hash: $stateParams.test,
+              recipientId: id
             }
           })
           .then(function(res) {
             // expect res.data === sender id
-            $rootScope.conn = $rootScope.peer.connect(res.data);
+            $rootScope.conn = $rootScope.peer.connect(res.data.senderID);
             $rootScope.conn.on('data', function(data) {
-              // console.log('recipient data', data);
               if (data.type === 'file-offer') {
                 var answer = confirm('do you wish to receive ' + data.name + "?");
                 if (answer) {
-                  conn.send({
+                  $rootScope.conn.send({
                     name: data.name,
                     size: data.size,
                     type: 'file-accepted'
                   });
                 }
               } else if (data.type === 'file-transfer') {
-                var file = new window.Blob(data.file);
+                var file = new window.Blob([data.file]);
                 var fileUrl = URL.createObjectURL(file);
-                var downloadAnchor = document.getElementById('fileURL');
+                var downloadAnchor = document.getElementById('fileLink');
                 downloadAnchor.download = data.name;
-                downloadAnchor.href = fileURL;
+                downloadAnchor.href = fileUrl;
               }
             });
           });
