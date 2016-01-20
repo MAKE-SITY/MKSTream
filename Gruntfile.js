@@ -11,9 +11,6 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      options: {
-        mangle: false
-      },
       target: {
         files: {
           // uncomment this if you need to re-uglify new library files.
