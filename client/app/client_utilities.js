@@ -60,37 +60,56 @@ angular.module('utils', [])
     conn.send(obj);
   };
 
+  var sendDataInChunks = function(conn, obj) {
+    var chunker = function(details, name){
+      var chunkSize = 16384;
+      var slice = obj.file.slice(details.offset, details.offset + chunkSize);
+      fileReader.readAsArrayBuffer(slice)
+      .then(function(buff){
+        var packet = {
+          chunk: buff,
+          type: 'file-chunk',
+          count: details.count,
+          id: details.id
+        };
+        if(count === 0){
+          packet.name = name;
+          packet.size = details.size;
+        } else if(details.offset + chunkSize > details.size) {
+          packet.last = true;
+        }
+        conn.send(packet);
+        details.count++;
+        if(details.size > details.offset + chunkSize){
+          details.offset += chunkSize;
+          window.setTimeout(function(details){
+            chunker(details);
+          }, 0, details);
+        } else {
+          console.log('File finished sending!');
+        }
+      })
+    }
+    chunker({
+      id: obj.id,
+      count: 0,
+      offset: 0,
+      size: obj.size
+    }, obj.name)
+  };
+
+  var transferConstructor = function(){
+    var store = {};
+
+  }
+
   return {
     createPeer: createPeer,
     ping: ping,
     getUsers: getUsers,
     connectToPeer: connectToPeer,
-    sendData: sendData
-  };
-
-}])
-
-.factory('fileUpload', [function() {
-
-  var getFiles = function() {
-    return document.getElementById('filesId').files;
-  };
-
-  var convertToBinary = function(file) {
-    //TODO: make this
-  };
-
-  var convertFromBinary = function(data) {
-    var blob = new window.Blob(data.file);
-    var kit = {};
-    kit.href = URL.createObjectURL(blob);
-    kit.name = data.name;
-    kit.size = data.size;
-    return kit;
-  };
-
-  return {
-    getFiles: getFiles
+    sendData: sendData,
+    sendDataInChunks: sendDataInChunks
   };
 
 }])
@@ -157,5 +176,37 @@ angular.module('utils', [])
     readAsArrayBuffer: readAsArrayBuffer
   };
 
+
+}])
+
+.factory('fileUpload', ['fileReader', function(fileReader) {
+
+  var getFiles = function() {
+    return document.getElementById('filesId').files;
+  };
+
+  var convertFromBinary = function(data) {
+    var blob = new window.Blob(data.file);
+    var kit = {};
+    kit.href = URL.createObjectURL(blob);
+    kit.name = data.name;
+    kit.size = data.size;
+    return kit;
+  };
+
+  var fileBufferConstructor = function(){
+    var idStore = {
+      count: 0
+    };
+
+    var setUpFileBuffer = function(){
+
+    }
+
+  }
+
+  return {
+    getFiles: getFiles
+  };
 
 }]);
