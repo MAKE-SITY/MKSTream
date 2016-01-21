@@ -16,6 +16,10 @@ angular.module('connecting', [
 
       $rootScope.conn = [];
 
+      $scope.activeFileTransfers = {
+        count: 0;
+      };
+
       $rootScope.peer = webRTC.createPeer();
 
       $rootScope.peer.on('open', function(id) {
@@ -63,6 +67,12 @@ angular.module('connecting', [
               var downloadAnchor = document.getElementById('fileLink');
               downloadAnchor.download = data.name;
               downloadAnchor.href = fileUrl;
+            } else if (data.type === 'file-chunk') {
+              if(data.count === 0){
+                $scope.activeFileTransfers[$scope.activeFileTransfers.count] = 
+              } else if (data.last) {
+
+              }
             }
           });
         });

@@ -6,6 +6,7 @@ angular.module('home', [
   console.log('home controller loaded');
   $rootScope.myItems = [];
   $rootScope.conn = [];
+  $scope.filesSent = 0;
   var generateLink = function() {
     $scope.hash = linkGeneration.guid();
     $stateParams.test = $scope.hash;
@@ -67,15 +68,13 @@ angular.module('home', [
           if (data.type === 'file-accepted') {
             $rootScope.myItems.forEach(function(val) {
               if (val.name === data.name && val.size === data.size) {
-                fileReader.readAsArrayBuffer(val, $scope)
-                  .then(function(result) {
-                    webRTC.sendData(conn, {
-                      file: result,
-                      name: data.name,
-                      size: data.size,
-                      type: 'file-transfer'
-                    });
-                  });
+                webRTC.sendDataInChunks(conn, {
+                  file: result,
+                  name: data.name,
+                  size: data.size,
+                  id: $scope.filesSent
+                });
+                $scope.filesSent++;
               }
             });
           }
