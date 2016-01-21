@@ -11,7 +11,7 @@ angular.module('clientRoutes', [])
     })
     .state('link', {
       url: '/:test',
-      controller: 'featController',
-      templateUrl: './app/components/feat_sample/featView.html'
+      controller: 'connectingController',
+      templateUrl: './app/components/connecting/featView.html'
     });
 }]);

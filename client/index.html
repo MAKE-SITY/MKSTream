@@ -3,6 +3,8 @@
 <head>
   <title></title>
   <!-- Add additional dependencies -->
+  <!-- Add CSS -->
+  <link rel="stylesheet" type="text/css" href="./assets/styles.css">
   <!-- <script src='./lib/angular.js'></script> -->
   <!-- <script src='./lib/angular-ui-router.js'></script> -->
   <!-- Minified libs -->
@@ -11,7 +13,7 @@
   <!-- Add additional factories -->
   <script src='./app/client_utilities.js'></script>
   <!-- Add additional controller scripts -->
-  <script src='./app/components/feat_sample/webRTCController.js'></script>
+  <script src='./app/components/connecting/connectingController.js'></script>
   <script src='./app/components/home/homeController.js'></script>
   <!-- Added module and routes -->
   <script src='./app/app_routes.js'></script>
@@ -22,12 +24,17 @@
 
 <body ng-controller='homeController'>
   <button ng-click='clicker2()'>kcvan test</button>
-  <input type="file" id="filesId" name="files" multiple/>
+  <div id="dropZone">
+    <h1>DRAG FILE OR CLICK TO UPLOAD FILE</h1>
+    <input type="file" id="filesId" name="files" multiple />
+    <output id="list"></output>
+  </div>
   <output id="list"></output>
   <button ng-click='fileGetTest()'>get file</button>
   <h1>testing index.html</h1>
   <button ng-click='generateLink()'>Generate Link</button>
   <button ng-click='home()'>Get home</button>
+  <a href="" id='fileLink'>I'm the file, download me. softly.</a>
   <div ui-view></div>
 </body>
 
