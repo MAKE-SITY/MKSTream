@@ -1,6 +1,6 @@
 angular.module('utils', [])
 
-.factory('webRTC', ['$http', function($http) {
+.factory('webRTC', ['$http', 'fileReader', function($http, fileReader) {
   /**
    * user uploaded file
    * retrieve file & convert it to binary
@@ -60,37 +60,59 @@ angular.module('utils', [])
     conn.send(obj);
   };
 
+  var sendDataInChunks = function(conn, obj) {
+    var chunker = function(details, name){
+      var chunkSize = 16384;
+      var slice = details.file.slice(details.offset, details.offset + chunkSize);
+      fileReader.readAsArrayBuffer(slice, details.scopeRef)
+      .then(function(buff){
+        var packet = {
+          chunk: buff,
+          type: 'file-chunk',
+          count: details.count,
+          id: details.id
+        };
+        if(details.count === 0){
+          packet.name = name;
+          packet.size = details.size;
+        } else if(details.offset + chunkSize > details.size) {
+          packet.last = true;
+        }
+        details.conn.send(packet);
+        details.count++;
+        if(details.size > details.offset + chunkSize){
+          details.offset += chunkSize;
+          window.setTimeout(function(details){
+            chunker(details);
+          }, 0, details);
+        } else {
+          console.log('File finished sending!');
+        }
+      })
+    }
+    chunker({
+      id: obj.id,
+      count: 0,
+      offset: 0,
+      size: obj.size,
+      conn: conn,
+      file: obj.file,
+      scopeRef: obj.scopeRef
+    }, obj.name)
+  };
+
+  var transferConstructor = function(){
+    var store = {};
+
+  }
+
   return {
     createPeer: createPeer,
     ping: ping,
     getUsers: getUsers,
     connectToPeer: connectToPeer,
-    sendData: sendData
-  };
-
-}])
-
-.factory('fileUpload', [function() {
-
-  var getFiles = function() {
-    return document.getElementById('filesId').files;
-  };
-
-  var convertToBinary = function(file) {
-    //TODO: make this
-  };
-
-  var convertFromBinary = function(data) {
-    var blob = new window.Blob(data.file);
-    var kit = {};
-    kit.href = URL.createObjectURL(blob);
-    kit.name = data.name;
-    kit.size = data.size;
-    return kit;
-  };
-
-  return {
-    getFiles: getFiles
+    sendData: sendData,
+    sendDataInChunks: sendDataInChunks
   };
 
 }])
@@ -103,8 +125,17 @@ angular.module('utils', [])
     return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
   };
 
+  var fuid = function() {
+    var s4 = function() {
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    };
+    return s4() + s4() + s4() + s4();
+  };
+
+
   return {
-    guid: guid
+    guid: guid,
+    fuid: fuid
   };
 }])
 
@@ -157,5 +188,107 @@ angular.module('utils', [])
     readAsArrayBuffer: readAsArrayBuffer
   };
 
+
+}])
+
+.factory('fileUpload', ['fileReader', function(fileReader) {
+
+  var getFiles = function() {
+    return document.getElementById('filesId').files;
+  };
+
+  var convertFromBinary = function(data) {
+    var blob = new window.Blob(data.file);
+    var kit = {};
+    kit.href = URL.createObjectURL(blob);
+    kit.name = data.name;
+    kit.size = data.size;
+    return kit;
+  };
+
+  var fileBufferConstructor = function(){
+    var idStore = {
+      count: 0
+    };
+
+    var setUpFileBuffer = function(){
+      idStore[idStore.count] = [];
+      idStore.count++;
+      return {};
+    }
+
+  };
+
+
+  return {
+    getFiles: getFiles,
+    convertFromBinary: convertFromBinary
+  };
+
+}])
+
+.factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', function(webRTC, fileUpload, linkGeneration){
+
+  var accepted = function(data, conn, scope){
+    var fileKey = linkGeneration.fuid()
+
+    scope.myItems.forEach(function(val) {
+      if (val.name === data.name && val.size === data.size) {
+        webRTC.sendDataInChunks(conn, {
+          file: val,
+          name: data.name,
+          size: data.size,
+          id: fileKey,
+          scopeRef: scope
+        });
+      }
+    })
+
+  }
+
+  var offer = function(data, conn){
+    var answer = confirm('do you wish to receive ' + data.name + "?");
+    if (answer) {
+      conn.send({
+        name: data.name,
+        size: data.size,
+        type: 'file-accepted'
+      });
+    }
+  }
+
+  var chunk = function(data, scope){
+    var transferObj;
+    if(data.count === 0){
+      scope.activeFileTransfers[data.id] = {
+        buffer: [],
+        id: data.id,
+        name: data.name,
+        size: data.size
+      };
+
+    }
+    transferObj = scope.activeFileTransfers[data.id];
+    transferObj.buffer[data.count] = data.chunk;
+    if (data.last) {
+      console.log('last chunk', transferObj);
+      var newFile = fileUpload.convertFromBinary({
+        file: transferObj.buffer,
+        name: transferObj.name,
+        size: transferObj.size
+      });
+      scope.finishedTransfers.push(newFile);
+      transferObj.buffer = [];
+      var downloadAnchor = document.getElementById('fileLink');
+      downloadAnchor.download = newFile.name;
+      downloadAnchor.href = newFile.href;
+    }
+  }
+
+  return {
+    accepted: accepted,
+    offer: offer,
+    chunk: chunk
+  }
 
 }]);
