@@ -16,6 +16,7 @@ afterEach(function() {
   testNumber++;
 });
 
+
 describe("Server", function() {
   it("should respond with status code 200", function(done) {
     request(base_url, function(error, response, body) {
