@@ -7,8 +7,10 @@ angular.module('utils', [])
    **/
 
   var createPeer = function() {
-
+    // var peer = new Peer();
     var peer = new Peer({
+      host: 'localhost', 
+      port: 9000, 
       config: {
         'iceServers': [
         {url: 'stun:stun01.sipphone.com'}, 
@@ -31,9 +33,9 @@ angular.module('utils', [])
         {url: 'stun:stun.voxgratia.org'}, 
         {url: 'stun:stun.xten.com'}
         ]},
-      key: 'slp678osk0oa8aor'
+      path: '/peerjs',
+      debug: 3
     });
-    //place key in env variable
     return peer;
 
   };
