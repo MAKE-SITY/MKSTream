@@ -7,7 +7,7 @@ module.exports = function(app){
 			console.log('SENDER post event');
 			dbHelpers.addLink(packet.hash, packet.userId)
 			.then(function(result){
-				res.status(200);
+				res.status(201);
 				res.send('link added');
 			});
 		} else {
