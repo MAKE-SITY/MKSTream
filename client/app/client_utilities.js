@@ -7,10 +7,10 @@ angular.module('utils', [])
    **/
 
   var createPeer = function() {
-    // var peer = new Peer();
-    var peer = new Peer({
-      host: 'localhost', 
-      port: 9000, 
+    var peer = new Peer({　
+      host:'mkstream.herokuapp.com', 
+      secure:true, 
+      port:443, 
       config: {
         'iceServers': [
         {url: 'stun:stun01.sipphone.com'}, 
@@ -33,7 +33,6 @@ angular.module('utils', [])
         {url: 'stun:stun.voxgratia.org'}, 
         {url: 'stun:stun.xten.com'}
         ]},
-      path: '/peerjs',
       debug: 3
     });
     return peer;
