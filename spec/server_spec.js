@@ -9,12 +9,12 @@ var testNumber = 1;
 
 beforeEach(function() {
   console.log('======Starting test #', testNumber);
-})
+});
 
 afterEach(function() {
-  console.log('=======Finished with test #', testNumber);
+  console.log('=======Finished test #', testNumber);
   testNumber++;
-})
+});
 
 describe("Server", function() {
   it("should respond with status code 200", function(done) {
