@@ -258,7 +258,7 @@ angular.module('utils', [])
   }
 
   var chunk = function(data, scope){
-    var transferObj;
+    var bar = document.getElementById('progressBar');
     if(data.count === 0){
       scope.activeFileTransfers[data.id] = {
         buffer: [],
@@ -266,10 +266,13 @@ angular.module('utils', [])
         name: data.name,
         size: data.size
       };
-
+      scope.progress = 0;
+      bar.max = data.size;
     }
-    transferObj = scope.activeFileTransfers[data.id];
+    var transferObj = scope.activeFileTransfers[data.id];
     transferObj.buffer[data.count] = data.chunk;
+    scope.progress += 16348;
+    bar.value = scope.progress;
     if (data.last) {
       console.log('last chunk', transferObj);
       var newFile = fileUpload.convertFromBinary({
