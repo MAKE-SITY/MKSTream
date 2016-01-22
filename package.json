@@ -5,7 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "nf start",
-    "test": "jasmine-node spec"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
