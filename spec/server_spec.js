@@ -51,16 +51,16 @@ describe("Server", function() {
     });
   });
 
-  it("getSenderId be able to get user object from a link hash", function(done) {
-    console.log('starting test 4');
-    dbQueries.getSenderId('Test Hash MKS').then(
-      function(result) {
-        console.log('result', result)
-        expect(result.senderID).toBe('Test Sender MKS');
-        console.log('done with test 4');
-        done();
-      })
-  });
+  // it("getSenderId be able to get user object from a link hash", function(done) {
+  //   console.log('starting test 4');
+  //   dbQueries.getSenderId('Test Hash MKS').then(
+  //     function(result) {
+  //       console.log('result', result)
+  //       expect(result.senderID).toBe('Test Sender MKS');
+  //       console.log('done with test 4');
+  //       done();
+  //     })
+  // });
 
   // xit("should be able to delete an item from the database", function(done) {
   //   dbQueries.deleteLink('senderID1');
