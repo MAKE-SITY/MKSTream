@@ -5,7 +5,7 @@ var app = express();
 
 require('./config/middleware.js')(app, express);
 
-var srv = app.listen(port);
+var server = app.listen(port);
 
 console.log('Now listening on port: ' + port);
 
@@ -16,4 +16,4 @@ var options = {
     debug: true
 };
 
-app.use('/peerjs', ExpressPeerServer(srv, options));
+app.use('/peerjs', ExpressPeerServer(server, options));
