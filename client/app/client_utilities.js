@@ -264,15 +264,15 @@ angular.module('utils', [])
         buffer: [],
         id: data.id,
         name: data.name,
-        size: data.size
+        size: data.size,
+        progress: 0
       };
-      scope.progress = 0;
       bar.max = data.size;
     }
     var transferObj = scope.activeFileTransfers[data.id];
     transferObj.buffer[data.count] = data.chunk;
-    scope.progress += 16348;
-    bar.value = scope.progress;
+    transferObj.progress += 16348;
+    bar.value = transferObj.progress;
     if (data.last) {
       console.log('last chunk', transferObj);
       var newFile = fileUpload.convertFromBinary({
