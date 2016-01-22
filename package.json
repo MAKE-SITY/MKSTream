@@ -4,7 +4,8 @@
   "description": "Group thesis project for MakerSquare",
   "main": "./server/server.js",
   "scripts": {
-    "start": "nf start"
+    "start": "nf start",
+    "test": "jasmine-node spec"
   },
   "repository": {
     "type": "git",
@@ -28,10 +29,12 @@
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-notify": "^0.4.3",
+    "jasmine-node": "^1.14.5",
     "kerberos": "~0.0.17",
     "mongodb": "^2.1.4",
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1",
-    "nodemon": "^1.8.1"
+    "nodemon": "^1.8.1",
+    "request": "^2.67.0"
   }
 }

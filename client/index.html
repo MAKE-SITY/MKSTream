@@ -18,18 +18,69 @@
   <script src='./app/app_modules.js'></script>
   <!-- Run grunt uglify to update the app's source code-->
   <!-- // <script src='appmincode.js'></script> -->
+  <!-- scripts to move later -->
+  <!-- Material Design Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="./assets/css/mdb.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="./assets/css/style.css" rel="stylesheet">
 </head>
 
 <body ng-controller='homeController'>
-  <button ng-click='clicker2()'>kcvan test</button>
-  <input type="file" id="filesId" name="files" multiple/>
-  <output id="list"></output>
-  <button ng-click='fileGetTest()'>get file</button>
-  <h1>testing index.html</h1>
-  <button ng-click='generateLink()'>Generate Link</button>
-  <button ng-click='home()'>Get home</button>
-  <a href="" id='fileLink'>I'm the file, download me. softly.</a>
+  <!--   <button ng-click='clicker2()'>kcvan test</button> -->
+  <!-- <button ng-click='fileGetTest()'>get file</button> -->
+  <!--  <h1>testing index.html</h1> -->
+  <!-- <button ng-click='generateLink()'>Generate Link</button> -->
+  <!-- <button ng-click='home()'>Get home</button> -->
+  <div class='overlay'>
+  </div>
+  <!--Navigation-->
+  <nav class="navbar blue navbar-fixed-top z-depth-1" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand waves-effect waves-light" href="#">MKSTream</a>
+      </div>
+    </div>
+  </nav>
+  <!--/.Navigation-->
+  <!-- Intro image -->
+  <section class="full-bg-img">
+    <div class="container">
+      <div class="space-30"></div>
+      <div class="verticalcenter text-center">
+        <div class="verticalcenter">
+          <div class="animated fadeInDown white-text">
+            <div id="dropZone">
+              <h6>DRAG FILE OR CLICK TO UPLOAD FILE</h6>
+              <input type="file" id="filesId" name="files" multiple />
+              <output id="list"></output>
+            </div>
+            <a href="" id='fileLink'>I'm the file, download me. softly.</a>
+            <hr class="divider-short">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/. Intro image -->
+  <!--Coprytights-->
   <div ui-view></div>
+  <!-- scripts to move later -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="./assets/js/bootstrap.min.js"></script>
+  <!-- Material Design Bootstrap -->
+  <script type="text/javascript" src="./assets/js/mdb.js"></script>
 </body>
 
 </html>
