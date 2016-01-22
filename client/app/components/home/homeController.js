@@ -2,11 +2,10 @@ angular.module('home', [
   'utils'
 ])
 
-.controller('homeController', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', 'fileReader', function($scope, $http, $state, $stateParams, $location, $rootScope, fileUpload, linkGeneration, webRTC, fileReader) {
+.controller('homeController', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', 'fileReader', 'packetHandlers', function($scope, $http, $state, $stateParams, $location, $rootScope, fileUpload, linkGeneration, webRTC, fileReader, packetHandlers) {
   console.log('home controller loaded');
   $rootScope.myItems = [];
   $rootScope.conn = [];
-  $scope.filesSent = 0;
   var generateLink = function() {
     $scope.hash = linkGeneration.guid();
     $stateParams.test = $scope.hash;
@@ -54,6 +53,7 @@ angular.module('home', [
             for (var i = 0; i < $rootScope.myItems.length; i++) {
               if(!$rootScope.myItems[i].beenSent){
                 $rootScope.myItems[i].beenSent = true;
+                console.log('files offered');
                 connection.send({
                   name: $rootScope.myItems[i].name,
                   size: $rootScope.myItems[i].size,
@@ -62,37 +62,15 @@ angular.module('home', [
               }
             }
           })
-        }, 500);
+        }, 1800);
 
         conn.on('data', function(data) {
           if (data.type === 'file-accepted') {
-            $rootScope.myItems.forEach(function(val) {
-              if (val.name === data.name && val.size === data.size) {
-                webRTC.sendDataInChunks(conn, {
-                  file: result,
-                  name: data.name,
-                  size: data.size,
-                  id: $scope.filesSent
-                });
-                $scope.filesSent++;
-              }
-            });
-          }
-          else if (data.type === 'file-offer') {
-            var answer = confirm('do you wish to receive ' + data.name + "?");
-            if (answer) {
-              conn.send({
-                name: data.name,
-                size: data.size,
-                type: 'file-accepted'
-              });
-            }
-          } else if (data.type === 'file-transfer') {
-            var file = new window.Blob([data.file]);
-            var fileUrl = URL.createObjectURL(file);
-            var downloadAnchor = document.getElementById('fileLink');
-            downloadAnchor.download = data.name;
-            downloadAnchor.href = fileUrl;
+            packetHandlers.accepted(data, conn, $rootScope);
+          } else if (data.type === 'file-offer') {
+            packetHandlers.offer(data, conn);
+          } else if (data.type === 'file-chunk') {
+            packetHandlers.chunk(data, $rootScope);
           }
         });
       });
