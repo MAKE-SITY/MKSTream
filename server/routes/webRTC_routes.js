@@ -24,9 +24,10 @@ module.exports = function(app) {
     }
 
     app.post('/deleteSenderObject', function(req, res) {
-      dbHelpers.deleteLink(req.body.userId);
+      dbHelpers.deleteLink(req.body.userId).then(function(result) {
       res.status(201);
-      res.send("User deleted");
+      res.send(result);
+      });
     })
 
     // TODO: store caller userId, somehow
