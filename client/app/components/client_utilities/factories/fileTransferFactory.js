@@ -1,5 +1,12 @@
 angular.module('utils.fileTransfer', [])
 
-.factory('fileTransferFactory', function() {
-  
+.factory('fileTransfer', function() {
+  fileTransferObj = {};
+  fileTransferObj.myItems = [];
+  fileTransferObj.conn = [];
+  fileTransferObj.activeFileTransfers = {};
+  fileTransferObj.finishedTransfers = [];
+  fileTransferObj.peer;
+
+  return fileTransferObj;
 })
