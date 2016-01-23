@@ -99,7 +99,7 @@ angular.module('home', [
         console.log("DISCONNECTED")
         $http({
           method: 'POST',
-          url: '/api/webrtc/delete',
+          url: '/api/webrtc/deleteSenderObject',
           data: {
             userId: disconnectingSenderId
           }
