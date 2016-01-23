@@ -9,12 +9,10 @@ angular.module('home', [
   '$stateParams',
   '$location',
   'fileTransfer',
-  'fileUpload',
   'linkGeneration',
   'webRTC',
-  'fileReader',
   'packetHandlers',
-  function($scope, $http, $state, $stateParams, $location, fileTransfer, fileUpload, linkGeneration, webRTC, fileReader, packetHandlers) {
+  function($scope, $http, $state, $stateParams, $location, fileTransfer, linkGeneration, webRTC, packetHandlers) {
   console.log('home controller loaded');
   var generateLink = function() {
     $scope.hash = linkGeneration.guid();
