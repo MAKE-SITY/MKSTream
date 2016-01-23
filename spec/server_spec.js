@@ -65,16 +65,17 @@ describe("Server", function() {
   });
 
   it("should be able to delete an item from the database", function(done) {
-    dbQueries.deleteLink('senderID1');
-    User.findOne({
-      senderID: 'senderID1'
-    }, function(err, user) {
-      if (err) {
-        return err;
-      }
-    }).then(function(result) {
-      expect(result).toBe(null);
-      done();
-    });
+    dbQueries.deleteLink('senderID1').then(function() {
+      User.findOne({
+        senderID: 'senderID1'
+      }, function(err, user) {
+        if (err) {
+          return err;
+        }
+      }).then(function(result) {
+        expect(result).toBe(null);
+        done();
+      });
+    })
   });
 });
