@@ -15,6 +15,8 @@ angular.module('home', [
   function($scope, $http, $state, $stateParams, $location, fileTransfer, linkGeneration, webRTC, packetHandlers) {
     console.log('home controller loaded');
 
+
+
     fileTransferObj.myItems = [];
     fileTransferObj.conn = [];
 
@@ -91,7 +93,13 @@ angular.module('home', [
         generateLink();
       }
 
-      fileTransfer.peer.on('disconnected', function() {
+
+
+      window.onbeforeunload = function() {
+        return ("Your connection will end");
+      };
+
+      window.addEventListener('beforeunload', function() {
         console.log("DISCONNECTED")
         $http({
           method: 'POST',
