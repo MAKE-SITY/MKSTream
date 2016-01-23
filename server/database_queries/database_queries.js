@@ -44,7 +44,7 @@ exportObj.getSenderId = function(linkHash) {
       console.log('retrieved senderID:', user.senderID, 'from linkHash', linkHash);
       return user.senderID;
     }
-  })
+  });
 };
 
 module.exports = exportObj;
