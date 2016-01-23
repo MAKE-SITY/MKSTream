@@ -1,13 +1,13 @@
 angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'utils.linkGeneration'])
 
 
-.factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', function(webRTC, fileUpload, linkGeneration) {
+.factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', function(webRTC, fileUpload, linkGeneration, fileTransfer) {
   var packetHandlerObj = {};
 
   packetHandlerObj.accepted = function(data, conn, scope) {
     var fileKey = linkGeneration.fuid();
 
-    scope.myItems.forEach(function(val) {
+    fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
         webRTC.sendDataInChunks(conn, {
           file: val,
@@ -31,10 +31,10 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     }
   };
 
-  packetHandlerObj.chunk = function(data, scope) {
+  packetHandlerObj.chunk = function(data) {
     var bar = document.getElementById('progressBar');
     if (data.count === 0) {
-      scope.activeFileTransfers[data.id] = {
+      fileTransfer.activeFileTransfers[data.id] = {
         buffer: [],
         id: data.id,
         name: data.name,
@@ -43,7 +43,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       };
       bar.max = data.size;
     }
-    var transferObj = scope.activeFileTransfers[data.id];
+    var transferObj = fileTransfer.activeFileTransfers[data.id];
     transferObj.buffer[data.count] = data.chunk;
     transferObj.progress += 16348;
     bar.value = transferObj.progress;
@@ -54,7 +54,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         name: transferObj.name,
         size: transferObj.size
       });
-      scope.finishedTransfers.push(newFile);
+      fileTransfer.finishedTransfers.push(newFile);
       transferObj.buffer = [];
       var downloadAnchor = document.getElementById('fileLink');
       downloadAnchor.download = newFile.name;
