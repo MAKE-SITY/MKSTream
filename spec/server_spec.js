@@ -59,7 +59,6 @@ describe("Server", function() {
   it("getSenderId be able to get user object from a link hash", function(done) {
     dbQueries.getSenderId('Test Hash MKS').then(
       function(result) {
-        console.log(result, 'WHY IS THIS FINE');
         expect(result.senderID).toBe('Test Sender MKS');
         done();
       });
