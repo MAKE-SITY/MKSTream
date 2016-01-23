@@ -2,10 +2,20 @@ angular.module('home', [
   'utils'
 ])
 
-.controller('homeController', ['$scope', '$http', '$state', '$stateParams', '$location', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', 'fileReader', 'packetHandlers', function($scope, $http, $state, $stateParams, $location, $rootScope, fileUpload, linkGeneration, webRTC, fileReader, packetHandlers) {
+.controller('homeController', [
+  '$scope',
+  '$http',
+  '$state',
+  '$stateParams',
+  '$location',
+  'fileTransfer',
+  'fileUpload',
+  'linkGeneration',
+  'webRTC',
+  'fileReader',
+  'packetHandlers',
+  function($scope, $http, $state, $stateParams, $location, fileTransfer, fileUpload, linkGeneration, webRTC, fileReader, packetHandlers) {
   console.log('home controller loaded');
-  $rootScope.myItems = [];
-  $rootScope.conn = [];
   var generateLink = function() {
     $scope.hash = linkGeneration.guid();
     $stateParams.test = $scope.hash;
@@ -16,19 +26,19 @@ angular.module('home', [
 
     var files = this.files;
     for (var i = 0; i < files.length; i++) {
-      if($rootScope.myItems.indexOf(files[i]) > -1){
+      if(fileTransfer.myItems.indexOf(files[i]) > -1){
         continue;
       }
       files[i].beenSent = false;
-      $rootScope.myItems.push(files[i]);
+      fileTransfer.myItems.push(files[i]);
     }
 
 
-    if (!$rootScope.peer) {
+    if (!fileTransfer.peer) {
 
-      $rootScope.peer = webRTC.createPeer();
+      fileTransfer.peer = webRTC.createPeer();
       console.log('SENDER peer created');
-      $rootScope.peer.on('open', function(id) {
+      fileTransfer.peer.on('open', function(id) {
         // TODO: create special link to send with post in data
         $http({
           method: 'POST',
@@ -43,20 +53,20 @@ angular.module('home', [
         });
       });
 
-      $rootScope.peer.on('connection', function(conn) {
+      fileTransfer.peer.on('connection', function(conn) {
         // TODO: add file inside call to send
-        $rootScope.conn.push(conn);
+        fileTransfer.conn.push(conn);
         console.log('peerJS connection object', conn);
 
         setTimeout(function(){
-          $rootScope.conn.forEach(function(connection){
-            for (var i = 0; i < $rootScope.myItems.length; i++) {
-              if(!$rootScope.myItems[i].beenSent){
-                $rootScope.myItems[i].beenSent = true;
+          fileTransfer.conn.forEach(function(connection){
+            for (var i = 0; i < fileTransfer.myItems.length; i++) {
+              if(!fileTransfer.myItems[i].beenSent){
+                fileTransfer.myItems[i].beenSent = true;
                 console.log('files offered');
                 connection.send({
-                  name: $rootScope.myItems[i].name,
-                  size: $rootScope.myItems[i].size,
+                  name: fileTransfer.myItems[i].name,
+                  size: fileTransfer.myItems[i].size,
                   type: 'file-offer'
                 });
               }
@@ -66,11 +76,11 @@ angular.module('home', [
 
         conn.on('data', function(data) {
           if (data.type === 'file-accepted') {
-            packetHandlers.accepted(data, conn, $rootScope);
+            packetHandlers.accepted(data, conn, fileTransfer);
           } else if (data.type === 'file-offer') {
             packetHandlers.offer(data, conn);
           } else if (data.type === 'file-chunk') {
-            packetHandlers.chunk(data, $rootScope);
+            packetHandlers.chunk(data, fileTransfer);
           }
         });
       });
