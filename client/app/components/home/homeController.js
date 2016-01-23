@@ -14,6 +14,10 @@ angular.module('home', [
   'packetHandlers',
   function($scope, $http, $state, $stateParams, $location, fileTransfer, linkGeneration, webRTC, packetHandlers) {
   console.log('home controller loaded');
+
+  fileTransferObj.myItems = [];
+  fileTransferObj.conn = [];
+  
   var generateLink = function() {
     $scope.hash = linkGeneration.guid();
     $stateParams.test = $scope.hash;
