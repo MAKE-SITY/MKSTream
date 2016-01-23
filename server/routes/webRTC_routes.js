@@ -23,6 +23,15 @@ module.exports = function(app) {
         });
     }
 
+    app.post('/deleteReceiverId', function(req, res) {
+    	console.log('HASH', req.body.hash);
+      dbHelpers.removeReceiverFromSender(req.body.hash, req.body.id).then(function(result) {
+      	console.log("deleted:", result, "from sender");
+        res.status(201);
+        res.send(result);
+      });
+    })
+
     app.post('/deleteSenderObject', function(req, res) {
       dbHelpers.deleteLink(req.body.userId).then(function(result) {
         res.status(201);
