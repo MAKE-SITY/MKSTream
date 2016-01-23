@@ -64,17 +64,33 @@ describe("Server", function() {
       });
   });
 
-  it("should be able to delete an item from the database", function(done) {
-    dbQueries.deleteLink('senderID1');
-    User.findOne({
-      senderID: 'senderID1'
-    }, function(err, user) {
-      if (err) {
-        return err;
-      }
-    }).then(function(result) {
-      expect(result).toBe(null);
-      done();
-    });
+  it("should be able to delete a particular receiverID from a sender", function(done) {
+    dbQueries.removeReceiverFromSender('Test Hash MKS', 'Test Receiver MKS').then(function() {
+      User.find({linkHash: 'Test Hash MKS'}, function(err, user) {
+        if (err) {
+          return err;
+        }
+      }).size('receiverIDArray', 0).then(function(result) {
+        expect(result[0].senderID).toBe('Test Sender MKS');
+        done();
+      })
+    })
   });
+
+  it("should be able to delete an item from the database", function(done) {
+    dbQueries.deleteLink('Test Sender MKS').then(function() {
+      User.findOne({
+        senderID: 'Test Sender MKS'
+      }, function(err, user) {
+        if (err) {
+          return err;
+        }
+      }).then(function(result) {
+        expect(result).toBe(null);
+        done();
+      });
+    })
+  });
+
+
 });
