@@ -48,11 +48,11 @@ angular.module('connecting', [
         conn.on('data', function(data) {
           console.log('incoming packet');
           if (data.type === 'file-accepted') {
-            packetHandlers.accepted(data, conn, fileTransfer);
+            packetHandlers.accepted(data, conn, $scope);
           } else if (data.type === 'file-offer') {
             packetHandlers.offer(data, conn);
           } else if (data.type === 'file-chunk') {
-            packetHandlers.chunk(data, fileTransfer);
+            packetHandlers.chunk(data);
           }
         });
       });

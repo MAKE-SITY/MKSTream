@@ -76,7 +76,7 @@ angular.module('home', [
 
         conn.on('data', function(data) {
           if (data.type === 'file-accepted') {
-            packetHandlers.accepted(data, conn, fileTransfer);
+            packetHandlers.accepted(data, conn, $scope);
           } else if (data.type === 'file-offer') {
             packetHandlers.offer(data, conn);
           } else if (data.type === 'file-chunk') {
