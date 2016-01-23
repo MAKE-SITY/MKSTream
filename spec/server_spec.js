@@ -61,7 +61,7 @@ describe("Server", function() {
       function(result) {
         expect(result.senderID).toBe('Test Sender MKS');
         done();
-      })
+      });
   });
 
   it("should be able to delete an item from the database", function(done) {
