@@ -6,7 +6,7 @@ angular.module('utils.fileTransfer', [])
   fileTransferObj.conn = [];
   fileTransferObj.activeFileTransfers = {};
   fileTransferObj.finishedTransfers = [];
-  fileTransferObj.peer;
+  fileTransferObj.peer = undefined;
 
   return fileTransferObj;
-})
+});

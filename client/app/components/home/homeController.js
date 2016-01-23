@@ -71,7 +71,7 @@ angular.module('home', [
                 });
               }
             }
-          })
+          });
         }, 1800);
 
         conn.on('data', function(data) {

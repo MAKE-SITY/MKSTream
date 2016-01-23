@@ -76,7 +76,7 @@ angular.module('connecting', [
             });
           }
         }
-      })
+      });
       //TODO: send files back
 
     });

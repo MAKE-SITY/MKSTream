@@ -5,7 +5,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   var packetHandlerObj = {};
 
   packetHandlerObj.accepted = function(data, conn, scope) {
-    var fileKey = linkGeneration.fuid()
+    var fileKey = linkGeneration.fuid();
 
     scope.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
@@ -17,8 +17,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           scopeRef: scope
         });
       }
-    })
-  }
+    });
+  };
 
   packetHandlerObj.offer = function(data, conn) {
     var answer = confirm('do you wish to receive ' + data.name + "?");
@@ -29,7 +29,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         type: 'file-accepted'
       });
     }
-  }
+  };
 
   packetHandlerObj.chunk = function(data, scope) {
     var bar = document.getElementById('progressBar');
@@ -60,7 +60,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       downloadAnchor.download = newFile.name;
       downloadAnchor.href = newFile.href;
     }
-  }
+  };
 
   return packetHandlerObj;
 
