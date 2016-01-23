@@ -6,12 +6,9 @@ angular.module('connecting', [
   '$http',
   '$stateParams',
   'fileTransfer',
-  'fileUpload',
-  'linkGeneration',
   'webRTC',
-  'fileReader',
   'packetHandlers',
-  function($scope, $http, $stateParams, fileTransfer, fileUpload, linkGeneration, webRTC, fileReader, packetHandlers) {
+  function($scope, $http, $stateParams, fileTransfer, webRTC, packetHandlers) {
   console.log('connecting controller loaded');
   /**
    * if arriving from redirect,
