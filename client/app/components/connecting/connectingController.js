@@ -60,8 +60,9 @@ angular.module('connecting', [
           });
       });
 
-      window.onbeforeunload = function() {
-        return ("Your connection will end");
+      window.onbeforeunload = function(e) {
+        e.preventDefault();
+        //stops notification from showing
       };
 
       window.addEventListener('beforeunload', function() {
