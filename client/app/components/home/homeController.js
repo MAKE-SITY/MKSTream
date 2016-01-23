@@ -15,8 +15,6 @@ angular.module('home', [
   function($scope, $http, $state, $stateParams, $location, fileTransfer, linkGeneration, webRTC, packetHandlers) {
     console.log('home controller loaded');
 
-
-
     fileTransferObj.myItems = [];
     fileTransferObj.conn = [];
 
@@ -93,8 +91,6 @@ angular.module('home', [
         generateLink();
       }
 
-
-
       window.onbeforeunload = function() {
         return ("Your connection will end");
       };
@@ -112,10 +108,7 @@ angular.module('home', [
 
     });
 
-
-
     $scope.testParams = $stateParams;
-
 
   }
 ]);
