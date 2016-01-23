@@ -2,7 +2,8 @@ angular.module('utils.fileTransfer', [])
 
 .factory('fileTransfer', function() {
   
-  fileTransferObj = {};
+  var fileTransferObj = {};
 
   return fileTransferObj;
+  
 });
