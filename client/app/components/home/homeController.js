@@ -15,8 +15,8 @@ angular.module('home', [
   function($scope, $http, $state, $stateParams, $location, fileTransfer, linkGeneration, webRTC, packetHandlers) {
     console.log('home controller loaded');
 
-    fileTransferObj.myItems = [];
-    fileTransferObj.conn = [];
+    fileTransfer.myItems = [];
+    fileTransfer.conn = [];
 
     var disconnectingSenderId = null;
     var generateLink = function() {
