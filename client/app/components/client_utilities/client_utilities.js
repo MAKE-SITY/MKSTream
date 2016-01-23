@@ -3,7 +3,8 @@ angular.module('utils', [
   'utils.fileUpload',
   'utils.linkGeneration',
   'utils.webRTC',
-  'utils.packetHandlers'
+  'utils.packetHandlers',
+  'utils.fileTransfer'
 ]);
 
 

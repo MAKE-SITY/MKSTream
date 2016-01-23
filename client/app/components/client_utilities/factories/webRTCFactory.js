@@ -86,8 +86,8 @@ angular.module('utils.webRTC', ['utils.fileReader'])
           } else {
             console.log('File finished sending!');
           }
-        })
-    }
+        });
+    };
     chunker({
       id: obj.id,
       count: 0,
@@ -96,9 +96,9 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       conn: conn,
       file: obj.file,
       scopeRef: obj.scopeRef
-    }, obj.name)
+    }, obj.name);
   };
 
   return webRTCObj;
 
-}])
+}]);

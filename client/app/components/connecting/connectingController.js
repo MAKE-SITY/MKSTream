@@ -1,28 +1,35 @@
 angular.module('connecting', [
     'utils'
   ])
-.controller('connectingController', ['$scope', '$http', '$stateParams', '$rootScope', 'fileUpload', 'linkGeneration', 'webRTC', 'fileReader', 'packetHandlers', function($scope, $http, $stateParams, $rootScope, fileUpload, linkGeneration, webRTC, fileReader, packetHandlers) {
+.controller('connectingController', [
+  '$scope',
+  '$http',
+  '$stateParams',
+  'fileTransfer',
+  'webRTC',
+  'packetHandlers',
+  function($scope, $http, $stateParams, fileTransfer, webRTC, packetHandlers) {
   console.log('connecting controller loaded');
   /**
    * if arriving from redirect,
    * sender has access to their own peer object,
-   * becasue it's on the $rootScope
+   * becasue it's on the fileTransfer
    *
    * if arriving from a link,
    * follow the code below:
    */
-  $rootScope.activeFileTransfers = {};
-  $rootScope.finishedTransfers = [];
+  fileTransfer.activeFileTransfers = {};
+  fileTransfer.finishedTransfers = [];
   
-  if (!$rootScope.peer) {
-    $rootScope.myItems = [];
+  if (!fileTransfer.peer) {
+    fileTransfer.myItems = [];
 
-    $rootScope.conn = [];
+    fileTransfer.conn = [];
 
 
-    $rootScope.peer = webRTC.createPeer();
+    fileTransfer.peer = webRTC.createPeer();
 
-    $rootScope.peer.on('open', function(id) {
+    fileTransfer.peer.on('open', function(id) {
       $http({
         method: 'POST',
         url: '/api/webrtc/users',
@@ -33,16 +40,16 @@ angular.module('connecting', [
       })
       .then(function(res) {
         // expect res.data === sender id
-        var conn = $rootScope.peer.connect(res.data.senderID);
-        $rootScope.conn.push(conn);
+        var conn = fileTransfer.peer.connect(res.data.senderID);
+        fileTransfer.conn.push(conn);
         conn.on('data', function(data) {
           console.log('incoming packet');
           if (data.type === 'file-accepted') {
-            packetHandlers.accepted(data, conn, $rootScope);
+            packetHandlers.accepted(data, conn, $scope);
           } else if (data.type === 'file-offer') {
             packetHandlers.offer(data, conn);
           } else if (data.type === 'file-chunk') {
-            packetHandlers.chunk(data, $rootScope);
+            packetHandlers.chunk(data);
           }
         });
       });
@@ -53,20 +60,20 @@ angular.module('connecting', [
       var files = this.files;
       for (var i = 0; i < files.length; i++) {
         files[i].beenSent = false;
-        $rootScope.myItems.push(files[i]);
+        fileTransfer.myItems.push(files[i]);
       }
-      $rootScope.conn.forEach(function(connection){
-        for (var i = 0; i < $rootScope.myItems.length; i++) {
-          if(!$rootScope.myItems[i].beenSent){
-            $rootScope.myItems[i].beenSent = true;
+      fileTransfer.conn.forEach(function(connection){
+        for (var i = 0; i < fileTransfer.myItems.length; i++) {
+          if(!fileTransfer.myItems[i].beenSent){
+            fileTransfer.myItems[i].beenSent = true;
             connection.send({
-              name: $rootScope.myItems[i].name,
-              size: $rootScope.myItems[i].size,
+              name: fileTransfer.myItems[i].name,
+              size: fileTransfer.myItems[i].size,
               type: 'file-offer'
             });
           }
         }
-      })
+      });
       //TODO: send files back
 
     });
