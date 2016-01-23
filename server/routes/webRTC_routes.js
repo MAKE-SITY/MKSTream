@@ -23,7 +23,7 @@ module.exports = function(app) {
         });
     }
 
-    app.post('/delete', function(req, res) {
+    app.post('/deleteSenderObject', function(req, res) {
       dbHelpers.deleteLink(req.body.userId);
       res.status(201);
       res.send("User deleted");
