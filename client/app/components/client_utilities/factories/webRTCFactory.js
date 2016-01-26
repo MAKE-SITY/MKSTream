@@ -37,9 +37,34 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       },
       debug: 3
     });
+
+    webRTCObj.heartBeat(peer);
+
     return peer;
 
   };
+
+  webRTCObj.heartBeat = function(peer){
+    var alive = true;
+    var makeHeartbeat = function(){
+      if(alive){
+        setTimeout(makeHeartbeat, 20000);
+        if(peer.socket._wsOpen()){
+          peer.socket.send({type: 'HEARTBEAT'});
+        }
+      }
+    }
+    makeHeartbeat();
+    return {
+      start: function(){
+        alive = true;
+        makeHeartbeat();
+      },
+      stop: function(){
+        alive = false;
+      }
+    }
+  }
 
   webRTCObj.getUsers = function() {
     return $http({
