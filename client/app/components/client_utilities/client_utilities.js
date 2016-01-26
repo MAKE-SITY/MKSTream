@@ -6,9 +6,3 @@ angular.module('utils', [
   'utils.packetHandlers',
   'utils.fileTransfer'
 ]);
-
-
-
-
-
-
