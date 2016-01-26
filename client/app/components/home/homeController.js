@@ -94,17 +94,17 @@ angular.module('home', [
       window.onbeforeunload = function(e) {
         e.preventDefault();
         //stops notification from showing
-      }
+      };
 
       window.addEventListener('beforeunload', function() {
-        console.log("DISCONNECTED")
+        console.log("DISCONNECTED");
         $http({
           method: 'POST',
           url: '/api/webrtc/deleteSenderObject',
           data: {
             userId: disconnectingSenderId
           }
-        })
+        });
       });
 
     });

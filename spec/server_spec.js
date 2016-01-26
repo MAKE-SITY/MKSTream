@@ -73,8 +73,8 @@ describe("Server", function() {
       }).size('receiverIDArray', 0).then(function(result) {
         expect(result[0].senderID).toBe('Test Sender MKS');
         done();
-      })
-    })
+      });
+    });
   });
 
   it("should be able to delete an item from the database", function(done) {
@@ -89,7 +89,7 @@ describe("Server", function() {
         expect(result).toBe(null);
         done();
       });
-    })
+    });
   });
 
 

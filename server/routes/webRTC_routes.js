@@ -30,14 +30,14 @@ module.exports = function(app) {
         res.status(201);
         res.send(result);
       });
-    })
+    });
 
     app.post('/deleteSenderObject', function(req, res) {
       dbHelpers.deleteLink(req.body.userId).then(function(result) {
         res.status(201);
         res.send(result);
       });
-    })
+    });
 
     // TODO: store caller userId, somehow
     // tie to random link generated

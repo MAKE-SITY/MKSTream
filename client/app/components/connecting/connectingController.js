@@ -19,7 +19,8 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-
+    var clipboard = new Clipboard('.btn');
+    document.getElementById('currentUrl').value = window.location.href;
     var disconnectingReceiverId = null;
 
     fileTransfer.activeFileTransfers = {};

@@ -1,4 +1,10 @@
-<div>
+<div ng-controller='connectingController'>
 {{ link }}
 <p id='controllerView' style="color: blue; background-color:black;">HELLLOOOOOOOOO</p>
+  <!-- Target -->
+  <input id="currentUrl" value="">
+  <!-- Trigger -->
+  <button class="btn" data-clipboard-target="#currentUrl">
+    Copy to clipboard
+  </button>
 </div>

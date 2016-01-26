@@ -4,7 +4,7 @@ describe('fileTransferObj Factory', function() {
     module('utils.fileTransfer'); //angular.module name
 
     inject(function($injector) {
-      factory = $injector.get('fileTransfer') //.factory name
+      factory = $injector.get('fileTransfer'); //.factory name
     });
   });
 

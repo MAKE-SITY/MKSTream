@@ -6,7 +6,7 @@ describe('linkGeneration Factory', function() {
     module('utils.linkGeneration');
 
     inject(function($injector) {
-      factory = $injector.get('linkGeneration') //.factory name
+      factory = $injector.get('linkGeneration'); //.factory name
     });
   });
 
