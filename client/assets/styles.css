@@ -1,4 +1,7 @@
-
+body {
+  background-color: white;
+  opacity: 0.5;
+}
 
 #filesId {
   width: 100%;
@@ -29,7 +32,7 @@
   margin-left: -100px;
   width: 200px;
   height: 100px;
-  background-color: gray;
+  background-color: black;
   color: white;
   box-shadow: 1px 1px .5px #FFFFFF;
   border-radius: 5px 10px 5px 10px;

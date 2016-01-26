@@ -27,13 +27,13 @@ exportObj.addReceiverToSender = function(linkHash, receiverID) {
 };
 
 exportObj.deleteLink = function(senderID) {
-  User.find({senderID: senderID}).remove(function(err) {
+  return User.find({senderID: senderID}).remove(function(err) {
     if (err) {
       console.log('could not delete', senderID, ':', err);
     } else {
       console.log('deleted', senderID);
     }
-  }).exec();
+  });
 };
 
 exportObj.getSenderId = function(linkHash) {
@@ -42,9 +42,16 @@ exportObj.getSenderId = function(linkHash) {
       console.log('could not get user', user, ':', err);
     } else {
       console.log('retrieved senderID:', user.senderID, 'from linkHash', linkHash);
-      return user.senderID;
     }
-  })
+  });
 };
+
+exportObj.removeReceiverFromSender = function(linkHash, receiverID) {
+  return User.findOneAndUpdate(
+  {linkHash: linkHash},
+  {$pull: {receiverIDArray: receiverID}}
+  );
+};
+
 
 module.exports = exportObj;
