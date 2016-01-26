@@ -23,8 +23,9 @@ angular.module('connecting', [
     document.getElementById('currentUrl').value = window.location.href;
     var disconnectingReceiverId = null;
 
-    fileTransfer.activeFileTransfers = {};
+    $scope.activeFileTransfers = fileTransfer.activeFileTransfers = {};
     fileTransfer.finishedTransfers = [];
+    $scope.offers = fileTransfer.offers = [];
 
     if (!fileTransfer.peer) {
       fileTransfer.myItems = [];
@@ -53,9 +54,9 @@ angular.module('connecting', [
               if (data.type === 'file-accepted') {
                 packetHandlers.accepted(data, conn, $scope);
               } else if (data.type === 'file-offer') {
-                packetHandlers.offer(data, conn);
+                packetHandlers.offer(data, conn, $scope);
               } else if (data.type === 'file-chunk') {
-                packetHandlers.chunk(data);
+                packetHandlers.chunk(data, $scope);
               }
             });
           });
