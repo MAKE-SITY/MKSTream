@@ -8,7 +8,7 @@ describe('homeController', function() {
       fileTransfer,
       linkGeneration,
       webRTC,
-      packetHandlers
+      packetHandlers;
 
   beforeEach(function() {
       module('home');
@@ -25,7 +25,7 @@ describe('homeController', function() {
         webRTC = $injector.get('webRTC');
         packetHandlers = $injector.get('packetHandlers');
 
-      })
+      });
   });
 
   describe('home', function() {
