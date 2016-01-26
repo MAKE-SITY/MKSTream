@@ -82,9 +82,9 @@ angular.module('home', [
             if (data.type === 'file-accepted') {
               packetHandlers.accepted(data, conn, $scope);
             } else if (data.type === 'file-offer') {
-              packetHandlers.offer(data, conn);
+              packetHandlers.offer(data, conn, $scope);
             } else if (data.type === 'file-chunk') {
-              packetHandlers.chunk(data, fileTransfer);
+              packetHandlers.chunk(data, $scope);
             }
           });
         });
