@@ -48,13 +48,13 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           size: data.size,
           progress: 0
         };
-      })
+      });
     }
     var transferObj = fileTransfer.activeFileTransfers[data.id];
     transferObj.buffer[data.count] = data.chunk;
     scope.$apply(function() {
       transferObj.progress += 16348;
-    })
+    });
     if (data.last) {
       console.log('last chunk', transferObj);
       var newFile = fileUpload.convertFromBinary({
