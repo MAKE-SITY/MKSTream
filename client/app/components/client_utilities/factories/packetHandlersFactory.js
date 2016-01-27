@@ -21,12 +21,12 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   };
 
   packetHandlerObj.offer = function(data, conn, scope) {
-    scope.$apply(function(){
+    scope.$apply(function() {
       var index = fileTransfer.offers.length;
       fileTransfer.offers.push({
         name: data.name,
         size: data.size,
-        accept: function(){
+        accept: function() {
           conn.send({
             name: data.name,
             size: data.size,
@@ -39,9 +39,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   };
 
   packetHandlerObj.chunk = function(data, scope) {
-    var bar = document.getElementById('progressBar');
     if (data.count === 0) {
-      scope.$apply(function(){
+      scope.$apply(function() {
         fileTransfer.activeFileTransfers[data.id] = {
           buffer: [],
           id: data.id,
@@ -50,14 +49,12 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           progress: 0
         };
       })
-      bar.max = data.size;
     }
     var transferObj = fileTransfer.activeFileTransfers[data.id];
     transferObj.buffer[data.count] = data.chunk;
-    scope.$apply(function(){
+    scope.$apply(function() {
       transferObj.progress += 16348;
     })
-    bar.value = transferObj.progress;
     if (data.last) {
       console.log('last chunk', transferObj);
       var newFile = fileUpload.convertFromBinary({
