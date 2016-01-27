@@ -53,7 +53,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
           peer.socket.send({type: 'HEARTBEAT'});
         }
       }
-    }
+    };
     makeHeartbeat();
     return {
       start: function(){
@@ -63,8 +63,8 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       stop: function(){
         alive = false;
       }
-    }
-  }
+    };
+  };
 
   webRTCObj.getUsers = function() {
     return $http({
