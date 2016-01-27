@@ -20,33 +20,41 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
   };
 
-  packetHandlerObj.offer = function(data, conn) {
-    var answer = confirm('do you wish to receive ' + data.name + "?");
-    if (answer) {
-      conn.send({
+  packetHandlerObj.offer = function(data, conn, scope) {
+    scope.$apply(function() {
+      var index = fileTransfer.offers.length;
+      fileTransfer.offers.push({
         name: data.name,
         size: data.size,
-        type: 'file-accepted'
+        accept: function() {
+          conn.send({
+            name: data.name,
+            size: data.size,
+            type: 'file-accepted'
+          });
+          fileTransfer.offers.splice(index, 1);
+        }
       });
-    }
+    });
   };
 
-  packetHandlerObj.chunk = function(data) {
-    var bar = document.getElementById('progressBar');
+  packetHandlerObj.chunk = function(data, scope) {
     if (data.count === 0) {
-      fileTransfer.activeFileTransfers[data.id] = {
-        buffer: [],
-        id: data.id,
-        name: data.name,
-        size: data.size,
-        progress: 0
-      };
-      bar.max = data.size;
+      scope.$apply(function() {
+        fileTransfer.activeFileTransfers[data.id] = {
+          buffer: [],
+          id: data.id,
+          name: data.name,
+          size: data.size,
+          progress: 0
+        };
+      });
     }
     var transferObj = fileTransfer.activeFileTransfers[data.id];
     transferObj.buffer[data.count] = data.chunk;
-    transferObj.progress += 16348;
-    bar.value = transferObj.progress;
+    scope.$apply(function() {
+      transferObj.progress += 16348;
+    });
     if (data.last) {
       console.log('last chunk', transferObj);
       var newFile = fileUpload.convertFromBinary({

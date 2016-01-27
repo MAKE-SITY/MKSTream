@@ -1,10 +1,40 @@
-<div ng-controller='connectingController'>
+<div>
 {{ link }}
-<p id='controllerView' style="color: blue; background-color:black;">HELLLOOOOOOOOO</p>
   <!-- Target -->
   <input id="currentUrl" value="">
   <!-- Trigger -->
   <button class="btn" data-clipboard-target="#currentUrl">
     Copy to clipboard
   </button>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>File Name</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="offer in offers">
+        <td>{{offer.name}}</td>
+        <td>{{offer.size}}</td>
+        <td><button ng-click="offer.accept()">Accept</button></td>
+        <td><button>Reject</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Size</th>
+        <th>Test</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="transfer in activeFileTransfers">
+        <td>{{transfer.name}}</td>
+        <td><progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

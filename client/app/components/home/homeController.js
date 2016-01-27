@@ -62,7 +62,7 @@ angular.module('home', [
           fileTransfer.conn.push(conn);
           console.log('peerJS connection object', conn);
 
-          setTimeout(function() {
+          conn.on('open', function(){
             fileTransfer.conn.forEach(function(connection) {
               for (var i = 0; i < fileTransfer.myItems.length; i++) {
                 if (!fileTransfer.myItems[i].beenSent) {
@@ -76,15 +76,16 @@ angular.module('home', [
                 }
               }
             });
-          }, 1800);
+          });
+          
 
           conn.on('data', function(data) {
             if (data.type === 'file-accepted') {
               packetHandlers.accepted(data, conn, $scope);
             } else if (data.type === 'file-offer') {
-              packetHandlers.offer(data, conn);
+              packetHandlers.offer(data, conn, $scope);
             } else if (data.type === 'file-chunk') {
-              packetHandlers.chunk(data, fileTransfer);
+              packetHandlers.chunk(data, $scope);
             }
           });
         });
