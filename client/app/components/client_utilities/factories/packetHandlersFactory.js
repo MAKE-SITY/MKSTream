@@ -34,6 +34,9 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             type: 'file-accepted'
           });
           fileTransfer.offers.splice(index, 1);
+        },
+        reject: function() {
+          fileTransfer.offers.splice(index, 1);
         }
       });
     });
