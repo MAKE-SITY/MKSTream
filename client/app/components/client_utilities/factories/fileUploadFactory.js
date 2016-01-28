@@ -8,7 +8,6 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUploadObj.convertFromBinary = function(data) {
-    // var blob = new window.Blob(data.file);
     var kit = {};
     kit.href = URL.createObjectURL(data.file);
     kit.name = data.name;
