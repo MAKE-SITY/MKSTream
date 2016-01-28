@@ -58,17 +58,17 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
     // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
     if (transferObj.buffer.length >= 5000) {
-      // console.log('saved chunk at', transferObj.buffer.length);
+      console.log('saved chunk at', transferObj.buffer.length);
       var blobChunk = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      localforage.setItem(chunkCount.toString(), blobChunk);
+      localforage.setItem(data.id + chunkCount.toString(), blobChunk);
       chunkCount++;
     }
 
     if (data.last) {
       var lastBlob = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      localforage.setItem(chunkCount.toString(), lastBlob, function() {
+      localforage.setItem(data.id + chunkCount.toString(), lastBlob, function() {
           console.log('saved last chunk');
         })
         .then(
@@ -76,7 +76,13 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             // console.log('first promise resolved');
             chunkCount++;
             localforage.iterate(function(value, key, iterationNumber) {
-                fullArray[key] = value;
+                if (key.startsWith(data.id)) {
+                  fullArray[key[data.id.length]] = value;
+                  // delete doucment after appending
+                  localforage.removeItem(data.id + (iterationNumber - 1));
+                  console.log('Removed key:', data.id + (iterationNumber - 1))
+                }
+                // clear this document from db after
               }, function(err) {
                 if (!err) {
                   console.log('Iteration has completed');
@@ -90,9 +96,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                   size: transferObj.size
                 });
                 fullArray = [];
-                localforage.clear(function(err) {
-                  console.log('local db cleared');
-                });
+
                 fileTransfer.finishedTransfers.push(newFile);
                 var downloadAnchor = document.getElementById('fileLink');
                 downloadAnchor.download = newFile.name;
