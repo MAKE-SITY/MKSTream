@@ -11,7 +11,8 @@
   },
   "background": {
     "page": "./background.html",
-    "scripts": ["./background.js"]
+    "scripts": ["./background.js"],
+    "persistent": false
   },
   "permissions": ["tabs", 
     "storage", 
