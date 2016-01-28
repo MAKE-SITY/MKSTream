@@ -10,8 +10,9 @@
     "default_popup": "./popup.html"
   },
   "background": {
-    // "page": "./background.html"
-    "scripts": ["./background.js"]
+    "page": "./background.html",
+    "persistent": false
+    // "scripts": ["./background.js"]
   },
   "permissions": ["tabs", 
     "storage", 
