@@ -57,7 +57,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       transferObj.progress += 16348;
     });
 
-    if (transferObj.buffer.length >= 1000) {
+    if (transferObj.buffer.length >= 2000) {
       console.log('saved chunk at', transferObj.buffer.length);
       var blobChunk = new Blob(transferObj.buffer);
       localforage.setItem(chunkCount.toString(), blobChunk);
@@ -91,6 +91,9 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             size: transferObj.size
           });
           fullArray = [];
+          localforage.clear(function(err) {
+            console.log('local db cleared');
+          });
           fileTransfer.finishedTransfers.push(newFile);
           var downloadAnchor = document.getElementById('fileLink');
           downloadAnchor.download = newFile.name;
