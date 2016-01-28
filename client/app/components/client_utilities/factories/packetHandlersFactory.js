@@ -56,13 +56,13 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     scope.$apply(function() {
       transferObj.progress += 16348;
     });
-
-    if (transferObj.buffer.length >= 2000) {
-      console.log('saved chunk at', transferObj.buffer.length);
+    // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
+    if (transferObj.buffer.length >= 5000) {
+      // console.log('saved chunk at', transferObj.buffer.length);
       var blobChunk = new Blob(transferObj.buffer);
+      transferObj.buffer = [];
       localforage.setItem(chunkCount.toString(), blobChunk);
       chunkCount++;
-      transferObj.buffer = [];
     }
 
     if (data.last) {
@@ -72,36 +72,33 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           console.log('saved last chunk');
         })
         .then(
-
           function(result) {
-            console.log('first promise resolved');
+            // console.log('first promise resolved');
             chunkCount++;
             localforage.iterate(function(value, key, iterationNumber) {
-              fullArray[key] = value;
-            }, function(err) {
-              if (!err) {
-                console.log('Iteration has completed');
-              }
-            })
-        .then(function() {
-          console.log('all promise resolved');
-          var newFile = fileUpload.convertFromBinary({
-            file: new Blob(fullArray),
-            name: transferObj.name,
-            size: transferObj.size
-          });
-          fullArray = [];
-          localforage.clear(function(err) {
-            console.log('local db cleared');
-          });
-          fileTransfer.finishedTransfers.push(newFile);
-          var downloadAnchor = document.getElementById('fileLink');
-          downloadAnchor.download = newFile.name;
-          downloadAnchor.href = newFile.href;
-        })
-            
+                fullArray[key] = value;
+              }, function(err) {
+                if (!err) {
+                  console.log('Iteration has completed');
+                }
+              })
+              .then(function() {
+                // console.log('all promise resolved');
+                var newFile = fileUpload.convertFromBinary({
+                  file: new Blob(fullArray),
+                  name: transferObj.name,
+                  size: transferObj.size
+                });
+                fullArray = [];
+                localforage.clear(function(err) {
+                  console.log('local db cleared');
+                });
+                fileTransfer.finishedTransfers.push(newFile);
+                var downloadAnchor = document.getElementById('fileLink');
+                downloadAnchor.download = newFile.name;
+                downloadAnchor.href = newFile.href;
+              })
           }
-
         )
     }
   };
