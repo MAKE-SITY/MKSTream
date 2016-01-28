@@ -1,6 +1,8 @@
+<!DOCTYPE html>
 <html ng-app='MKSTream'>
 
 <head>
+  <link rel="shortcut icon" href="./assets/chrome_icon.png" />
   <title></title>
   <!-- Add additional dependencies -->
   <!-- <script src='./lib/angular.js'></script> -->
@@ -9,6 +11,7 @@
   <script src='lib/dest/libs.min.js'></script>
   <script src='lib/clipboard.min.js'></script>
   <script src='lib/peer.min.js'></script>
+  <script src='lib/localforage.min.js'></script>
   <!-- Add additional factories -->
   <script src='./app/components/client_utilities/client_utilities.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
@@ -34,7 +37,7 @@
     <input type="file" id="filesId" name="files" multiple />
     <output id="list"></output>
   </div>
-  <a href="" id='fileLink'>I'm the file, download me. softly.</a>
+  <!-- <a href="" id='fileLink'>I'm the file, download me. softly.</a> -->
   <div ui-view></div>
 </body>
 

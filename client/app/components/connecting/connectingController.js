@@ -50,7 +50,7 @@ angular.module('connecting', [
             var conn = fileTransfer.peer.connect(res.data.senderID);
             fileTransfer.conn.push(conn);
             conn.on('data', function(data) {
-              console.log('incoming packet');
+              // console.log('incoming packet');
               if (data.type === 'file-accepted') {
                 packetHandlers.accepted(data, conn, $scope);
               } else if (data.type === 'file-offer') {
