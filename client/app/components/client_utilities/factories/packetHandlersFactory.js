@@ -97,9 +97,9 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 var downloadAnchor = document.getElementById('fileLink');
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
-              })
+              });
           }
-        )
+        );
     }
   };
 
