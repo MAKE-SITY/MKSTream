@@ -1,9 +1,10 @@
 angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'utils.linkGeneration'])
 
 
-.factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', function(webRTC, fileUpload, linkGeneration, fileTransfer) {
+.factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', '$q', function(webRTC, fileUpload, linkGeneration, fileTransfer, $q) {
   var packetHandlerObj = {};
-
+  var chunkCount = 0;
+  var fullArray = [];
   packetHandlerObj.accepted = function(data, conn, scope) {
     var fileKey = linkGeneration.fuid();
 
@@ -25,13 +26,16 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       var index = fileTransfer.offers.length;
       fileTransfer.offers.push({
         name: data.name,
-        size: data.size,
+        size: fileUpload.convert(data.size),
         accept: function() {
           conn.send({
             name: data.name,
             size: data.size,
             type: 'file-accepted'
           });
+          fileTransfer.offers.splice(index, 1);
+        },
+        reject: function() {
           fileTransfer.offers.splice(index, 1);
         }
       });
@@ -51,22 +55,58 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       });
     }
     var transferObj = fileTransfer.activeFileTransfers[data.id];
-    transferObj.buffer[data.count] = data.chunk;
+    transferObj.buffer.push(data.chunk);
     scope.$apply(function() {
       transferObj.progress += 16348;
     });
-    if (data.last) {
-      console.log('last chunk', transferObj);
-      var newFile = fileUpload.convertFromBinary({
-        file: transferObj.buffer,
-        name: transferObj.name,
-        size: transferObj.size
-      });
-      fileTransfer.finishedTransfers.push(newFile);
+    // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
+    if (transferObj.buffer.length >= 5000) {
+      console.log('saved chunk at', transferObj.buffer.length);
+      var blobChunk = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      var downloadAnchor = document.getElementById('fileLink');
-      downloadAnchor.download = newFile.name;
-      downloadAnchor.href = newFile.href;
+      localforage.setItem(data.id + chunkCount.toString(), blobChunk);
+      chunkCount++;
+    }
+
+    if (data.last) {
+      var lastBlob = new Blob(transferObj.buffer);
+      transferObj.buffer = [];
+      localforage.setItem(data.id + chunkCount.toString(), lastBlob, function() {
+          console.log('saved last chunk');
+        })
+        .then(
+          function(result) {
+            // console.log('first promise resolved');
+            chunkCount++;
+            localforage.iterate(function(value, key, iterationNumber) {
+                if (key.startsWith(data.id)) {
+                  fullArray[key[data.id.length]] = value;
+                  // delete doucment after appending
+                  localforage.removeItem(data.id + (iterationNumber - 1));
+                  console.log('Removed key:', data.id + (iterationNumber - 1))
+                }
+                // clear this document from db after
+              }, function(err) {
+                if (!err) {
+                  console.log('Iteration has completed');
+                }
+              })
+              .then(function() {
+                // console.log('all promise resolved');
+                var newFile = fileUpload.convertFromBinary({
+                  file: new Blob(fullArray),
+                  name: transferObj.name,
+                  size: transferObj.size
+                });
+                fullArray = [];
+
+                fileTransfer.finishedTransfers.push(newFile);
+                var downloadAnchor = document.getElementById('fileLink');
+                downloadAnchor.download = newFile.name;
+                downloadAnchor.href = newFile.href;
+              });
+          }
+        );
     }
   };
 
