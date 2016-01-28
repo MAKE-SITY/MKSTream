@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "MKSTream",
+  "description": "MKSTream's chrome_extension",
+  "version": "1.0",
+  "homepage_url": "https://mkstream.club",
+  "browser_action": {
+    "default_icon": "./chrome_icon.png",
+    "default_title": "Start shareing with MKSTream",
+    "default_popup": "./popup.html"
+  },
+  "background": {
+    // "page": "./background.html"
+    "scripts": ["./background.js"]
+  },
+  "permissions": ["tabs", 
+    "storage", 
+    "notifications"
+  ]
+}
