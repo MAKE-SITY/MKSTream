@@ -26,7 +26,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       var index = fileTransfer.offers.length;
       fileTransfer.offers.push({
         name: data.name,
-        size: data.size,
+        size: fileUpload.convert(data.size),
         accept: function() {
           conn.send({
             name: data.name,
