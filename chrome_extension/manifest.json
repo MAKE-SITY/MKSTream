@@ -10,7 +10,7 @@
     "default_popup": "./popup.html"
   },
   "background": {
-    // "page": "./background.html"
+    "page": "./background.html",
     "scripts": ["./background.js"]
   },
   "permissions": ["tabs", 
