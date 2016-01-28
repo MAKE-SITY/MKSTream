@@ -31,10 +31,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="transfer in activeFileTransfers">
+      <tr id='downloadTable' ng-repeat="transfer in activeFileTransfers">
         <td>{{transfer.name}}</td>
         <td><progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress></td>
-        <td><a href="" id='fileLink'>I'm the file, download me. softly.</a>
+              
+        <td><a href='' id='fileLink'>Download</a></td>
       </tr>
     </tbody>
   </table>
