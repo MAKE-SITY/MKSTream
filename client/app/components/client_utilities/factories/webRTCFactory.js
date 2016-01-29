@@ -85,9 +85,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
   };
 
   webRTCObj.sendDataInChunks = function(conn, obj) {
-    console.log('preparing send');
     var chunker = function(details, name) {
-      console.log('starting chunker');
       var chunkSize = 16384;
       var slice = details.file.slice(details.offset, details.offset + chunkSize);
       fileReader.readAsArrayBuffer(slice, details.scopeRef)
