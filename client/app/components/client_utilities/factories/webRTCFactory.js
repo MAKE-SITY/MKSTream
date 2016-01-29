@@ -99,7 +99,8 @@ angular.module('utils.webRTC', ['utils.fileReader'])
           if (details.count === 0) {
             packet.name = name;
             packet.size = details.size;
-          } else if (details.offset + chunkSize > details.size) {
+          } 
+          if (details.offset + chunkSize > details.size) {
             packet.last = true;
           }
           details.conn.send(packet);
@@ -127,12 +128,14 @@ angular.module('utils.webRTC', ['utils.fileReader'])
 
   webRTCObj.clearQueue = function(files, conn){
     for(var i = 0; i < files.length; i++){
-      files[i].beenSent = true;
-      conn.send({
-        name: files[i].name,
-        size: files[i].size,
-        type: 'file-offer'
-      });
+      if(!files[i].beenSent){
+        files[i].beenSent = true;
+        conn.send({
+          name: files[i].name,
+          size: files[i].size,
+          type: 'file-offer'
+        });
+      }
     }
   }
 
