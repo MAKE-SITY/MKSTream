@@ -103,7 +103,6 @@ angular.module('utils.webRTC', ['utils.fileReader'])
             packet.last = true;
           }
           details.conn.send(packet);
-          console.log('chunk sent');
           details.count++;
           if (details.size > details.offset + chunkSize) {
             details.offset += chunkSize;
