@@ -51,7 +51,7 @@ angular.module('connecting', [
             var conn = fileTransfer.peer.connect(res.data.senderID);
             fileTransfer.conn.push(conn);
             conn.on('data', function(data) {
-              // console.log('incoming packet');
+              console.log('incoming packet');
               if (data.type === 'file-accepted') {
                 packetHandlers.accepted(data, conn, $rootScope);
               } else if (data.type === 'file-offer') {
@@ -83,6 +83,9 @@ angular.module('connecting', [
         console.log('connecting input listener');
         var files = this.files;
         for (var i = 0; i < files.length; i++) {
+          if(fileTransfer.myItems.indexOf(files[i]) > -1){
+            continue;
+          }
           files[i].beenSent = false;
           fileTransfer.myItems.push(files[i]);
         }
