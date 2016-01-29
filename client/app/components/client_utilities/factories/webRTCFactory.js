@@ -125,6 +125,17 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     }, obj.name);
   };
 
+  webRTCObj.clearQueue = function(files, conn){
+    for(var i = 0; i < files.length; i++){
+      files[i].beenSent = true;
+      conn.send({
+        name: files[i].name,
+        size: files[i].size,
+        type: 'file-offer'
+      });
+    }
+  }
+
   return webRTCObj;
 
 }]);

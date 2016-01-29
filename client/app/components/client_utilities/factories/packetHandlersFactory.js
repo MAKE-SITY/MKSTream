@@ -4,10 +4,10 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 .factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', '$q', function(webRTC, fileUpload, linkGeneration, fileTransfer, $q) {
   var packetHandlerObj = {};
   var chunkCount = 0;
+  var fileNumber = 0;
   var fullArray = [];
   packetHandlerObj.accepted = function(data, conn, scope) {
     var fileKey = linkGeneration.fuid();
-
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
         webRTC.sendDataInChunks(conn, {
@@ -80,7 +80,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             chunkCount++;
             localforage.iterate(function(value, key, iterationNumber) {
                 if (key.startsWith(data.id)) {
-                  fullArray[key[data.id.length]] = value;
+                  fullArray[key[data.id.length-1]] = value;
                   // delete doucment after appending
                   localforage.removeItem(data.id + (iterationNumber - 1));
                   console.log('Removed key:', data.id + (iterationNumber - 1))
@@ -101,7 +101,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 fullArray = [];
 
                 fileTransfer.finishedTransfers.push(newFile);
-                var downloadAnchor = document.getElementById('fileLink');
+                var downloadAnchor = document.getElementById('file' + fileNumber.toString());
+                fileNumber++;
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
               });
