@@ -1,6 +1,6 @@
 angular.module('utils.webRTC', ['utils.fileReader'])
 
-.factory('webRTC', ['$http', 'fileReader', function($http, fileReader) {
+.factory('webRTC', ['$http', 'fileReader', 'fileTransfer', function($http, fileReader, fileTransfer) {
   /**
    * user uploaded file
    * retrieve file & convert it to binary
@@ -101,7 +101,6 @@ angular.module('utils.webRTC', ['utils.fileReader'])
             count: details.count,
             id: details.id
           };
-          fileTransfer.outgoingFileTransfers[details.id] += chunkSize;
           if (details.count === 0) {
             packet.name = name;
             packet.size = details.size;
