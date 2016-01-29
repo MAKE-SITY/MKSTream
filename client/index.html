@@ -2,7 +2,7 @@
 <html ng-app='MKSTream'>
 
 <head>
-  <link rel="shortcut icon" href="./assets/chrome_icon.png" />
+  <link rel="shortcut icon" href="./assets/favicon-bolt.ico" />
   <title></title>
   <!-- Add additional dependencies -->
   <!-- <script src='./lib/angular.js'></script> -->
@@ -12,6 +12,15 @@
   <script src='lib/clipboard.min.js'></script>
   <script src='lib/peer.min.js'></script>
   <script src='lib/localforage.min.js'></script>
+  <script src='lib/jquery/dist/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <!-- Add additional factories -->
   <script src='./app/components/client_utilities/client_utilities.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
@@ -31,14 +40,296 @@
   <link href="./assets/styles.css" rel="stylesheet">
 </head>
 
-<body>
-  <div id="dropZone">
-    <h6>DRAG FILE OR CLICK TO UPLOAD FILE</h6>
-    <input type="file" id="filesId" name="files" multiple />
-    <output id="list"></output>
-  </div>
+<body ng-controller='homeController'>
+  <!-- Navigation -->
+  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+          <i class="fa fa-bars"></i>
+        </button>
+        <a class="navbar-brand page-scroll" href="#page-top">
+          <i class="fa fa-bolt"></i> <span class="light">Start</span> MK STREAM'N
+        </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+        <ul class="nav navbar-nav">
+          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+          <li class="hidden">
+            <a href="#page-top"></a>
+          </li>
+          <li>
+            <!-- remember to change href -->
+            <a class="page-scroll" href="#about">About</a>
+          </li>
+          <li>
+            <a class="page-scroll" href="#download">Guide</a>
+          </li>
+          <li>
+            <a class="page-scroll" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+  <!-- Intro Header -->
+  <header class="intro">
+    <div class="intro-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <h1 class="brand-heading">MK stream</h1>
+            <div id="dropZone">
+              <h6>DRAG FILE OR CLICK TO UPLOAD FILE</h6>
+              <input type="file" id="filesId" name="files" multiple />
+              <output id="list"></output>
+            </div>
+            <p class="intro-text">A free, lightning fast file sharing service
+            </p>
+            <a href="#about" class="btn btn-circle page-scroll">
+              <i class="fa fa-bolt"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
   <!-- <a href="" id='fileLink'>I'm the file, download me. softly.</a> -->
+  <!-- About Section -->
+  <section id="about" class="container content-section text-center">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h2>About MK STREAM</h2>
+        <p>Come check out our <a href="http://github.com/make-sity/mkstream">github</a>. We're an open source project, let us know what you think or if you have any suggestions!</p>
+      </div>
+    </div>
+  </section>
+  <section id="download" class="content-section text-center">
+    <div class="download-section">
+      <div class="container">
+        <div class="col-lg-8 col-lg-offset-2">
+          <h2>How to use MK Stream</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <!--           <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Contact Section -->
+  <section id="contact" class="container content-section text-center">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h2>Contact MKSTREAM</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p><a href="mailto:mkstream@gmail.com">mkstream@gmail.com</a>
+        </p>
+        <ul class="list-inline banner-social-buttons">
+          <li>
+            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+          </li>
+          <li>
+            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+          </li>
+          <li>
+            <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
   <div ui-view></div>
 </body>
+<script>
+/*!
+ * Start Bootstrap - Grayscale Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+// jQuery to collapse the navbar on scroll
+function collapseNavbar() {
+  if ($(".navbar").offset().top > 50) {
+    $(".navbar-fixed-top").addClass("top-nav-collapse");
+  } else {
+    $(".navbar-fixed-top").removeClass("top-nav-collapse");
+  }
+}
+
+$(window).scroll(collapseNavbar);
+$(document).ready(collapseNavbar);
+
+// jQuery for page scrolling feature - requires jQuery Easing plugin
+$(function() {
+  $('a.page-scroll').bind('click', function(event) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({
+      scrollTop: $($anchor.attr('href')).offset().top
+    }, 1500, 'easeInOutExpo');
+    event.preventDefault();
+  });
+});
+
+// Closes the Responsive Menu on Menu Item Click
+$('.navbar-collapse ul li a').click(function() {
+  if ($(this).attr('class') != 'dropdown-toggle active' && $(this).attr('class') != 'dropdown-toggle') {
+    $('.navbar-toggle:visible').click();
+  }
+});
+
+// Google Maps Scripts
+// var map = null;
+// // When the window has finished loading create our google map below
+// google.maps.event.addDomListener(window, 'load', init);
+// google.maps.event.addDomListener(window, 'resize', function() {
+//   map.setCenter(new google.maps.LatLng(40.6700, -73.9400));
+// });
+
+function init() {
+  // Basic options for a simple Google Map
+  // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+  var mapOptions = {
+    // How zoomed in you want the map to start at (always required)
+    zoom: 15,
+
+    // The latitude and longitude to center the map (always required)
+    // center: new google.maps.LatLng(40.6700, -73.9400), // New York
+
+    // Disables the default Google Maps UI components
+    disableDefaultUI: true,
+    scrollwheel: false,
+    draggable: false,
+
+    // How you would like to style the map. 
+    // This is where you would paste any style found on Snazzy Maps.
+    styles: [{
+      "featureType": "water",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 17
+      }]
+    }, {
+      "featureType": "landscape",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 20
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 17
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "geometry.stroke",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 29
+      }, {
+        "weight": 0.2
+      }]
+    }, {
+      "featureType": "road.arterial",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 18
+      }]
+    }, {
+      "featureType": "road.local",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 16
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 21
+      }]
+    }, {
+      "elementType": "labels.text.stroke",
+      "stylers": [{
+        "visibility": "on"
+      }, {
+        "color": "#000000"
+      }, {
+        "lightness": 16
+      }]
+    }, {
+      "elementType": "labels.text.fill",
+      "stylers": [{
+        "saturation": 36
+      }, {
+        "color": "#000000"
+      }, {
+        "lightness": 40
+      }]
+    }, {
+      "elementType": "labels.icon",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "transit",
+      "elementType": "geometry",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 19
+      }]
+    }, {
+      "featureType": "administrative",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 20
+      }]
+    }, {
+      "featureType": "administrative",
+      "elementType": "geometry.stroke",
+      "stylers": [{
+        "color": "#000000"
+      }, {
+        "lightness": 17
+      }, {
+        "weight": 1.2
+      }]
+    }]
+  };
+
+  // Get the HTML DOM element that will contain your map 
+  // We are using a div with id="map" seen below in the <body>
+  var mapElement = document.getElementById('map');
+
+  // Create the Google Map using out element and options defined above
+  // map = new google.maps.Map(mapElement, mapOptions);
+
+  // Custom Map Marker Icon - Customize the map-marker.png file to customize your icon
+  // var image = 'img/map-marker.png';
+  // var myLatLng = new google.maps.LatLng(40.6700, -73.9400);
+  // var beachMarker = new google.maps.Marker({
+  //   position: myLatLng,
+  //   map: map,
+  //   icon: image
+  // });
+}
+</script>
 
 </html>
