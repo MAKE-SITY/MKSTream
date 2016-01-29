@@ -36,6 +36,11 @@ angular.module('home', [
         fileTransfer.myItems.push(files[i]);
       }
 
+      if(fileTransfer.connected){
+        fileTransfer.conn.forEach(function(connection){
+          webRTC.clearQueue(fileTransfer.myItems, connection);
+        })
+      }
 
       if (!fileTransfer.peer) {
 
@@ -63,6 +68,7 @@ angular.module('home', [
           console.log('peerJS connection object', conn);
 
           conn.on('open', function(){
+            fileTransfer.connected = true;
             fileTransfer.conn.forEach(function(connection) {
               webRTC.clearQueue(fileTransfer.myItems, connection);
             });
