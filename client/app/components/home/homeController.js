@@ -8,11 +8,12 @@ angular.module('home', [
   '$state',
   '$stateParams',
   '$location',
+  '$rootScope',
   'fileTransfer',
   'linkGeneration',
   'webRTC',
   'packetHandlers',
-  function($scope, $http, $state, $stateParams, $location, fileTransfer, linkGeneration, webRTC, packetHandlers) {
+  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers) {
     console.log('home controller loaded');
 
     fileTransfer.myItems = [];
@@ -21,12 +22,11 @@ angular.module('home', [
     var disconnectingSenderId = null;
     var generateLink = function() {
       $scope.hash = linkGeneration.guid();
-      $stateParams.test = $scope.hash;
-      $location.path('/' + $scope.hash);
+      $state.go('room', {roomHash: $scope.hash});
     };
 
     document.getElementById('filesId').addEventListener('change', function() {
-
+      console.log('home input listener');
       var files = this.files;
       for (var i = 0; i < files.length; i++) {
         if (fileTransfer.myItems.indexOf(files[i]) > -1) {
@@ -64,28 +64,18 @@ angular.module('home', [
 
           conn.on('open', function(){
             fileTransfer.conn.forEach(function(connection) {
-              for (var i = 0; i < fileTransfer.myItems.length; i++) {
-                if (!fileTransfer.myItems[i].beenSent) {
-                  fileTransfer.myItems[i].beenSent = true;
-                  console.log('files offered');
-                  connection.send({
-                    name: fileTransfer.myItems[i].name,
-                    size: fileTransfer.myItems[i].size,
-                    type: 'file-offer'
-                  });
-                }
-              }
+              webRTC.clearQueue(fileTransfer.myItems, connection);
             });
           });
           
 
           conn.on('data', function(data) {
             if (data.type === 'file-accepted') {
-              packetHandlers.accepted(data, conn, $scope);
+              packetHandlers.accepted(data, conn, $rootScope);
             } else if (data.type === 'file-offer') {
-              packetHandlers.offer(data, conn, $scope);
+              packetHandlers.offer(data, conn, $rootScope);
             } else if (data.type === 'file-chunk') {
-              packetHandlers.chunk(data, $scope);
+              packetHandlers.chunk(data, $rootScope);
             }
           });
         });
@@ -110,7 +100,6 @@ angular.module('home', [
 
     });
 
-    $scope.testParams = $stateParams;
 
   }
 ]);
