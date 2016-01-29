@@ -36,6 +36,11 @@ angular.module('home', [
         fileTransfer.myItems.push(files[i]);
       }
 
+      if(fileTransfer.connected){
+        fileTransfer.conn.forEach(function(connection){
+          webRTC.clearQueue(fileTransfer.myItems, connection);
+        })
+      }
 
       if (!fileTransfer.peer) {
 
@@ -63,6 +68,7 @@ angular.module('home', [
           console.log('peerJS connection object', conn);
 
           conn.on('open', function(){
+            fileTransfer.connected = true;
             fileTransfer.conn.forEach(function(connection) {
               webRTC.clearQueue(fileTransfer.myItems, connection);
             });
@@ -70,6 +76,7 @@ angular.module('home', [
           
 
           conn.on('data', function(data) {
+            console.log('incoming packet');
             if (data.type === 'file-accepted') {
               packetHandlers.accepted(data, conn, $rootScope);
             } else if (data.type === 'file-offer') {
