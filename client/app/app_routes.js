@@ -1,16 +1,18 @@
 angular.module('clientRoutes', [])
 
-.config(['$stateProvider', function($stateProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider
+  .otherwise('/');
 
   $stateProvider
-
     .state('home', {
       url: '/',
       controller: 'homeController',
       templateUrl: './app/components/home/homeView.html'
     })
-    .state('link', {
-      url: '/:test',
+    .state('room', {
+      url: '/room/:roomHash',
       controller: 'connectingController',
       templateUrl: './app/components/connecting/featView.html'
     });

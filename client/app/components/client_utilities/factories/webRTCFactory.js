@@ -1,6 +1,6 @@
 angular.module('utils.webRTC', ['utils.fileReader'])
 
-.factory('webRTC', ['$http', 'fileReader', function($http, fileReader) {
+.factory('webRTC', ['$http', 'fileReader', 'fileTransfer', function($http, fileReader, fileTransfer) {
   /**
    * user uploaded file
    * retrieve file & convert it to binary
@@ -85,6 +85,11 @@ angular.module('utils.webRTC', ['utils.fileReader'])
   };
 
   webRTCObj.sendDataInChunks = function(conn, obj) {
+    fileTransfer.outgoingFileTransfers[obj.id] = {
+      progress: 0,
+      max: obj.size,
+      name: obj.name
+    };
     var chunker = function(details, name) {
       var chunkSize = 16384;
       var slice = details.file.slice(details.offset, details.offset + chunkSize);
@@ -99,7 +104,8 @@ angular.module('utils.webRTC', ['utils.fileReader'])
           if (details.count === 0) {
             packet.name = name;
             packet.size = details.size;
-          } else if (details.offset + chunkSize > details.size) {
+          } 
+          if (details.offset + chunkSize > details.size) {
             packet.last = true;
           }
           details.conn.send(packet);
@@ -124,6 +130,19 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       scopeRef: obj.scopeRef
     }, obj.name);
   };
+
+  webRTCObj.clearQueue = function(files, conn){
+    for(var i = 0; i < files.length; i++){
+      if(!files[i].beenSent){
+        files[i].beenSent = true;
+        conn.send({
+          name: files[i].name,
+          size: files[i].size,
+          type: 'file-offer'
+        });
+      }
+    }
+  }
 
   return webRTCObj;
 

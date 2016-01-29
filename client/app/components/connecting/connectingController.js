@@ -6,10 +6,11 @@ angular.module('connecting', [
   '$scope',
   '$http',
   '$stateParams',
+  '$rootScope',
   'fileTransfer',
   'webRTC',
   'packetHandlers',
-  function($scope, $http, $stateParams, fileTransfer, webRTC, packetHandlers) {
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
@@ -23,7 +24,8 @@ angular.module('connecting', [
     document.getElementById('currentUrl').value = window.location.href;
     var disconnectingReceiverId = null;
 
-    $scope.activeFileTransfers = fileTransfer.activeFileTransfers = {};
+    $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers = {};
+    $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers = {};
     fileTransfer.finishedTransfers = [];
     $scope.offers = fileTransfer.offers = [];
 
@@ -41,7 +43,7 @@ angular.module('connecting', [
             method: 'POST',
             url: '/api/webrtc/users',
             data: {
-              hash: $stateParams.test,
+              hash: $stateParams.roomHash,
               recipientId: id
             }
           })
@@ -50,13 +52,13 @@ angular.module('connecting', [
             var conn = fileTransfer.peer.connect(res.data.senderID);
             fileTransfer.conn.push(conn);
             conn.on('data', function(data) {
-              // console.log('incoming packet');
+              console.log('incoming packet');
               if (data.type === 'file-accepted') {
-                packetHandlers.accepted(data, conn, $scope);
+                packetHandlers.accepted(data, conn, $rootScope);
               } else if (data.type === 'file-offer') {
-                packetHandlers.offer(data, conn, $scope);
+                packetHandlers.offer(data, conn, $rootScope);
               } else if (data.type === 'file-chunk') {
-                packetHandlers.chunk(data, $scope);
+                packetHandlers.chunk(data, $rootScope);
               }
             });
           });
@@ -72,30 +74,24 @@ angular.module('connecting', [
           method: 'POST',
           url: '/api/webrtc/deleteReceiverId',
           data: {
-            hash: $stateParams.test,
+            hash: $stateParams.roomHash,
             id: disconnectingReceiverId
           }
         });
       });
 
       document.getElementById('filesId').addEventListener('change', function() {
-
+        console.log('connecting input listener');
         var files = this.files;
         for (var i = 0; i < files.length; i++) {
+          if(fileTransfer.myItems.indexOf(files[i]) > -1){
+            continue;
+          }
           files[i].beenSent = false;
           fileTransfer.myItems.push(files[i]);
         }
         fileTransfer.conn.forEach(function(connection) {
-          for (var i = 0; i < fileTransfer.myItems.length; i++) {
-            if (!fileTransfer.myItems[i].beenSent) {
-              fileTransfer.myItems[i].beenSent = true;
-              connection.send({
-                name: fileTransfer.myItems[i].name,
-                size: fileTransfer.myItems[i].size,
-                type: 'file-offer'
-              });
-            }
-          }
+          webRTC.clearQueue(fileTransfer.myItems, connection);
         });
         //TODO: send files back
 
