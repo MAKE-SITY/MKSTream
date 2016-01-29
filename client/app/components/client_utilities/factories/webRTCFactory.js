@@ -85,7 +85,9 @@ angular.module('utils.webRTC', ['utils.fileReader'])
   };
 
   webRTCObj.sendDataInChunks = function(conn, obj) {
+    console.log('preparing send');
     var chunker = function(details, name) {
+      console.log('starting chunker');
       var chunkSize = 16384;
       var slice = details.file.slice(details.offset, details.offset + chunkSize);
       fileReader.readAsArrayBuffer(slice, details.scopeRef)
@@ -103,6 +105,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
             packet.last = true;
           }
           details.conn.send(packet);
+          console.log('chunk sent');
           details.count++;
           if (details.size > details.offset + chunkSize) {
             details.offset += chunkSize;
@@ -124,6 +127,17 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       scopeRef: obj.scopeRef
     }, obj.name);
   };
+
+  webRTCObj.clearQueue = function(files, conn){
+    for(var i = 0; i < files.length; i++){
+      files[i].beenSent = true;
+      conn.send({
+        name: files[i].name,
+        size: files[i].size,
+        type: 'file-offer'
+      });
+    }
+  }
 
   return webRTCObj;
 
