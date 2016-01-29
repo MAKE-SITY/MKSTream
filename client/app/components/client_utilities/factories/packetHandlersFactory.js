@@ -45,7 +45,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   packetHandlerObj.chunk = function(data, scope) {
     if (data.count === 0) {
       scope.$apply(function() {
-        fileTransfer.activeFileTransfers[data.id] = {
+        fileTransfer.incomingFileTransfers[data.id] = {
           buffer: [],
           id: data.id,
           name: data.name,
@@ -54,7 +54,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         };
       });
     }
-    var transferObj = fileTransfer.activeFileTransfers[data.id];
+    var transferObj = fileTransfer.incomingFileTransfers[data.id];
     transferObj.buffer.push(data.chunk);
     scope.$apply(function() {
       transferObj.progress += 16348;
@@ -64,14 +64,14 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       console.log('saved chunk at', transferObj.buffer.length);
       var blobChunk = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      localforage.setItem(data.id + chunkCount.toString(), blobChunk);
+      localforage.setItem(data.id + ':' + chunkCount.toString(), blobChunk);
       chunkCount++;
     }
 
     if (data.last) {
       var lastBlob = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      localforage.setItem(data.id + chunkCount.toString(), lastBlob, function() {
+      localforage.setItem(data.id + ':' + chunkCount.toString(), lastBlob, function() {
           console.log('saved last chunk');
         })
         .then(
@@ -80,7 +80,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             chunkCount++;
             localforage.iterate(function(value, key, iterationNumber) {
                 if (key.startsWith(data.id)) {
-                  fullArray[key[data.id.length-1]] = value;
+                  fullArray[key.split(':')[1]] = value;
                   // delete doucment after appending
                   localforage.removeItem(data.id + (iterationNumber - 1));
                   console.log('Removed key:', data.id + (iterationNumber - 1))
