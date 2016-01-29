@@ -70,6 +70,7 @@ angular.module('home', [
           
 
           conn.on('data', function(data) {
+            console.log('incoming packet');
             if (data.type === 'file-accepted') {
               packetHandlers.accepted(data, conn, $rootScope);
             } else if (data.type === 'file-offer') {
