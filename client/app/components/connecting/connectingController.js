@@ -24,7 +24,8 @@ angular.module('connecting', [
     document.getElementById('currentUrl').value = window.location.href;
     var disconnectingReceiverId = null;
 
-    $scope.activeFileTransfers = fileTransfer.activeFileTransfers = {};
+    $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers = {};
+    $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers = {};
     fileTransfer.finishedTransfers = [];
     $scope.offers = fileTransfer.offers = [];
 

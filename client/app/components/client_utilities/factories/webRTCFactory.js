@@ -1,6 +1,6 @@
 angular.module('utils.webRTC', ['utils.fileReader'])
 
-.factory('webRTC', ['$http', 'fileReader', function($http, fileReader) {
+.factory('webRTC', ['$http', 'fileReader', 'fileTransfer', function($http, fileReader, fileTransfer) {
   /**
    * user uploaded file
    * retrieve file & convert it to binary
@@ -85,6 +85,11 @@ angular.module('utils.webRTC', ['utils.fileReader'])
   };
 
   webRTCObj.sendDataInChunks = function(conn, obj) {
+    fileTransfer.outgoingFileTransfers[obj.id] = {
+      progress: 0,
+      max: obj.size,
+      name: obj.name
+    };
     var chunker = function(details, name) {
       var chunkSize = 16384;
       var slice = details.file.slice(details.offset, details.offset + chunkSize);
