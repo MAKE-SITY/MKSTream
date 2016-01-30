@@ -10,7 +10,8 @@ angular.module('connecting', [
   'fileTransfer',
   'webRTC',
   'packetHandlers',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers) {
+  'fileUpload',
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
@@ -26,6 +27,8 @@ angular.module('connecting', [
 
     $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers = {};
     $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers = {};
+    $scope.acceptFileOffer = fileUpload.acceptFileOffer;
+    $scope.rejectFileOffer = fileUpload.rejectFileOffer;
     fileTransfer.finishedTransfers = [];
     $scope.offers = fileTransfer.offers = [];
 

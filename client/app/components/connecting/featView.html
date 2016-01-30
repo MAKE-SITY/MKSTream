@@ -17,8 +17,8 @@
       <tr ng-repeat="offer in offers">
         <td>{{offer.name}}</td>
         <td>{{offer.size}}</td>
-        <td><button ng-click="offer.accept()">Accept</button></td>
-        <td><button ng-click="offer.reject()">Reject</button></td>
+        <td><button ng-click="acceptFileOffer(offer)">Accept</button></td>
+        <td><button ng-click="rejectFileOffer(offer)">Reject</button></td>
       </tr>
     </tbody>
   </table>
