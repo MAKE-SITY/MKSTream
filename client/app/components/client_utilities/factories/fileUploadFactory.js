@@ -26,7 +26,6 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUploadObj.acceptFileOffer = function(offer){
-    console.log('Offer object', offer);
     offer.conn.send({
       name: offer.name,
       size: offer.rawSize,
