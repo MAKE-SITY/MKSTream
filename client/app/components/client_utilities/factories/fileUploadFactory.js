@@ -44,9 +44,9 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   var convertRate = function(rate) {
     // expects kB/s
     if (rate > 1000) {
-      return (rate / 1000).toString() + ' MB/s';
+      return (rate / 1000).toFixed(2).toString() + ' MB/s';
     } else {
-      return rate.toString() + ' kB/s';
+      return rate.toFixed(2).toString() + ' kB/s';
     }
   };
 
