@@ -1,6 +1,6 @@
 angular.module('utils.fileUpload', ['utils.fileReader'])
 
-.factory('fileUpload', ['fileReader', function(fileReader) {
+.factory('fileUpload', ['fileReader', 'fileTransfer', function(fileReader, fileTransfer) {
   var fileUploadObj = {};
 
   fileUploadObj.getFiles = function() {
@@ -23,7 +23,23 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     } else  {
         return (num / 1000).toFixed(2) + ' KB'
     }
-  }
+  };
+
+  fileUploadObj.acceptFileOffer = function(offer){
+    console.log('Offer object', offer);
+    offer.conn.send({
+      name: offer.name,
+      size: offer.rawSize,
+      type: 'file-accepted'
+    });
+    var index = fileTransfer.offers.indexOf(offer);
+    fileTransfer.offers.splice(index, 1);
+  };
+
+  fileUploadObj.rejectFileOffer = function(offer){
+    var index = fileTransfer.offers.indexOf(offer);
+    fileTransfer.offers.splice(index, 1);
+  };
 
   return fileUploadObj;
 
