@@ -6,22 +6,21 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   var fileNumber = 0;
   var fullArray = [];
   // for transfer rate
-  var currentBytes = 0;
   var getTransferRate = function(transferObj) {
       var currentTime = Date.now();
       var timeToWait = 500; // ms
       if (currentTime >= transferObj.nextTime) {
         transferObj.nextTime = Date.now() + timeToWait;
-        var pastBytes = currentBytes;
-        currentBytes = transferObj.progress;
-        var rate = ((currentBytes - pastBytes)) / (timeToWait) // bytes/ms i.e. KB/s
-        console.log('CURRENT BYTES', currentBytes);
+        var pastBytes = transferObj.stored;
+        transferObj.stored = transferObj.progress;
+        var rate = ((transferObj.stored - pastBytes)) / (timeToWait) // bytes/ms i.e. KB/s
+        console.log('CURRENT BYTES', transferObj.stored);
         console.log('PASTCOUNT', pastBytes);
-        console.log('DIFFERENCE', currentBytes - pastBytes);
+        console.log('DIFFERENCE', transferObj.stored - pastBytes);
         var maxFileSize = transferObj.size;
-        timeRemaining = (maxFileSize - currentBytes) / rate; // bytes / bytes/ms -> ms
+        timeRemaining = (maxFileSize - transferObj.stored) / rate; // bytes / bytes/ms -> ms
         console.log('maxFileSize', maxFileSize);
-        console.log('REMAINING BYTES', maxFileSize - currentBytes);
+        console.log('REMAINING BYTES', maxFileSize - transferObj.stored);
         console.log('RATE:', rate / 1000, 'MB/S'); // KB/s / 1000 -> MB/s
         console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 's')
       }
@@ -64,8 +63,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           progress: 0,
           fileNumber: fileNumber,
           chunkCount: 0,
+          stored: 0,
           // used for transfer rate
-          transferred: 0,
           nextTime: Date.now()
         };
       });
