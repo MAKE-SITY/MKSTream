@@ -41,12 +41,12 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
   fileUploadObj.getTransferRate = function(transferObj) {
     var currentTime = Date.now();
-    var timeToWait = 500; // ms
+    var timeToWait = 100; // ms
     if (currentTime >= transferObj.nextTime) {
       transferObj.nextTime = Date.now() + timeToWait;
       var pastBytes = transferObj.stored;
       transferObj.stored = transferObj.progress;
-      var rate = ((transferObj.stored - pastBytes)) / (timeToWait) // bytes/ms i.e. KB/s
+      var rate = ((transferObj.stored - pastBytes)) / (timeToWait) // B/ms (KB/s)
       console.log('CURRENT BYTES', transferObj.stored);
       console.log('PASTCOUNT', pastBytes);
       console.log('DIFFERENCE', transferObj.stored - pastBytes);
@@ -54,7 +54,14 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       timeRemaining = (maxFileSize - transferObj.stored) / rate; // bytes / bytes/ms -> ms
       console.log('maxFileSize', maxFileSize);
       console.log('REMAINING BYTES', maxFileSize - transferObj.stored);
-      console.log('RATE:', rate / 1000, 'MB/S'); // KB/s / 1000 -> MB/s
+      var convertedRate = function(rate) {
+        if (rate > 1000) {
+          return (rate / 1000).toString() + ' MB/s';
+        } else {
+          return (rate.toString() + " KB/s")
+        }
+      }
+      console.log('RATE:', convertedRate(rate));
       console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 's')
     }
   }
