@@ -142,7 +142,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
         });
       }
     }
-  }
+  };
 
   return webRTCObj;
 

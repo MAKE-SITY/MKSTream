@@ -25,7 +25,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     scope.$apply(function() {
       var offer = {
         name: data.name,
-        size: fileUpload.convert(data.size),
+        size: fileUpload.convertFileSize(data.size),
         conn: conn,
         rawSize: data.size
       };
@@ -84,7 +84,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                   fullArray[key.split(':')[1]] = value;
                   // delete doucment after appending
                   localforage.removeItem(key);
-                  console.log('Removed key:', key)
+                  console.log('Removed key:', key);
                 }
                 // clear this document from db after
               }, function(err) {

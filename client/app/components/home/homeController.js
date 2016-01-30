@@ -46,7 +46,7 @@ angular.module('home', [
       if (fileTransfer.connected) {
         fileTransfer.conn.forEach(function(connection) {
           webRTC.clearQueue(fileTransfer.myItems, connection);
-        })
+        });
       }
 
       if (!fileTransfer.peer) {
