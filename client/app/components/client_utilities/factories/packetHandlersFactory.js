@@ -57,23 +57,26 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       transferObj.progress += 16384;
     });
     // for transfer rate
-    var currentTime = Date.now();
-    var timeToWait = 500; // ms
-    if (currentTime >= nextTime) {
-      nextTime = Date.now() + timeToWait;
-      var pastBytes = currentBytes;
-      currentBytes = transferObj.progress;
-      var rate = ((currentBytes - pastBytes)) / (timeToWait) // bytes per ms
-      console.log('CURRENT BYTES', currentBytes);
-      console.log('PASTCOUNT', pastBytes);
-      console.log('DIFFERENCE', currentBytes - pastBytes);
-      var maxFileSize = fileTransfer.incomingFileTransfers[data.id].size;
-      timeRemaining = (maxFileSize - currentBytes) / rate; // bytes / bytes/ms -> ms
-      console.log('maxFileSize', maxFileSize);
-      console.log('REMAINING BYTES', maxFileSize - currentBytes);
-      console.log('RATE:', rate / 1000, 'MB/S');
-      console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 'S')
+    var getTransferRate = function(input) {
+      var currentTime = Date.now();
+      var timeToWait = 500; // ms
+      if (currentTime >= nextTime) {
+        nextTime = Date.now() + timeToWait;
+        var pastBytes = currentBytes;
+        currentBytes = input.progress;
+        var rate = ((currentBytes - pastBytes)) / (timeToWait) // bytes per ms
+        console.log('CURRENT BYTES', currentBytes);
+        console.log('PASTCOUNT', pastBytes);
+        console.log('DIFFERENCE', currentBytes - pastBytes);
+        var maxFileSize = input.size;
+        timeRemaining = (maxFileSize - currentBytes) / rate; // bytes / bytes/ms -> ms
+        console.log('maxFileSize', maxFileSize);
+        console.log('REMAINING BYTES', maxFileSize - currentBytes);
+        console.log('RATE:', rate / 1000, 'MB/S');
+        console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 'S')
+      }
     }
+    getTransferRate(transferObj);
     // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
     if (transferObj.buffer.length >= 5000) {
       console.log('saved chunk at', transferObj.buffer.length);
