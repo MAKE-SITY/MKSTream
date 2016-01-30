@@ -68,7 +68,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       console.log('PASTCOUNT', pastBytes);
       console.log('DIFFERENCE', currentBytes - pastBytes);
       var maxFileSize = fileTransfer.incomingFileTransfers[data.id].size;
-      timeRemaining = (maxFileSize - currentBytes) / rate; // bytes / bytes/ms -> ms * 1000 -> s
+      timeRemaining = (maxFileSize - currentBytes) / rate; // bytes / bytes/ms -> ms
       console.log('maxFileSize', maxFileSize);
       console.log('REMAINING BYTES', maxFileSize - currentBytes);
       console.log('RATE:', rate / 1000, 'MB/S');
