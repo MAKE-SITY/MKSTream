@@ -29,7 +29,7 @@ angular.module('connecting', [
     setTimeout(function() {
       var clipboard = new Clipboard('.clipboardButton');
       document.getElementById('currentUrl').value = window.location.href;
-    }, 0)
+    }, 0);
 
     var disconnectingReceiverId = null;
     // console.log(window.location.href);
