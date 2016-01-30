@@ -44,8 +44,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           progress: 0,
           fileNumber: fileNumber,
           chunkCount: 0,
-          stored: 0,
           // used for transfer rate
+          stored: 0,
           nextTime: Date.now()
         };
       });
@@ -56,7 +56,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     scope.$apply(function() {
       transferObj.progress += 16384;
     });
-    // for transfer rate
     
     fileUpload.getTransferRate(transferObj);
     // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
