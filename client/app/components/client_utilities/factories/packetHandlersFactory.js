@@ -3,7 +3,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
 .factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', '$q', function(webRTC, fileUpload, linkGeneration, fileTransfer, $q) {
   var packetHandlerObj = {};
-  var chunkCount = 0;
   var fileNumber = 0;
   var fullArray = [];
   // for transfer rate
@@ -46,7 +45,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           name: data.name,
           size: data.size,
           progress: 0,
-          fileNumber: fileNumber
+          fileNumber: fileNumber,
+          chunkCount: 0
         };
       });
       fileNumber++;
@@ -72,28 +72,30 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       console.log('maxFileSize', maxFileSize);
       console.log('REMAINING BYTES', maxFileSize - currentBytes);
       console.log('RATE:', rate / 1000, 'MB/S');
-      console.log('TIME REMAINING:', (timeRemaining/1000).toFixed(0), 'S')
+      console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 'S')
     }
     // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
     if (transferObj.buffer.length >= 5000) {
       console.log('saved chunk at', transferObj.buffer.length);
       var blobChunk = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      localforage.setItem(data.id + ':' + chunkCount.toString(), blobChunk);
-      chunkCount++;
+      localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), blobChunk);
+      transferObj.chunkCount++;
     }
 
     if (data.last) {
       var lastBlob = new Blob(transferObj.buffer);
       transferObj.buffer = [];
-      localforage.setItem(data.id + ':' + chunkCount.toString(), lastBlob, function() {
+      localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), lastBlob, function() {
           console.log('saved last chunk');
         })
         .then(
           function(result) {
             // console.log('first promise resolved');
-            chunkCount++;
+            transferObj.chunkCount++;
             localforage.iterate(function(value, key, iterationNumber) {
+                console.log('DB KEY', key);
+                console.log('DB VALUE', value);
                 if (key.startsWith(data.id)) {
                   fullArray[key.split(':')[1]] = value;
                   // delete doucment after appending
@@ -102,7 +104,9 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 }
                 // clear this document from db after
               }, function(err) {
-                if (!err) {
+                if (err) {
+                  console.log('Error iterating through db!:', err);
+                } else {
                   console.log('Iteration has completed');
                 }
               })
