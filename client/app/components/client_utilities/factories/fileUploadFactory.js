@@ -17,15 +17,15 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
 
   fileUploadObj.convert = function(num) {
     if (num > 1000000000) {
-        return (num / 1000000000).toFixed(2) + ' GB'
+      return (num / 1000000000).toFixed(2) + ' GB'
     } else if (num > 1000000) {
-        return (num / 1000000).toFixed(2) + ' MB'
-    } else  {
-        return (num / 1000).toFixed(2) + ' KB'
+      return (num / 1000000).toFixed(2) + ' MB'
+    } else {
+      return (num / 1000).toFixed(2) + ' KB'
     }
   };
 
-  fileUploadObj.acceptFileOffer = function(offer){
+  fileUploadObj.acceptFileOffer = function(offer) {
     offer.conn.send({
       name: offer.name,
       size: offer.rawSize,
@@ -35,10 +35,29 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     fileTransfer.offers.splice(index, 1);
   };
 
-  fileUploadObj.rejectFileOffer = function(offer){
+  fileUploadObj.rejectFileOffer = function(offer) {
     var index = fileTransfer.offers.indexOf(offer);
     fileTransfer.offers.splice(index, 1);
   };
+  fileUploadObj.getTransferRate = function(transferObj) {
+    var currentTime = Date.now();
+    var timeToWait = 500; // ms
+    if (currentTime >= transferObj.nextTime) {
+      transferObj.nextTime = Date.now() + timeToWait;
+      var pastBytes = transferObj.stored;
+      transferObj.stored = transferObj.progress;
+      var rate = ((transferObj.stored - pastBytes)) / (timeToWait) // bytes/ms i.e. KB/s
+      console.log('CURRENT BYTES', transferObj.stored);
+      console.log('PASTCOUNT', pastBytes);
+      console.log('DIFFERENCE', transferObj.stored - pastBytes);
+      var maxFileSize = transferObj.size;
+      timeRemaining = (maxFileSize - transferObj.stored) / rate; // bytes / bytes/ms -> ms
+      console.log('maxFileSize', maxFileSize);
+      console.log('REMAINING BYTES', maxFileSize - transferObj.stored);
+      console.log('RATE:', rate / 1000, 'MB/S'); // KB/s / 1000 -> MB/s
+      console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 's')
+    }
+  }
 
   return fileUploadObj;
 

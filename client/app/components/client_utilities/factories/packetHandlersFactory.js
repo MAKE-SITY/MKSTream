@@ -5,26 +5,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   var packetHandlerObj = {};
   var fileNumber = 0;
   var fullArray = [];
-  // for transfer rate
-  var getTransferRate = function(transferObj) {
-      var currentTime = Date.now();
-      var timeToWait = 500; // ms
-      if (currentTime >= transferObj.nextTime) {
-        transferObj.nextTime = Date.now() + timeToWait;
-        var pastBytes = transferObj.stored;
-        transferObj.stored = transferObj.progress;
-        var rate = ((transferObj.stored - pastBytes)) / (timeToWait) // bytes/ms i.e. KB/s
-        console.log('CURRENT BYTES', transferObj.stored);
-        console.log('PASTCOUNT', pastBytes);
-        console.log('DIFFERENCE', transferObj.stored - pastBytes);
-        var maxFileSize = transferObj.size;
-        timeRemaining = (maxFileSize - transferObj.stored) / rate; // bytes / bytes/ms -> ms
-        console.log('maxFileSize', maxFileSize);
-        console.log('REMAINING BYTES', maxFileSize - transferObj.stored);
-        console.log('RATE:', rate / 1000, 'MB/S'); // KB/s / 1000 -> MB/s
-        console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 's')
-      }
-    }
+  
   packetHandlerObj.accepted = function(data, conn, scope) {
     var fileKey = linkGeneration.fuid();
     fileTransfer.myItems.forEach(function(val) {
@@ -77,7 +58,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
     // for transfer rate
     
-    getTransferRate(transferObj);
+    fileUpload.getTransferRate(transferObj);
     // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
     if (transferObj.buffer.length >= 5000) {
       console.log('saved chunk at', transferObj.buffer.length);
