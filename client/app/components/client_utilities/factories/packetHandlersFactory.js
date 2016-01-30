@@ -26,20 +26,10 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       var offer = {
         name: data.name,
         size: fileUpload.convert(data.size),
-        accept: function() {
-          conn.send({
-            name: data.name,
-            size: data.size,
-            type: 'file-accepted'
-          });
-          fileTransfer.offers.splice(offer.index, 1);
-        },
-        reject: function() {
-          fileTransfer.offers.splice(offer.index, 1);
-        }
+        conn: conn,
+        rawSize: data.size
       };
       fileTransfer.offers.push(offer);
-      offer.index = fileTransfer.offers.indexOf(offer);
     });
   };
 
@@ -104,8 +94,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 fullArray = [];
 
                 fileTransfer.finishedTransfers.push(newFile);
-                var downloadAnchor = document.getElementById('file' + fileTransfer.incomingFileTransfers[data.id].fileNumber);
-                
+                var downloadAnchor = document.getElementById('file' + transferObj.fileNumber);
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
               });
