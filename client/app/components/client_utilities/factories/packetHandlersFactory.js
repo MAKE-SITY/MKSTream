@@ -23,22 +23,13 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
   packetHandlerObj.offer = function(data, conn, scope) {
     scope.$apply(function() {
-      var index = fileTransfer.offers.length;
-      fileTransfer.offers.push({
+      var offer = {
         name: data.name,
         size: fileUpload.convert(data.size),
-        accept: function() {
-          conn.send({
-            name: data.name,
-            size: data.size,
-            type: 'file-accepted'
-          });
-          fileTransfer.offers.splice(index, 1);
-        },
-        reject: function() {
-          fileTransfer.offers.splice(index, 1);
-        }
-      });
+        conn: conn,
+        rawSize: data.size
+      };
+      fileTransfer.offers.push(offer);
     });
   };
 
@@ -50,9 +41,11 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           id: data.id,
           name: data.name,
           size: data.size,
-          progress: 0
+          progress: 0,
+          fileNumber: fileNumber
         };
       });
+      fileNumber++;
     }
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     transferObj.buffer.push(data.chunk);
@@ -82,8 +75,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 if (key.startsWith(data.id)) {
                   fullArray[key.split(':')[1]] = value;
                   // delete doucment after appending
-                  localforage.removeItem(data.id + (iterationNumber - 1));
-                  console.log('Removed key:', data.id + (iterationNumber - 1))
+                  localforage.removeItem(key);
+                  console.log('Removed key:', key)
                 }
                 // clear this document from db after
               }, function(err) {
@@ -101,8 +94,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 fullArray = [];
 
                 fileTransfer.finishedTransfers.push(newFile);
-                var downloadAnchor = document.getElementById('file' + fileNumber.toString());
-                fileNumber++;
+                var downloadAnchor = document.getElementById('file' + transferObj.fileNumber);
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
               });
