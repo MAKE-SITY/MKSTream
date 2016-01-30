@@ -23,8 +23,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
   packetHandlerObj.offer = function(data, conn, scope) {
     scope.$apply(function() {
-      var index = fileTransfer.offers.length;
-      fileTransfer.offers.push({
+      var offer = {
         name: data.name,
         size: fileUpload.convert(data.size),
         accept: function() {
@@ -33,12 +32,14 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             size: data.size,
             type: 'file-accepted'
           });
-          fileTransfer.offers.splice(index, 1);
+          fileTransfer.offers.splice(offer.index, 1);
         },
         reject: function() {
-          fileTransfer.offers.splice(index, 1);
+          fileTransfer.offers.splice(offer.index, 1);
         }
-      });
+      };
+      fileTransfer.offers.push(offer);
+      offer.index = fileTransfer.offers.indexOf(offer);
     });
   };
 
@@ -50,9 +51,11 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           id: data.id,
           name: data.name,
           size: data.size,
-          progress: 0
+          progress: 0,
+          fileNumber: fileNumber
         };
       });
+      fileNumber++;
     }
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     transferObj.buffer.push(data.chunk);
@@ -82,8 +85,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 if (key.startsWith(data.id)) {
                   fullArray[key.split(':')[1]] = value;
                   // delete doucment after appending
-                  localforage.removeItem(data.id + (iterationNumber - 1));
-                  console.log('Removed key:', data.id + (iterationNumber - 1))
+                  localforage.removeItem(key);
+                  console.log('Removed key:', key)
                 }
                 // clear this document from db after
               }, function(err) {
@@ -101,8 +104,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 fullArray = [];
 
                 fileTransfer.finishedTransfers.push(newFile);
-                var downloadAnchor = document.getElementById('file' + fileNumber.toString());
-                fileNumber++;
+                var downloadAnchor = document.getElementById('file' + fileTransfer.incomingFileTransfers[data.id].fileNumber);
+                
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
               });
