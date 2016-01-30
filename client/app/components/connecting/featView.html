@@ -1,41 +1,53 @@
-<div>
-{{ link }}
+<div class="row">
+  <div class "col-md-3">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="offer in offers">
+            <td>{{offer.name}}</td>
+            <td>{{offer.size}}</td>
+            <td>
+              <button ng-click="acceptFileOffer(offer)">Accept</button>
+            </td>
+            <td>
+              <button ng-click="rejectFileOffer(offer)">Reject</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <!-- Target -->
+  <div class="col-md-6"></div>
+  <div class="col-md-3>">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Size</th>
+          <th>Test</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='downloadTable' ng-repeat="transfer in incomingFileTransfers">
+          <td>{{transfer.name}}</td>
+          <td>
+            <progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress>
+          </td>
+          <td><a href='' id='file{{$index}}'>Download</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <input id="currentUrl" value="">
   <!-- Trigger -->
-  <button class="btn" data-clipboard-target="#currentUrl">
+  <button class="clipboardButton" data-clipboard-target="#currentUrl">
     Copy to clipboard
   </button>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>File Name</th>
-        <th>Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="offer in offers">
-        <td>{{offer.name}}</td>
-        <td>{{offer.size}}</td>
-        <td><button ng-click="offer.accept()">Accept</button></td>
-        <td><button ng-click="offer.reject()">Reject</button></td>
-      </tr>
-    </tbody>
-  </table>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>File</th>
-        <th>Size</th>
-        <th>Test</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr id='downloadTable' ng-repeat="transfer in incomingFileTransfers">
-        <td>{{transfer.name}}</td>
-        <td><progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress></td>
-        <td><a href='' id='file{{$index}}'>Download</a></td>
-      </tr>
-    </tbody>
-  </table>
 </div>

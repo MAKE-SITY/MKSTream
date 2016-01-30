@@ -9,7 +9,7 @@ body {
     height: 100%;
     font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
-    background-color: #6e5494;
+    background-color: #000;
     /*overflow: hidden;*/
 }
 
@@ -20,7 +20,6 @@ html {
 
 h1,
 h2,
-h3,
 h4,
 h5,
 h6 {
@@ -148,7 +147,7 @@ a:focus {
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url(../img/intro-bg.jpg) no-repeat bottom center scroll;
+    background: url(./purple2.jpg) no-repeat bottom center scroll;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -194,12 +193,12 @@ a:focus {
     font-size: 40px;
     color: #fff;
     background: 0 0;
-    -webkit-transition: background .3s ease-in-out;
+/*    -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;*/
 }
 
-.btn-circle:hover,
+/*.btn-circle:hover,
 .btn-circle:focus {
     outline: 0;
     color: #fff;
@@ -223,7 +222,7 @@ a:focus {
     -webkit-animation-timing-function: linear;
     -moz-animation-timing-function: linear;
 }
-
+*/
 @-webkit-keyframes pulse {    
     0% {
         -webkit-transform: scale(1);
@@ -266,7 +265,7 @@ a:focus {
     width: 100%;
     padding: 50px 0;
     color: #fff;
-    background: url(../img/downloads-bg.jpg) no-repeat center center scroll;
+    background: url(./purple.jpg) no-repeat center center scroll;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -318,7 +317,6 @@ a:focus {
     color: #000;
     background-color: #42dca3;
 }
-
 ul.banner-social-buttons {
     margin-top: 0;
 }
@@ -391,8 +389,8 @@ body {
   margin-left: -100px;*/
   /*  width: 200px;*/
   height: 100px;
-  background-color: #6e5494;
-  color: white;
+  background-color: #fff;
+  color: black;
   border-radius: 5px 10px 5px 10px;
   transition: all 0.5s ease 0s;
 }
@@ -412,4 +410,16 @@ body {
 #fileLink:hover {
   opacity: .9;
   transform: scale(1.01, 1.01);
+}
+
+@-webkit-keyframes whitePulse {
+  from { background-color: transparent; -webkit-box-shadow: 0 0 9px #fff; }
+  65% { background-color: #6e5494; -webkit-box-shadow: 0 0 px #91bd09; }
+  to { background-color: transparent; -webkit-box-shadow: 0 0 9px #fff; }
+}   
+
+.glowing {
+  -webkit-animation-name: whitePulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
 }
