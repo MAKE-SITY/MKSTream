@@ -22,10 +22,17 @@ angular.module('home', [
     var disconnectingSenderId = null;
     var generateLink = function() {
       $scope.hash = linkGeneration.guid();
-      $state.go('room', {roomHash: $scope.hash});
+      $state.go('room', {
+        roomHash: $scope.hash
+      });
     };
 
+    $('#filesId').on('click', function() {
+      $('#lightningBoltButton').addClass('glowing');
+    });
+
     document.getElementById('filesId').addEventListener('change', function() {
+
       console.log('home input listener');
       var files = this.files;
       for (var i = 0; i < files.length; i++) {
@@ -36,8 +43,8 @@ angular.module('home', [
         fileTransfer.myItems.push(files[i]);
       }
 
-      if(fileTransfer.connected){
-        fileTransfer.conn.forEach(function(connection){
+      if (fileTransfer.connected) {
+        fileTransfer.conn.forEach(function(connection) {
           webRTC.clearQueue(fileTransfer.myItems, connection);
         })
       }
@@ -67,13 +74,13 @@ angular.module('home', [
           fileTransfer.conn.push(conn);
           console.log('peerJS connection object', conn);
 
-          conn.on('open', function(){
+          conn.on('open', function() {
             fileTransfer.connected = true;
             fileTransfer.conn.forEach(function(connection) {
               webRTC.clearQueue(fileTransfer.myItems, connection);
             });
           });
-          
+
 
           conn.on('data', function(data) {
             console.log('incoming packet');
