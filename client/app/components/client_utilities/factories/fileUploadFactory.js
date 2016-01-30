@@ -41,7 +41,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
   fileUploadObj.getTransferRate = function(transferObj) {
     var currentTime = Date.now();
-    var timeToWait = 100; // ms
+    var timeToWait = 1000; // ms
     if (currentTime >= transferObj.nextTime) {
       transferObj.nextTime = Date.now() + timeToWait;
       var pastBytes = transferObj.stored;
@@ -51,18 +51,45 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       console.log('PASTCOUNT', pastBytes);
       console.log('DIFFERENCE', transferObj.stored - pastBytes);
       var maxFileSize = transferObj.size;
-      timeRemaining = (maxFileSize - transferObj.stored) / rate; // bytes / bytes/ms -> ms
+      timeRemaining = (maxFileSize - transferObj.stored) / rate / 1000; // ms/1000 -> s
       console.log('maxFileSize', maxFileSize);
       console.log('REMAINING BYTES', maxFileSize - transferObj.stored);
-      var convertedRate = function(rate) {
+      var convertRate = function(rate) {
+        // expects KB/s
         if (rate > 1000) {
           return (rate / 1000).toString() + ' MB/s';
         } else {
           return (rate.toString() + " KB/s")
         }
       }
-      console.log('RATE:', convertedRate(rate));
-      console.log('TIME REMAINING:', (timeRemaining / 1000).toFixed(0), 's')
+
+      console.log('RATE:', convertRate(rate));
+
+      var convertTime = function(time) {
+        // expects seconds
+
+        var sec_num = parseInt(time, 10); // don't forget the second param
+        var hours = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours < 10) {
+          hours = "0" + hours;
+        }
+        if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
+        var time = minutes + ':' + seconds;
+        if (hours > 0) {
+          time = hours + ':' + time;
+        }
+        return time;
+      }
+
+      console.log('TIME REMAINING:', convertTime(timeRemaining))
     }
   }
 
