@@ -20,9 +20,18 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-    var clipboard = new Clipboard('.btn');
-    document.getElementById('currentUrl').value = window.location.href;
+
+    $('#lightningBoltButton').on('click', function() {
+      $('#lightningBoltButton').removeClass('glowing');
+    });
+
+    setTimeout(function() {
+      var clipboard = new Clipboard('.clipboardButton');
+      document.getElementById('currentUrl').value = window.location.href;
+    }, 0)
+
     var disconnectingReceiverId = null;
+    // console.log(window.location.href);
 
     $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers = {};
     $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers = {};
@@ -84,7 +93,7 @@ angular.module('connecting', [
         console.log('connecting input listener');
         var files = this.files;
         for (var i = 0; i < files.length; i++) {
-          if(fileTransfer.myItems.indexOf(files[i]) > -1){
+          if (fileTransfer.myItems.indexOf(files[i]) > -1) {
             continue;
           }
           files[i].beenSent = false;
