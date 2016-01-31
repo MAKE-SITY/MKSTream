@@ -4,6 +4,11 @@ angular.module('utils.fileTransfer', [])
   
   var fileTransferObj = {};
 
+	fileTransferObj.incomingFileTransfers = {};
+  fileTransferObj.outgoingFileTransfers = {};
+  fileTransferObj.finishedTransfers = [];
+  fileTransferObj.offers = [];
+
   return fileTransferObj;
   
 });
