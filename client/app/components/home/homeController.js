@@ -27,11 +27,16 @@ angular.module('home', [
       });
     };
 
-    $('#filesId').on('click', function() {
-      $('#lightningBoltButton').addClass('glowing');
-    });
+    
+
+    $scope.uploadAlert = true;
 
     document.getElementById('filesId').addEventListener('change', function() {
+      
+      $scope.uploadAlert = false;
+      $('#lightningBoltButton').addClass('glowing');
+
+
 
       console.log('home input listener');
       var files = this.files;
