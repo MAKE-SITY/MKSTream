@@ -1,1 +1,18 @@
-<p>downloadView bitches</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Size</th>
+      <th>Test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='downloadTable' ng-repeat="transfer in incomingFileTransfers">
+      <td>{{transfer.name}}</td>
+      <td>
+        <progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress>
+      </td>
+      <td><a href='' id='file{{$index}}'>Download</a></td>
+    </tr>
+  </tbody>
+</table>
