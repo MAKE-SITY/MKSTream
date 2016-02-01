@@ -50,7 +50,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       });
       fileNumber++;
     }
-    var blockSize = 5000;
+    var blockSize = 100;
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     var blockIndex = Math.floor(data.count/blockSize);
     var relativeIndex = data.count % blockSize;
@@ -71,9 +71,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     if (transferObj.progress >= transferObj.size) {
       var lastBlob = new Blob(block);
       block = transferObj.buffer[blockIndex] = null;
-      localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), lastBlob, function() {
-          console.log('saved last block');
-        })
+      localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), lastBlob)
         .then(
           function(result) {
             transferObj.chunkCount++;
