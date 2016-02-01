@@ -8,6 +8,7 @@ angular.module('utils.fileTransfer', [])
   fileTransferObj.outgoingFileTransfers = {};
   fileTransferObj.finishedTransfers = [];
   fileTransferObj.offers = [];
+  fileTransferObj.downloadQueue = [];
 
   return fileTransferObj;
   
