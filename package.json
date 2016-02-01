@@ -5,7 +5,8 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "nf start",
-    "test": "jasmine"
+    "test": "jasmine",
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
