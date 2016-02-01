@@ -9,13 +9,14 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     var fileKey = linkGeneration.fuid();
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
-        webRTC.sendDataInChunks(conn, {
+        var sendData = {
           file: val,
           name: data.name,
           size: data.size,
           id: fileKey,
           scopeRef: scope
-        });
+        };
+        webRTC.sendDataInChunks(conn, sendData);
       }
     });
   };
@@ -66,7 +67,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
 
     fileUpload.getTransferRate(transferObj);
-    // this code takes the data off browser memory and stores to user's temp storage
     
     if (transferObj.progress >= transferObj.size) {
       var lastBlob = new Blob(block);
@@ -78,7 +78,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
             localforage.iterate(function(value, key, iterationNumber) {
                 if (key.startsWith(data.id)) {
                   fullArray[key.split(':')[1]] = value;
-                  // delete doucment after appending
+                  // delete document after appending
                   localforage.removeItem(key);
                   console.log('Removed key:', key);
                 }
@@ -103,10 +103,13 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 var downloadAnchor = document.getElementById('file' + transferObj.fileNumber);
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
+                fileTransfer.downloadQueue.shift();
+                webRTC.checkDownloadQueue();
               });
           }
         );
     } else if (block.chunksReceived === blockSize) {
+    // this code takes the data off browser memory and stores to user's temp storage
       console.log('saved block at ', blockSize, 'chunks');
       var blobChunk = new Blob(block);
       block = transferObj.buffer[blockIndex] = null;
