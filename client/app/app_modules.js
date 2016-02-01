@@ -3,5 +3,10 @@ angular.module('MKSTream', [
   'clientRoutes',
   'home',
   'connecting',
+  'upload',
+  'download',
   'utils'
-]);
+])
+// .run(function($state){
+// 	$state.go('home');
+// });

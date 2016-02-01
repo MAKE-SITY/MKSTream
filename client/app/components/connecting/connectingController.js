@@ -26,20 +26,24 @@ angular.module('connecting', [
       $('#lightningBoltButton').removeClass('glowing');
     });
 
+      $('.currentUrlShow').removeClass('currentUrlHidden');
+
     setTimeout(function() {
       var clipboard = new Clipboard('.clipboardButton');
-      document.getElementById('currentUrl').value = window.location.href;
+      var currentUrl = document.getElementById('currentUrl');
+      currentUrl.value = window.location.href;
+      currentUrl.innerHTML = currentUrl.value;
     }, 0);
 
     var disconnectingReceiverId = null;
     // console.log(window.location.href);
 
-    $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers = {};
-    $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers = {};
+    $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers;
+    $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers;
     $scope.acceptFileOffer = fileUpload.acceptFileOffer;
     $scope.rejectFileOffer = fileUpload.rejectFileOffer;
-    fileTransfer.finishedTransfers = [];
-    $scope.offers = fileTransfer.offers = [];
+    $scope.offers = fileTransfer.offers;
+    console.log('connecting scope', $scope.offers);
 
     if (!fileTransfer.peer) {
       fileTransfer.myItems = [];

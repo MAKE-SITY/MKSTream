@@ -1,0 +1,44 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>File Name</th>
+      <th>Size</th>
+    </tr>
+  </thead>
+  <br>
+  <tbody>
+    <tr ng-repeat="offer in offers">
+      <td>{{offer.name}}</td>
+      <td>{{offer.size}}</td>
+      <td>
+        <button class="btn btn-default" ng-click="acceptFileOffer(offer)">Accept</button>
+      </td>
+      <td>
+        <button class="btn btn-default" ng-click="rejectFileOffer(offer)">Reject</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--  <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Size</th>
+          <th>Test</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id='downloadTable' ng-repeat="transfer in incomingFileTransfers">
+          <td>{{transfer.name}}</td>
+          <td>
+            <progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress>
+          </td>
+          <td><a href='' id='file{{$index}}'>Download</a></td>
+        </tr>
+      </tbody>
+    </table> -->
+<!-- <input id="currentUrl" value="">
+    <button class="clipboardButton" data-clipboard-target="#currentUrl">
+      Copy to clipboard
+    </button>
+  </div> -->
