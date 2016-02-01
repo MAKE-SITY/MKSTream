@@ -50,7 +50,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       });
       fileNumber++;
     }
-    var blockSize = 100;
+    var blockSize = 5000;
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     var blockIndex = Math.floor(data.count/blockSize);
     var relativeIndex = data.count % blockSize;
