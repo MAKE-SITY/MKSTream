@@ -6,7 +6,6 @@ var app = express();
 require('./config/middleware.js')(app, express);
 
 var server = app.listen(port);
-
 console.log('Now listening on port: ' + port);
 
 
@@ -16,4 +15,5 @@ var options = {
     debug: true
 };
 
+app.use('/bower_components', express.static(__dirname + './../bower_components'));
 app.use('/peerjs', ExpressPeerServer(server, options));
