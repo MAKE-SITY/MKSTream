@@ -1,6 +1,6 @@
 angular.module('utils.fileUpload', ['utils.fileReader'])
 
-.factory('fileUpload', ['fileReader', 'fileTransfer', function(fileReader, fileTransfer) {
+.factory('fileUpload', ['fileReader', 'fileTransfer', 'webRTC', function(fileReader, fileTransfer, webRTC) {
   var fileUploadObj = {};
 
   fileUploadObj.getFiles = function() {
@@ -26,13 +26,10 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUploadObj.acceptFileOffer = function(offer) {
-    offer.conn.send({
-      name: offer.name,
-      size: offer.rawSize,
-      type: 'file-accepted'
-    });
+    fileTransfer.downloadQueue.push(offer);
     var index = fileTransfer.offers.indexOf(offer);
     fileTransfer.offers.splice(index, 1);
+    webRTC.checkDownloadQueue();
   };
 
   fileUploadObj.rejectFileOffer = function(offer) {
