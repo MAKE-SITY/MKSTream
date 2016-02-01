@@ -141,6 +141,22 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     }
   };
 
+  webRTCObj.checkDownloadQueue = function(){
+    var first = fileTransfer.downloadQueue[0];
+    if(fileTransfer.downloadQueue.length === 0){
+      console.log('download queue empty');
+    }
+    else if(!first.sending){
+      console.log('starting download');
+      first.sending = true;
+      first.conn.send({
+        name: first.name,
+        size: first.rawSize,
+        type: 'file-accepted'
+      });
+    }
+  };
+
   return webRTCObj;
 
 }]);
