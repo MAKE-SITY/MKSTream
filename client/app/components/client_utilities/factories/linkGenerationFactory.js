@@ -9,7 +9,7 @@ angular.module('utils.linkGeneration', [])
   };
 
   linkGenerationObj.guid = function() {
-    return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
+    return adjAdjAnimal(); // global function from adjective-adjective-animal bower package, returns promise
   };
 
   linkGenerationObj.fuid = function() {
