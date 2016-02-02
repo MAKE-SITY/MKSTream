@@ -9,9 +9,9 @@ describe('fileTransferObj Factory', function() {
   });
 
   describe('fileTransferObj', function() {
-    it("Should return an empty object", function() {
+    it("Should return an object with 5 keys", function() {
       var myObj = Object.keys(factory).length;
-      expect(myObj).toEqual(0);
+      expect(myObj).toEqual(5);
     });
   });
 });

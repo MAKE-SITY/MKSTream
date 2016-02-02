@@ -1,4 +1,4 @@
-describe('homeController', function() {
+xdescribe('homeController', function() {
   var $scope,
       $http,
       // $state,
