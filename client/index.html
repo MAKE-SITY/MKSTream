@@ -4,15 +4,11 @@
 <head>
   <link rel="shortcut icon" href="./assets/favicon-bolt.ico" />
   <title></title>
-  <!-- bower components -->
-  <script src='./../bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js'></script>
-  <script src='./../bower_components/angular/angular.min.js'></script>
-  <script src='./../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
-  <script src='./../bower_components/clipboard/dist/clipboard.min.js'></script>
-  <script src='./lib/nochunkpeer.min.js'></script>
-  <script src='./../bower_components/localforage/dist/localforage.min.js'></script>
-  <script src='./../bower_components/jquery/dist/jquery.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+
+  <!-- All library files and app files minified -->
+  <script src='allmincode.js'></script>
+
+  <!-- CDNs -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -20,7 +16,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <!-- bower components -->
+  <!--
+  <script src='./../bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js'></script>
+  <script src='./../bower_components/angular/angular.min.js'></script>
+  <script src='./../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+  <script src='./../bower_components/clipboard/dist/clipboard.min.js'></script>
+
+  <script src='./lib/nochunkbufferfixpeer.min.js'></script>
+  
+  <script src='./../bower_components/localforage/dist/localforage.min.js'></script>
+  <script src='./../bower_components/jquery/dist/jquery.min.js'></script>
+  -->
+
   <!-- Add additional factories -->
+  <!--
   <script src='./app/components/client_utilities/client_utilities.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileUploadFactory.js'></script>
@@ -28,17 +39,24 @@
   <script src='./app/components/client_utilities/factories/webRTCFactory.js'></script>
   <script src='./app/components/client_utilities/factories/packetHandlersFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileTransferFactory.js'></script>
+  -->
+
   <!-- Add additional controller scripts -->
+  <!--
   <script src='./app/components/connecting/connectingController.js'></script>
   <script src='./app/components/connecting/uploadController.js'></script>
   <script src='./app/components/connecting/downloadController.js'></script>
   <script src='./app/components/home/homeController.js'></script>
+  -->
+
   <!-- Added module and routes -->
+  <!--
   <script src='./app/app_routes.js'></script>
   <script src='./app/app_modules.js'></script>
-  <!-- Run grunt uglify to update the app's source code-->
-  <!-- // <script src='appmincode.js'></script> -->
-  <link href="./assets/styles.css" rel="stylesheet">
+  -->
+
+  <link href="./assets/styles.min.css" rel="stylesheet">
+  <!-- <link href="./assets/styles.css" rel="stylesheet"> -->
 </head>
 
 <body ng-controller='homeController'>

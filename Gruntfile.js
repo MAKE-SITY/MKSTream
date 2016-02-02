@@ -13,10 +13,17 @@ module.exports = function(grunt) {
     uglify: {
       target: {
         files: {
-          // uncomment this if you need to re-uglify new library files.
-          // You can also set mangle to true for lib files, but do not mangle client files.
-          // 'client/lib/dest/libs.min.js': ['client/lib/angular.js', 'client/lib/angular-ui-router.js']
-          'client/appmincode.js': ['client/app/**/*.js']
+          // These need to be uglified in specific order, app files last.
+          'client/allmincode.js': [
+            'bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js',
+            'bower_components/angular/angular.min.js',
+            'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+            'bower_components/clipboard/dist/clipboard.min.js',
+            'client/lib/nochunkbufferfixpeer.min.js',
+            'bower_components/localforage/dist/localforage.min.js',
+            'bower_components/jquery/dist/jquery.min.js',
+            'client/app/**/*.js'
+          ]
         }
       }
 
@@ -25,14 +32,14 @@ module.exports = function(grunt) {
     cssmin: {
       target: {
         files: {
-          'client/assets/dest/styles.min.css': ['styles.css']
+          'client/assets/styles.min.css': ['client/assets/styles.css']
         }
       }
     },
 
     watch: {
-      files: ['client/app/**/*.js', 'server/**/*.js', 'database/**/*.js'],
-      tasks: ['jshint']
+      files: ['client/app/**/*.js', 'client/assets/styles.css'],
+      tasks: ['uglify', 'cssmin']
     }
   });
 
