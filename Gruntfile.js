@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             'bower_components/angular/angular.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
             'bower_components/clipboard/dist/clipboard.min.js',
-            'client/lib/nochunkpeer.min.js',
+            'client/lib/nochunkbufferfixpeer.min.js',
             'bower_components/localforage/dist/localforage.min.js',
             'bower_components/jquery/dist/jquery.min.js',
             'client/app/**/*.js'
