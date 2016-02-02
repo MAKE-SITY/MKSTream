@@ -495,3 +495,20 @@ body {
 .something {
     position: absolute;
 }
+
+
+.table-data-name {
+    text-align: left;
+}
+.header-bar {
+    border:none; 
+    height:3px; 
+    color:#fff; 
+    background-color:#fff;
+}
+
+.table-data {
+    word-wrap: break-word;
+}
+
+
