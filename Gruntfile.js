@@ -38,8 +38,8 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: ['client/app/**/*.js'],
-      tasks: ['uglify']
+      files: ['client/app/**/*.js', 'client/assets/styles.css'],
+      tasks: ['uglify', 'cssmin']
     }
   });
 
