@@ -2,34 +2,30 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
 
 .factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', '$q', function(webRTC, fileUpload, linkGeneration, fileTransfer, $q) {
-  var packetHandlerObj = {};
-  var chunkCount = 0;
+  var packetHandler = {};
   var fileNumber = 0;
   var fullArray = [];
-  // for transfer rate
-  var currentBytes = 0;
-  var nextTime = Date.now();
-
-  packetHandlerObj.accepted = function(data, conn, scope) {
+  packetHandler.accepted = function(data, conn, scope) {
     var fileKey = linkGeneration.fuid();
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
-        webRTC.sendDataInChunks(conn, {
+        var sendData = {
           file: val,
           name: data.name,
           size: data.size,
           id: fileKey,
           scopeRef: scope
-        });
+        };
+        webRTC.sendDataInChunks(conn, sendData);
       }
     });
   };
 
-  packetHandlerObj.offer = function(data, conn, scope) {
+  packetHandler.offer = function(data, conn, scope) {
     scope.$apply(function() {
       var offer = {
         name: data.name,
-        size: fileUpload.convert(data.size),
+        size: fileUpload.convertFileSize(data.size),
         conn: conn,
         rawSize: data.size
       };
@@ -37,73 +33,61 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
   };
 
-  packetHandlerObj.chunk = function(data, scope) {
+  packetHandler.chunk = function(data, scope) {
     if (data.count === 0) {
       scope.$apply(function() {
         fileTransfer.incomingFileTransfers[data.id] = {
-          buffer: [],
+          buffer: {},
           id: data.id,
           name: data.name,
           size: data.size,
           progress: 0,
-          fileNumber: fileNumber
+          fileNumber: fileNumber,
+          chunkCount: 0,
+          // used for transfer rate
+          stored: 0,
+          nextTime: Date.now()
         };
       });
       fileNumber++;
     }
+    var blockSize = 5000;
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
-    transferObj.buffer.push(data.chunk);
+    var blockIndex = Math.floor(data.count/blockSize);
+    var relativeIndex = data.count % blockSize;
+    if(!transferObj.buffer[blockIndex]){
+      transferObj.buffer[blockIndex] = [];
+      transferObj.buffer[blockIndex].chunksReceived = 0;
+    }
+    var block = transferObj.buffer[blockIndex];
+    block[relativeIndex] = data.chunk;
+    block.chunksReceived++;
     scope.$apply(function() {
       transferObj.progress += 16384;
     });
-    // for transfer rate
-    var currentTime = Date.now();
-    var timeToWait = 500; // ms
-    if (currentTime >= nextTime) {
-      nextTime = Date.now() + timeToWait;
-      var pastBytes = currentBytes;
-      currentBytes = transferObj.progress;
-      var rate = ((currentBytes - pastBytes)) / (timeToWait) // bytes per ms
-      console.log('CURRENT BYTES', currentBytes);
-      console.log('PASTCOUNT', pastBytes);
-      console.log('DIFFERENCE', currentBytes - pastBytes);
-      var maxFileSize = fileTransfer.incomingFileTransfers[data.id].size;
-      timeRemaining = (maxFileSize - currentBytes) / rate; // bytes / bytes/ms -> ms
-      console.log('maxFileSize', maxFileSize);
-      console.log('REMAINING BYTES', maxFileSize - currentBytes);
-      console.log('RATE:', rate / 1000, 'MB/S');
-      console.log('TIME REMAINING:', (timeRemaining/1000).toFixed(0), 'S')
-    }
-    // this code takes the data off browser memory and stores to user's temp storage every 5000 packets.
-    if (transferObj.buffer.length >= 5000) {
-      console.log('saved chunk at', transferObj.buffer.length);
-      var blobChunk = new Blob(transferObj.buffer);
-      transferObj.buffer = [];
-      localforage.setItem(data.id + ':' + chunkCount.toString(), blobChunk);
-      chunkCount++;
-    }
 
-    if (data.last) {
-      var lastBlob = new Blob(transferObj.buffer);
-      transferObj.buffer = [];
-      localforage.setItem(data.id + ':' + chunkCount.toString(), lastBlob, function() {
-          console.log('saved last chunk');
-        })
+    fileUpload.getTransferRate(transferObj);
+    
+    if (transferObj.progress >= transferObj.size) {
+      var lastBlob = new Blob(block);
+      block = transferObj.buffer[blockIndex] = null;
+      localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), lastBlob)
         .then(
           function(result) {
-            // console.log('first promise resolved');
-            chunkCount++;
+            transferObj.chunkCount++;
             localforage.iterate(function(value, key, iterationNumber) {
                 if (key.startsWith(data.id)) {
                   fullArray[key.split(':')[1]] = value;
-                  // delete doucment after appending
+                  // delete document after appending
                   localforage.removeItem(key);
-                  console.log('Removed key:', key)
+                  console.log('Removed key:', key);
                 }
                 // clear this document from db after
               }, function(err) {
-                if (!err) {
-                  console.log('Iteration has completed');
+                if (err) {
+                  console.log('Error iterating through db!:', err);
+                } else {
+                  console.log('localforage iteration completed');
                 }
               })
               .then(function() {
@@ -119,12 +103,21 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 var downloadAnchor = document.getElementById('file' + transferObj.fileNumber);
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
+                fileTransfer.downloadQueue.shift();
+                webRTC.checkDownloadQueue();
               });
           }
         );
+    } else if (block.chunksReceived === blockSize) {
+    // this code takes the data off browser memory and stores to user's temp storage
+      console.log('saved block at ', blockSize, 'chunks');
+      var blobChunk = new Blob(block);
+      block = transferObj.buffer[blockIndex] = null;
+      localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), blobChunk);
+      transferObj.chunkCount++;
     }
   };
 
-  return packetHandlerObj;
+  return packetHandler;
 
 }]);

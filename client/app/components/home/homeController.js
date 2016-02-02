@@ -13,7 +13,8 @@ angular.module('home', [
   'linkGeneration',
   'webRTC',
   'packetHandlers',
-  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers) {
+  'fileUpload',
+  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload) {
     console.log('home controller loaded');
 
     fileTransfer.myItems = [];
@@ -21,17 +22,26 @@ angular.module('home', [
 
     var disconnectingSenderId = null;
     var generateLink = function() {
-      $scope.hash = linkGeneration.guid();
-      $state.go('room', {
-        roomHash: $scope.hash
+      $scope.hash = linkGeneration.guid().then(function(val) {
+        $scope.hash = val;
+        $state.go('room', {
+          roomHash: $scope.hash
+        });
       });
     };
 
-    $('#filesId').on('click', function() {
-      $('#lightningBoltButton').addClass('glowing');
-    });
+    
+
+    $scope.uploadAlert = true;
+
+    $scope.uploadedFiles = {};
 
     document.getElementById('filesId').addEventListener('change', function() {
+      
+      $scope.uploadAlert = false;
+      $('#lightningBoltButton').addClass('glowing');
+
+
 
       console.log('home input listener');
       var files = this.files;
@@ -46,8 +56,20 @@ angular.module('home', [
       if (fileTransfer.connected) {
         fileTransfer.conn.forEach(function(connection) {
           webRTC.clearQueue(fileTransfer.myItems, connection);
-        })
+        });
       }
+
+
+      fileTransfer.myItems.forEach(function(item, idx, collection){
+        $scope.uploadedFiles[idx] = {
+          name: item.name,
+          size: fileUpload.convertFileSize(item.size),
+          type: item.type
+        };
+      });
+      $scope.$apply();
+
+      console.log('upload myItems', $scope.uploadedFiles);
 
       if (!fileTransfer.peer) {
 

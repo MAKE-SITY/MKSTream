@@ -18,6 +18,7 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-resource/angular-resource.js',
+      'bower_components/peerjs/peer.js',
       'client/app/**/*.js',
       'spec/factory_tests/**/*.js',
       'spec/controller_tests/**/*.js'
@@ -36,7 +37,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['nyan'],
 
 
     // web server port
@@ -58,7 +59,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode

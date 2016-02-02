@@ -2,8 +2,14 @@ angular.module('utils.fileTransfer', [])
 
 .factory('fileTransfer', function() {
   
-  var fileTransferObj = {};
+  var fileTransfer = {};
 
-  return fileTransferObj;
+	fileTransfer.incomingFileTransfers = {};
+  fileTransfer.outgoingFileTransfers = {};
+  fileTransfer.finishedTransfers = [];
+  fileTransfer.offers = [];
+  fileTransfer.downloadQueue = [];
+
+  return fileTransfer;
   
 });
