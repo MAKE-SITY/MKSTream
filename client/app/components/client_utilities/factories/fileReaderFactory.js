@@ -1,7 +1,7 @@
 angular.module('utils.fileReader', [])
 
 .factory('fileReader', ['$q', '$log', function($q, $log) {
-  var fileReaderObj = {};
+  var fileReader = {};
 
   var onLoad = function(reader, deferred, scope) {
     return function() {
@@ -38,7 +38,7 @@ angular.module('utils.fileReader', [])
     return reader;
   };
 
-  fileReaderObj.readAsArrayBuffer = function(file, scope) {
+  fileReader.readAsArrayBuffer = function(file, scope) {
     var deferred = $q.defer();
 
     var reader = getReader(deferred, scope);
@@ -47,6 +47,6 @@ angular.module('utils.fileReader', [])
     return deferred.promise;
   };
 
-  return fileReaderObj;
+  return fileReader;
 
 }]);

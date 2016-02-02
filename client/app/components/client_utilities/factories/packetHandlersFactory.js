@@ -2,10 +2,10 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
 
 .factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', '$q', function(webRTC, fileUpload, linkGeneration, fileTransfer, $q) {
-  var packetHandlerObj = {};
+  var packetHandler = {};
   var fileNumber = 0;
   var fullArray = [];
-  packetHandlerObj.accepted = function(data, conn, scope) {
+  packetHandler.accepted = function(data, conn, scope) {
     var fileKey = linkGeneration.fuid();
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
@@ -21,7 +21,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
   };
 
-  packetHandlerObj.offer = function(data, conn, scope) {
+  packetHandler.offer = function(data, conn, scope) {
     scope.$apply(function() {
       var offer = {
         name: data.name,
@@ -33,7 +33,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     });
   };
 
-  packetHandlerObj.chunk = function(data, scope) {
+  packetHandler.chunk = function(data, scope) {
     if (data.count === 0) {
       scope.$apply(function() {
         fileTransfer.incomingFileTransfers[data.id] = {
@@ -118,6 +118,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     }
   };
 
-  return packetHandlerObj;
+  return packetHandler;
 
 }]);

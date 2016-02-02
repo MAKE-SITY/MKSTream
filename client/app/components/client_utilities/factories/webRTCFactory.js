@@ -5,9 +5,9 @@ angular.module('utils.webRTC', ['utils.fileReader'])
    * user uploaded file
    * retrieve file & convert it to binary
    **/
-  var webRTCObj = {};
+  var webRTC = {};
 
-  webRTCObj.createPeer = function() {
+  webRTC.createPeer = function() {
     var peer = new Peer({　
       host: 'mkstream.herokuapp.com',
       secure: true,
@@ -38,13 +38,13 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       debug: 3
     });
 
-    webRTCObj.heartBeat(peer);
+    webRTC.heartBeat(peer);
 
     return peer;
 
   };
 
-  webRTCObj.heartBeat = function(peer) {
+  webRTC.heartBeat = function(peer) {
     var alive = true;
     var makeHeartbeat = function() {
       if (alive) {
@@ -66,56 +66,39 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     };
   };
 
-
-  webRTCObj.getUsers = function() {
-    return $http({
-      method: 'GET',
-      url: '/api/webrtc/users'
-    });
+  var chunker = function(details, name) {
+    var chunkSize = 16384;
+    var slice = details.file.slice(details.offset, details.offset + chunkSize);
+    fileReader.readAsArrayBuffer(slice, details.scopeRef)
+      .then(function(buff) {
+        var packet = {
+          chunk: buff,
+          type: 'file-chunk',
+          count: details.count,
+          id: details.id
+        };
+        if (details.count === 0) {
+          packet.name = name;
+          packet.size = details.size;
+        } 
+        details.conn.send(packet);
+        details.count++;
+        if (details.size > details.offset + chunkSize) {
+          details.offset += chunkSize;
+          window.setTimeout(function(details) {
+            chunker(details);
+          }, 0, details);
+        } else {
+          console.log('File finished sending!');
+        }
+      });
   };
-  //TODO:need an event listener for every time a file is added to send that file
 
-  webRTCObj.connectToPeer = function(caller, targetId) {
-    var conn = caller.connect(targetId);
-    return conn;
-  };
-
-  webRTCObj.sendData = function(conn, obj) {
-    conn.send(obj);
-  };
-
-  webRTCObj.sendDataInChunks = function(conn, obj) {
+  webRTC.sendDataInChunks = function(conn, obj) {
     fileTransfer.outgoingFileTransfers[obj.id] = {
       progress: 0,
       max: obj.size,
       name: obj.name
-    };
-    var chunker = function(details, name) {
-      var chunkSize = 16384;
-      var slice = details.file.slice(details.offset, details.offset + chunkSize);
-      fileReader.readAsArrayBuffer(slice, details.scopeRef)
-        .then(function(buff) {
-          var packet = {
-            chunk: buff,
-            type: 'file-chunk',
-            count: details.count,
-            id: details.id
-          };
-          if (details.count === 0) {
-            packet.name = name;
-            packet.size = details.size;
-          } 
-          details.conn.send(packet);
-          details.count++;
-          if (details.size > details.offset + chunkSize) {
-            details.offset += chunkSize;
-            window.setTimeout(function(details) {
-              chunker(details);
-            }, 0, details);
-          } else {
-            console.log('File finished sending!');
-          }
-        });
     };
     chunker({
       id: obj.id,
@@ -128,7 +111,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     }, obj.name);
   };
 
-  webRTCObj.clearQueue = function(files, conn){
+  webRTC.clearQueue = function(files, conn){
     for(var i = 0; i < files.length; i++){
       if(!files[i].beenSent){
         files[i].beenSent = true;
@@ -141,7 +124,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     }
   };
 
-  webRTCObj.checkDownloadQueue = function(){
+  webRTC.checkDownloadQueue = function(){
     var first = fileTransfer.downloadQueue[0];
     if(fileTransfer.downloadQueue.length === 0){
       console.log('download queue empty');
@@ -157,6 +140,6 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     }
   };
 
-  return webRTCObj;
+  return webRTC;
 
 }]);

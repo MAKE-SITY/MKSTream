@@ -6,7 +6,4 @@ angular.module('MKSTream', [
   'upload',
   'download',
   'utils'
-])
-// .run(function($state){
-// 	$state.go('home');
-// });
+]);
