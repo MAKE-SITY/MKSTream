@@ -13,7 +13,8 @@ angular.module('home', [
   'linkGeneration',
   'webRTC',
   'packetHandlers',
-  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers) {
+  'fileUpload',
+  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload) {
     console.log('home controller loaded');
 
     fileTransfer.myItems = [];
@@ -32,6 +33,8 @@ angular.module('home', [
     
 
     $scope.uploadAlert = true;
+
+    $scope.uploadedFiles = {};
 
     document.getElementById('filesId').addEventListener('change', function() {
       
@@ -55,6 +58,18 @@ angular.module('home', [
           webRTC.clearQueue(fileTransfer.myItems, connection);
         });
       }
+
+
+      fileTransfer.myItems.forEach(function(item, idx, collection){
+        $scope.uploadedFiles[idx] = {
+          name: item.name,
+          size: fileUpload.convertFileSize(item.size),
+          type: item.type
+        };
+      });
+      $scope.$apply();
+
+      console.log('upload myItems', $scope.uploadedFiles);
 
       if (!fileTransfer.peer) {
 
