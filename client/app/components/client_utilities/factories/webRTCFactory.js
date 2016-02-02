@@ -66,24 +66,6 @@ angular.module('utils.webRTC', ['utils.fileReader'])
     };
   };
 
-
-  webRTCObj.getUsers = function() {
-    return $http({
-      method: 'GET',
-      url: '/api/webrtc/users'
-    });
-  };
-  //TODO:need an event listener for every time a file is added to send that file
-
-  webRTCObj.connectToPeer = function(caller, targetId) {
-    var conn = caller.connect(targetId);
-    return conn;
-  };
-
-  webRTCObj.sendData = function(conn, obj) {
-    conn.send(obj);
-  };
-
   webRTCObj.sendDataInChunks = function(conn, obj) {
     fileTransfer.outgoingFileTransfers[obj.id] = {
       progress: 0,
