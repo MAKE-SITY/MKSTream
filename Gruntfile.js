@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       target: {
         files: {
           // These need to be uglified in specific order, app files last.
-          'client/lib/allmincode.js': [
+          'client/allmincode.js': [
             'bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-ui-router/release/angular-ui-router.min.js',
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
     cssmin: {
       target: {
         files: {
-          'client/assets/dest/styles.min.css': ['styles.css']
+          'client/assets/styles.min.css': ['client/assets/styles.css']
         }
       }
     },
