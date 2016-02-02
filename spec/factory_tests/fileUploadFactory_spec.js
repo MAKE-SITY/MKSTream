@@ -28,22 +28,7 @@ describe('fileUpload Factory', function() {
         expect(result).toBe('kB');
       });
     });
-    // describe('acceptFileOffer', function() {
-    //   var fileTransfer = {
-    //   downloadQueue: [],
-    //   offers: []
-    // };
-    //   var webRTC = {
-    //     checkDownloadQueue: function() {}
-    //   };
-    //   beforeEach(function() {
-    //     spyOn(webRTC, 'checkDownloadQueue');
-    //   })
-    //   it('should push an offer to an array', function() {
-    //     fileUpload.acceptFileOffer({});
-    //     expect(fileTransfer.offers.length).toBe(1);
-    //   });
-    // });
+
     describe('getTransferRate', function() {
       var transferInfo;
 
@@ -62,11 +47,11 @@ describe('fileUpload Factory', function() {
       });
 
       it('should have transfer rate', function() {
-        expect(transferInfo.rate).toBe('10.00 kB/s')
+        expect(transferInfo.rate).toBe('10.00 kB/s');
       });
 
       it('should have time remaining', function() {
-        expect(transferInfo.time).toBe('00:09')
+        expect(transferInfo.time).toBe('00:09');
       });
     });
   });
