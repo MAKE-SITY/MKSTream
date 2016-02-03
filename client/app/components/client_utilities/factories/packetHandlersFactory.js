@@ -41,6 +41,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           id: data.id,
           name: data.name,
           size: data.size,
+          formattedSize: fileUpload.convertFileSize(data.size),
           progress: 0,
           fileNumber: fileNumber,
           chunkCount: 0,
