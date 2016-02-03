@@ -1,128 +1,18 @@
-<!-- <table class="table col-md-12">
-  <thead>
-    <tr>
-      <th class='table-header col-md-2'>Icon</th>
-      <th class='table-header col-md-6'>Name</th>
-      <th class='table-header col-md-2'>Size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class='table-data col-md-2'>Icon contentabcdefghijklmnopqrstuvwxyz</td>
-      <td class='table-data col-md-6'>Name contentabcdefghijklmnopqrstuvwxyz</td>
-      <td class='table-data col-md-2'>Size contentabcdefghijklmnopqrstuvwxyz</td>
-    </tr>
-  </tbody>
-</table> -->
-
-<!-- /////////////////////////////////////////////////////// -->
-<!-- <div class="container-fluid">
-  <h2>Your Uploads</h2>   
-  <table class='table table-condensed no-border'>
-    <thead>
-      <tr>
-        <th class='col-md-2 table-header'>File Type</th>
-        <th class='col-md-7 table-header'>File Name</th>
-        <th class='col-md-3 table-header'>Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>  
-        <tr ng-repeat="offer in offers">
-          <td class='col-md-2 table-data2'>PNG</td>
-          <td class='col-md-7 table-data2'>{{offer.name}}</td>
-          <td class='col-md-3 table-data2'>{{offer.size}}</td>
-        </tr>
-        <tr>
-          <td colspan='3' class='secondLine'>**dlprogressbar**</td>
-        </tr>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
-
-
 <div class='container-fluid'>
   <div class='row'>
-    <div class='col-xs-3 table-data'>File Type</div>
-    <div class='col-xs-6 table-data'>File Name</div>
-    <div class='col-xs-3 table-data'>Size</div>
+    <div class='header-text'>Uploads<hr class='header-bar'></div>
   </div>
-  <hr class='header-bar'>
-    <div class='container-fluid offer'>
-    <div class='row' ng-repeat-start="item in uploadedFiles">
-      <div class='col-xs-2 table-data'>{{item.type}}</div>
-      <div class='col-xs-6 col-xs-offset-1 table-data'>{{item.name}}</div>
-      <div class='col-xs-3 table-data'>{{item.size}}</div>
-    </div>
-    <div class='row'>
-      <div class='col-xs-9'>progress-bar</div>
-      <div class='col-xs-3'>remaining</div>
+    <div class='row wrapped-dl' ng-repeat-start="item in uploadedFiles">
+      <div class='col-xs-6 table-data-name'><b><u>File Name:</u></b><br> {{item.name}}</div>
+      
+      <div class='col-xs-3 table-data-type'><br></div>
+      <div class='col-xs-3 table-data-right'><b><u>File Size:</u></b><br> {{item.size}}</div>
+      <!-- <div class='row'> -->
+      <div class='col-xs-9 table-data-left accept-request'><br><i>File Type: {{item.type}}</i></div>
+      <div class='col-xs-3'><br>**remaining**</div>
+      <!-- </div> -->
     </div>
     <br>
     <div ng-repeat-end></div>
     <br>
-  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>File Name</th>
-      <th>Size</th>
-    </tr>
-  </thead>
-  <br>
-  <tbody>
-    <tr ng-repeat="offer in offers">
-      <td>{{offer.name}}</td>
-      <td>{{offer.size}}</td>
-      <td>
-        <button class="btn btn-default" ng-click="acceptFileOffer(offer)">Accept</button>
-      </td>
-      <td>
-        <button class="btn btn-default" ng-click="rejectFileOffer(offer)">Reject</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
- -->
-
-
-
- <!--  <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>File</th>
-          <th>Size</th>
-          <th>Test</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr id='downloadTable' ng-repeat="transfer in incomingFileTransfers">
-          <td>{{transfer.name}}</td>
-          <td>
-            <progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress>
-          </td>
-          <td><a href='' id='file{{$index}}'>Download</a></td>
-        </tr>
-      </tbody>
-    </table> -->
-<!-- <input id="currentUrl" value="">
-    <button class="clipboardButton" data-clipboard-target="#currentUrl">
-      Copy to clipboard
-    </button>
-  </div> -->
