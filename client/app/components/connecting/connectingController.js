@@ -23,20 +23,68 @@ angular.module('connecting', [
      */
 
     $('#lightningBoltButton').on('click', function() {
+      copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
     });
 
-      $('.currentUrlShow').removeClass('currentUrlHidden');
+    $('.currentUrlShow').removeClass('currentUrlHidden');
 
     setTimeout(function() {
-      var clipboard = new Clipboard('.clipboardButton');
-      var currentUrl = document.getElementById('currentUrl');
-      currentUrl.value = window.location.href;
-      currentUrl.innerHTML = currentUrl.value;
+      currentUrl.innerHTML = window.location.href;
+
     }, 0);
 
+    var copyToClipboard = function(elem) {
+      // create hidden text element, if it doesn't already exist
+      var targetId = "_hiddenCopyText_";
+      var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+      var origSelectionStart, origSelectionEnd;
+      if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+      } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+          var target = document.createElement("textarea");
+          target.style.position = "absolute";
+          target.style.left = "-9999px";
+          target.style.top = "0";
+          target.id = targetId;
+          document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+      }
+      // select the content
+      var currentFocus = document.activeElement;
+      target.focus();
+      target.setSelectionRange(0, target.value.length);
+
+      // copy the selection
+      var succeed;
+      try {
+        succeed = document.execCommand("copy");
+      } catch(e) {
+        succeed = false;
+      }
+      // restore original focus
+      if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+      }
+
+      if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+      } else {
+        // clear temporary content
+        target.textContent = "";
+      }
+      return succeed;
+    }
+
     var disconnectingReceiverId = null;
-    // console.log(window.location.href);
 
     $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers;
     $scope.outgoingFileTransfers = fileTransfer.outgoingFileTransfers;
@@ -49,7 +97,6 @@ angular.module('connecting', [
       fileTransfer.myItems = [];
 
       fileTransfer.conn = [];
-
 
       fileTransfer.peer = webRTC.createPeer();
 
@@ -81,8 +128,8 @@ angular.module('connecting', [
       });
 
       window.onbeforeunload = function(e) {
-        e.preventDefault();
         //stops notification from showing
+        e.preventDefault();
       };
 
       window.addEventListener('beforeunload', function() {
