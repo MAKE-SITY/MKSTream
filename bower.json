@@ -23,7 +23,6 @@
     "adjective-adjective-animal": "~1.4.0",
     "jquery": "~2.2.0",
     "clipboard": "~1.5.5",
-    "localforage": "~1.3.3",
-    "peerjs": "~0.3.14"
+    "localforage": "~1.3.3"
   }
 }
