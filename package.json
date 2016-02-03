@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kcvan/MKSTream.git"
+    "url": "git+https://github.com/MAKE-SITY/MKSTream.git"
   },
   "author": "MAKE-SITY",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kcvan/MKSTream/issues"
+    "url": "https://github.com/MAKE-SITY/MKSTream/issues"
   },
-  "homepage": "https://github.com/kcvan/MKSTream#readme",
+  "homepage": "https://github.com/MAKE-SITY/MKSTream#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
     "bower": "^1.7.7",
