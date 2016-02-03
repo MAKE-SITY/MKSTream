@@ -402,7 +402,7 @@ body {
   height: 100px;
   background-color: #fff;
   color: black;
-  border-radius: 5px 10px 5px 10px;
+  border-radius: 5px 5px 5px 5px;
   transition: all 0.5s ease 0s;
 }
 #dropZone:hover {
@@ -454,6 +454,13 @@ body {
 .table-data-name {
   text-align: left;
 }
+
+.header-text {
+    font-size:1.875em;
+}
+
+
+
 .header-bar {
   border: none;
   height: 3px;
@@ -461,5 +468,45 @@ body {
   background-color: #fff;
 }
 .table-data {
-  word-wrap: break-word;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+
+.table-data-type, .table-data-name {
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.table-data-left {
+    /*word-wrap: break-word;*/
+    text-align: left;
+}
+.table-data-right {
+    /*word-wrap: break-word;*/
+    text-align: right;
+}
+
+progress[value] {
+    width: 100%;
+}
+
+.download-container {
+    background-color: black;
+}
+
+.wrapped-dl {
+    background: rgba(0,0,0, 0.65);
+    border-radius: 5px;
+}
+
+.accept-request {
+    font-size:0.875em;
+}
+
+.data-acceptbtn, .data-rejectbtn {
+  cursor: pointer;
+}
+.data-acceptbtn:hover {
+  cursor: pointer;
 }
