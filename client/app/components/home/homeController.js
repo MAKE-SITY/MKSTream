@@ -30,8 +30,6 @@ angular.module('home', [
       });
     };
 
-    
-
     $scope.uploadAlert = true;
 
     $scope.uploadedFiles = {};
@@ -77,7 +75,6 @@ angular.module('home', [
         console.log('SENDER peer created');
         fileTransfer.peer.on('open', function(id) {
           disconnectingSenderId = id;
-          // TODO: create special link to send with post in data
           $http({
               method: 'POST',
               url: '/api/webrtc/users',
@@ -90,9 +87,9 @@ angular.module('home', [
               console.log('SENDER\'s POST response', result.data);
             });
         });
-
         fileTransfer.peer.on('connection', function(conn) {
-          // TODO: add file inside call to send
+          $('#lightningBoltButton').addClass('connectedToPeer');
+          // TODO: add text to show that user is connected
           fileTransfer.conn.push(conn);
           console.log('peerJS connection object', conn);
 

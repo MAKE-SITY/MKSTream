@@ -430,10 +430,28 @@ img::-moz-selection {
   }
 }
 
+@-webkit-keyframes greenPulse {
+  from,
+  to {
+    background-color: #008000;
+    -webkit-box-shadow: 0 0 9px #fff
+  }
+  65% {
+    background-color: #004d00;
+    -webkit-box-shadow: 0 0 px #91bd09
+  }
+}
+
 .glowing {
   -webkit-animation-name: whitePulse;
   -webkit-animation-duration: 1.5s;
-  -webkit-animation-iteration-count: infinite
+  -webkit-animation-iteration-count: infinite;
+}
+
+.connectedToPeer {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 .table-data-name {
