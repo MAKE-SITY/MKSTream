@@ -1,5 +1,6 @@
 angular.module('upload', [
-  'utils'
+  'utils',
+  'ngAnimate'
 ])
 
 .controller('uploadController', [

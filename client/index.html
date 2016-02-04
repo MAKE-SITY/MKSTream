@@ -12,6 +12,7 @@
   <script src='./../bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js'></script>
   <script src='./../bower_components/angular/angular.min.js'></script>
   <script src='./../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+  <script src='./../bower_components/angular-animate/angular-animate.min.js'></script>
 
   <script src='./lib/nochunkbufferfixpeer.min.js'></script>
   <script src='./lib/ui-bootstrap-tpls-1.1.2.min.js'></script>
@@ -61,7 +62,7 @@
   <link href="./assets/styles.css" rel="stylesheet">
 </head>
 
-<body ng-controller='homeController' class="fading-in intro">
+<body ng-controller='homeController' class="intro fading-in">
 <!-- <body> -->
 
   <!-- Navigation -->
@@ -121,7 +122,7 @@
             <div class='col-md-4'>
               <div class="col-md-12" id='ulSection'> 
                 <div class='row'>          
-                  <div ui-view='upload'></div>
+                  <div ui-view='upload' class="fade-view"></div>
                 </div>
               </div>
             </div>
@@ -149,7 +150,7 @@
             </div>
             <div class='col-md-4'>
               <div class="col-md-12" id='dlSection'>
-                <div ui-view='download'></div>
+                <div ui-view='download' class="fade-view"></div>
               </div>
             </div>
           </div>
