@@ -25,6 +25,7 @@ angular.module('connecting', [
     $('#lightningBoltButton').on('click', function() {
       copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
+      $('#lightningBoltButton').addClass('waitingForConnection');
     });
 
     $('.currentUrlShow').removeClass('currentUrlHidden');

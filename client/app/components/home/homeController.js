@@ -35,11 +35,9 @@ angular.module('home', [
     $scope.uploadedFiles = {};
 
     document.getElementById('filesId').addEventListener('change', function() {
-      
+
       $scope.uploadAlert = false;
       $('#lightningBoltButton').addClass('glowing');
-
-
 
       console.log('home input listener');
       var files = this.files;
@@ -58,7 +56,7 @@ angular.module('home', [
       }
 
 
-      fileTransfer.myItems.forEach(function(item, idx, collection){
+      fileTransfer.myItems.forEach(function(item, idx, collection) {
         $scope.uploadedFiles[idx] = {
           name: item.name,
           size: fileUpload.convertFileSize(item.size),
