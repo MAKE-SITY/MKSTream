@@ -13,6 +13,9 @@
           <br> {{transfer.formattedSize}}</div>
         <div class='col-xs-8'>
           <progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress>
+          {{transfer.progress}} / {{transfer.size}} 
+
+          {{transfer.percent}}% {{transfer.rate}} {{transfer.time}}
         </div>
         <div class='col-xs-4 table-data-right'><a href='' id='file{{$index}}'>Download</a></div>
       </div>
