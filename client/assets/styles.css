@@ -123,6 +123,15 @@ a:hover {
   color: #fff
 }
 
+.fa {
+  color: white;
+}
+
+#lightningBoltButton:hover {
+  background-color: #e6e6e6;
+  -webkit-box-shadow: 0 0 9px #fff;
+}
+
 .navbar-custom .nav li.active {
   outline: 0
 }
@@ -430,10 +439,45 @@ img::-moz-selection {
   }
 }
 
+@-webkit-keyframes yellowPulse {
+  from,
+  to {
+    background-color: #969900;
+    -webkit-box-shadow: 0 0 9px #fff
+  }
+  65% {
+    background-color: #c8cc00;
+    -webkit-box-shadow: 0 0 px #91bd09
+  }
+}
+
+@-webkit-keyframes greenPulse {
+  from,
+  to {
+    background-color: #008000;
+    -webkit-box-shadow: 0 0 9px #fff
+  }
+  65% {
+    background-color: #004d00;
+    -webkit-box-shadow: 0 0 px #91bd09
+  }
+}
+
 .glowing {
   -webkit-animation-name: whitePulse;
   -webkit-animation-duration: 1.5s;
-  -webkit-animation-iteration-count: infinite
+  -webkit-animation-iteration-count: infinite;
+}
+
+.waitingForConnection {
+  -webkit-animation-name: yellowPulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite; 
+}
+.connectedToPeer {
+  -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
 }
 
 .table-data-name {
@@ -494,4 +538,3 @@ progress[value] {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
 }
-
