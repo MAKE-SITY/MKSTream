@@ -21,11 +21,44 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
+     var hadGlowing = false;
+     var hadWaiting = false;
+     var hadConnected = false;
+
+    $('#lightningBoltButton').mouseenter(function() {
+      if ($('#lightningBoltButton').hasClass('glowing')) {
+        $('#lightningBoltButton').removeClass('glowing');
+        hadGlowing = true;
+      }
+      if ($('#lightningBoltButton').hasClass('waitingForConnection')) {
+        $('#lightningBoltButton').removeClass('waitingForConnection');
+        hadWaiting = true;
+      }
+      if ($('#lightningBoltButton').hasClass('connectedToPeer')) {
+        $('#lightningBoltButton').removeClass('connectedToPeer');
+        hadConnected = true;
+      }
+    });
+
+    $('#lightningBoltButton').mouseleave(function() {
+      if (hadGlowing) {
+        $('#lightningBoltButton').addClass('glowing');
+      }
+      if (hadWaiting) {
+        $('#lightningBoltButton').addClass('waitingForConnection');
+      }
+      if (hadConnected) {
+        $('#lightningBoltButton').addClass('connectedToPeer');
+      }
+    });
 
     $('#lightningBoltButton').on('click', function() {
       copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
-      $('#lightningBoltButton').addClass('waitingForConnection');
+      if (hadGlowing) {
+        $('#lightningBoltButton').addClass('waitingForConnection');
+        hadGlowing = false;
+      }
     });
 
     $('.currentUrlShow').removeClass('currentUrlHidden');
@@ -67,7 +100,7 @@ angular.module('connecting', [
       var succeed;
       try {
         succeed = document.execCommand("copy");
-      } catch(e) {
+      } catch (e) {
         succeed = false;
       }
       // restore original focus
