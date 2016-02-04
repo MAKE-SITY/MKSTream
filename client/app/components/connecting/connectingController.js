@@ -21,43 +21,25 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-     var hadGlowing = false;
-     var hadWaiting = false;
-     var hadConnected = false;
+    var savedClasses = 'btn btn-circle';
 
     $('#lightningBoltButton').mouseenter(function() {
-      if ($('#lightningBoltButton').hasClass('glowing')) {
-        $('#lightningBoltButton').removeClass('glowing');
-        hadGlowing = true;
-      }
-      if ($('#lightningBoltButton').hasClass('waitingForConnection')) {
-        $('#lightningBoltButton').removeClass('waitingForConnection');
-        hadWaiting = true;
-      }
-      if ($('#lightningBoltButton').hasClass('connectedToPeer')) {
-        $('#lightningBoltButton').removeClass('connectedToPeer');
-        hadConnected = true;
-      }
+      savedClasses = $('#lightningBoltButton').attr('class');
+      $('#lightningBoltButton').attr('class', 'btn btn-circle');
     });
 
     $('#lightningBoltButton').mouseleave(function() {
-      if (hadGlowing) {
-        $('#lightningBoltButton').addClass('glowing');
-      }
-      if (hadWaiting) {
-        $('#lightningBoltButton').addClass('waitingForConnection');
-      }
-      if (hadConnected) {
-        $('#lightningBoltButton').addClass('connectedToPeer');
-      }
+      $('#lightningBoltButton').attr('class', savedClasses)
+      savedClasses = 'btn btn-circle';
     });
 
     $('#lightningBoltButton').on('click', function() {
       copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
-      if (hadGlowing) {
-        $('#lightningBoltButton').addClass('waitingForConnection');
-        hadGlowing = false;
+      if (!savedClasses.includes('connectedToPeer')) {
+        if (window.location.href.includes('/room/')) {
+          savedClasses = 'btn btn-circle waitingForConnection';
+        }
       }
     });
 
