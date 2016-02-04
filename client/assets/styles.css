@@ -43,9 +43,10 @@ h6 {
 
 a {
   color: #42dca3;
-  -webkit-transition: all .2s ease-in-out;
+  /* Delete? */
+  /*-webkit-transition: all .2s ease-in-out;
   -moz-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out
+  transition: all .2s ease-in-out*/
 }
 
 a:focus,
@@ -305,9 +306,10 @@ a:hover {
 .btn {
   border-radius: 0;
   font-weight: 400;
-  -webkit-transition: all .3s ease-in-out;
+  /* Delete? */
+  /*-webkit-transition: all .3s ease-in-out;
   -moz-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out
+  transition: all .3s ease-in-out*/
 }
 
 .btn-default {
