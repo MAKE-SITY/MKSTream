@@ -1,23 +1,21 @@
-body, html {
+.intro, body, html {
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
-.navbar-custom,
-body {
-  background-color: #000
+.navbar-custom, body {
+  background-color: #000;
 }
 
-.intro,
-body,
-html {
+.intro, body, html {
   width: 100%
 }
 
 body {
   font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #fff;
-  webkit-tap-highlight-color: rgba(255, 255, 255, .2)
+  webkit-tap-highlight-color: rgba(255, 255, 255, .2);
+  padding-top: 50px;
 }
 
 .btn,
@@ -138,23 +136,6 @@ a:hover {
 
 .navbar-custom .nav li.active a {
   background-color: rgba(255, 255, 255, .3)
-}
-
-@media(min-width:768px) {
-  .navbar-custom {
-    padding: 20px 0;
-    border-bottom: 0;
-    letter-spacing: 1px;
-    background: 0 0;
-    -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
-    -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
-    transition: background .5s ease-in-out, padding .5s ease-in-out
-  }
-  .navbar-custom.top-nav-collapse {
-    padding: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, .3);
-    background: #000
-  }
 }
 
 .intro {
