@@ -408,7 +408,9 @@ img::-moz-selection {
   position: relative;
   height: 100px;
   background-color: #fff;
-  color: #000
+  color: #000;
+  border-width:3px; 
+  border-style:dotted;
 }
 
 #dropZoneText {
