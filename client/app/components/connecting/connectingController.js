@@ -21,16 +21,16 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-    var savedClasses = 'btn btn-circle';
+    var savedClasses = 'btn btn-circle lightningHover';
 
     $('#lightningBoltButton').mouseenter(function() {
       savedClasses = $('#lightningBoltButton').attr('class');
-      $('#lightningBoltButton').attr('class', 'btn btn-circle');
+      $('#lightningBoltButton').attr('class', 'btn btn-circle lightningHover');
     });
 
     $('#lightningBoltButton').mouseleave(function() {
       $('#lightningBoltButton').attr('class', savedClasses)
-      savedClasses = 'btn btn-circle';
+      savedClasses = 'btn btn-circle lightningHover';
     });
 
     $('#lightningBoltButton').on('click', function() {
@@ -38,7 +38,7 @@ angular.module('connecting', [
       $('#lightningBoltButton').removeClass('glowing');
       if (!savedClasses.includes('connectedToPeer')) {
         if (window.location.href.includes('/room/')) {
-          savedClasses = 'btn btn-circle waitingForConnection';
+          savedClasses = 'btn btn-circle lightningHover waitingForConnection';
         }
       }
     });
