@@ -91,18 +91,17 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       // console.log('DIFFERENCE', transferObj.stored - pastBytes);
       // console.log('maxFileSize', maxFileSize);
       // console.log('REMAINING BYTES', maxFileSize - transferObj.stored);
-      
+
       convertedRate = convertRate(rate);
       convertedTime = convertTime(timeRemaining);
       console.log('RATE:', convertedRate);
       console.log('TIME REMAINING:', convertedTime);
 
-      return {
-        rate: convertedRate,
-        time: convertedTime
-      };
-
     }
+    return {
+      rate: convertedRate,
+      time: convertedTime
+    };
   };
 
   return fileUpload;
