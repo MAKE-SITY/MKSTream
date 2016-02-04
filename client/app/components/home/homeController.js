@@ -14,7 +14,8 @@ angular.module('home', [
   'webRTC',
   'packetHandlers',
   'fileUpload',
-  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload) {
+  'modals',
+  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload, modals) {
     console.log('home controller loaded');
 
     fileTransfer.myItems = [];
@@ -132,5 +133,4 @@ angular.module('home', [
     });
 
 
-  }
-]);
+  }]);
