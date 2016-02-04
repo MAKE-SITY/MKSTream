@@ -131,7 +131,7 @@ a:hover {
 
 /* purple highlight*/
 .navbar-custom .nav li.active a {
-  background-color: rgba(255, 255, 255, .3);
+  background-color: #a64dff;
 }
 
 .intro {
@@ -417,7 +417,7 @@ img::-moz-selection {
     -webkit-box-shadow: 0 0 9px #fff
   }
   65% {
-    background-color: #6e5494;
+    background-color: #a64dff;
     -webkit-box-shadow: 0 0 px #91bd09
   }
 }
