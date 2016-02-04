@@ -1,11 +1,12 @@
-.intro, body, html {
+.intro,
+body,
+html {
   height: 100%;
   width: 100%;
 }
 
 .navbar-custom {
   background: rgba(0, 0, 0, 0.2);
-
 }
 
 body {
@@ -16,7 +17,8 @@ body {
 }
 
 .btn,
-.navbar-custom, h6 {
+.navbar-custom,
+h6 {
   text-transform: uppercase;
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -27,11 +29,13 @@ h6 {
   letter-spacing: 1px;
 }
 
+
 /*p {
   margin: 0 0 25px;
   font-size: 18px;
   line-height: 1.5
 }*/
+
 
 /*@media(min-width:768px) {
   p {
@@ -64,7 +68,6 @@ a:hover {
   border-bottom: 1px solid rgba(255, 255, 255, .3)
 }
 
-
 .navbar-custom .nav li a:active,
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a:hover {
@@ -80,13 +83,20 @@ a:hover {
   outline: 0
 }
 
+
 /* to delete */
+
+
 /*.navbar-custom .navbar-brand .navbar-toggle {
   padding: 4px 6px;
   font-size: 16px;
   color: #fff
 }*/
+
+
 /* to delete */
+
+
 /*.navbar-custom .navbar-brand .navbar-toggle:active,
 .navbar-custom .navbar-brand .navbar-toggle:focus {
   outline: 0
@@ -96,7 +106,10 @@ a:hover {
   color: #fff
 }
 
+
 /* to delete */
+
+
 /*.navbar-custom .nav li a {
   -webkit-transition: background .3s ease-in-out;
   -moz-transition: background .3s ease-in-out;
@@ -134,7 +147,9 @@ a:hover {
   outline: 0
 }
 
+
 /* purple highlight*/
+
 .navbar-custom .nav li.active a {
   background-color: #a64dff;
 }
@@ -148,7 +163,11 @@ a:hover {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
-  -o-background-size: cover
+  -o-background-size: cover -webkit-animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -ms-animation: fadein 2s;
+  -o-animation: fadein 2s;
+  animation: fadein 2s
 }
 
 .intro .intro-body {
@@ -395,8 +414,8 @@ img::-moz-selection {
   height: 100px;
   background-color: #fff;
   color: #000;
-  border-width:3px; 
-  border-style:dotted;
+  border-width: 3px;
+  border-style: dotted;
 }
 
 #dropZoneText {
@@ -460,8 +479,9 @@ img::-moz-selection {
 .waitingForConnection {
   -webkit-animation-name: yellowPulse;
   -webkit-animation-duration: 1.5s;
-  -webkit-animation-iteration-count: infinite; 
+  -webkit-animation-iteration-count: infinite;
 }
+
 .connectedToPeer {
   -webkit-animation-name: greenPulse;
   -webkit-animation-duration: 1.5s;
@@ -472,9 +492,8 @@ img::-moz-selection {
   text-align: left;
 }
 
-
 .header-text {
-    font-size:1.875em;
+  font-size: 1.875em;
 }
 
 .header-bar {
@@ -483,51 +502,80 @@ img::-moz-selection {
   color: #fff;
   background-color: #fff;
 }
+
 .table-data {
-    word-wrap: break-word;
-    text-align: center;
+  word-wrap: break-word;
+  text-align: center;
 }
 
-.table-data-type, .table-data-name {
-    text-align: left;
-    word-wrap: break-word;
+.table-data-type,
+.table-data-name {
+  text-align: left;
+  word-wrap: break-word;
 }
 
 .table-data-left {
-    /*word-wrap: break-word;*/
-    text-align: left;
+  /*word-wrap: break-word;*/
+  text-align: left;
 }
+
 .table-data-right {
-    /*word-wrap: break-word;*/
-    text-align: right;
+  /*word-wrap: break-word;*/
+  text-align: right;
 }
 
 progress[value] {
-    width: 100%;
+  width: 100%;
 }
 
 .accept-request {
-    font-size:0.875em;
+  font-size: 0.875em;
 }
 
-.data-acceptbtn, .data-rejectbtn {
+.data-acceptbtn,
+.data-rejectbtn {
   cursor: pointer;
 }
+
 .data-acceptbtn:hover {
   cursor: pointer;
 }
+
 .scroll-dl {
   height: 400px;
   overflow: auto;
 }
+
 .wrapped-dl {
-    background: rgba(0, 0, 0, 0.5);
-    /*background: rgba(0, 0, 0, 0.5);*/
-    border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  /*background: rgba(0, 0, 0, 0.5);*/
+  border-radius: 5px;
 }
 
-
 .wrapped-ul {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+/* The starting CSS styles for the enter animation for loading views*/
+.fade-view.ng-enter {
+  transition:1.0s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation for loading views*/
+.fade-view.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+/* The starting CSS styles for the enter animation for loading ng-repeat*/
+
+.fade-repeat.ng-enter {
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+/* The finishing CSS styles for the enter animation for loading ng-repeat*/
+.fade-repeat.ng-enter.ng-enter-active {
+  opacity:1;
 }
