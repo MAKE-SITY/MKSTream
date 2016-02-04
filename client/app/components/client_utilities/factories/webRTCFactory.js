@@ -136,6 +136,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       first.conn.send({
         name: first.name,
         size: first.rawSize,
+        fileKey: first.fileKey,
         type: 'file-accepted'
       });
     }

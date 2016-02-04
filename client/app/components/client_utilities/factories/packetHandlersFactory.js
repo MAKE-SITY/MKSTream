@@ -6,14 +6,13 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   var fileNumber = 0;
   var fullArray = [];
   packetHandler.accepted = function(data, conn, scope) {
-    var fileKey = linkGeneration.fuid();
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
         var sendData = {
           file: val,
           name: data.name,
           size: data.size,
-          id: fileKey,
+          id: data.fileKey,
           scopeRef: scope
         };
         webRTC.sendDataInChunks(conn, sendData);
