@@ -1,18 +1,28 @@
-<div class='container-fluid'>
-  <div class='row'>
-    <div class='header-text'>Uploads<hr class='header-bar'></div>
-  </div>
-    <div class='row wrapped-ul' ng-repeat-start="item in uploadedFiles">
-      <div class='col-xs-6 table-data-name'><b><u>File Name:</u></b><br> {{item.name}}</div>
-      
-      <div class='col-xs-3 table-data-type'><br></div>
-      <div class='col-xs-3 table-data-right'><b><u>File Size:</u></b><br> {{item.size}}</div>
-      <!-- <div class='row'> -->
-      <div class='col-xs-9 table-data-left accept-request'><br><i>File Type: {{item.type}}</i></div>
+<div class='header-text'>Uploads
+  <hr class='header-bar'>
+</div>
+
+<div class='scroll-dl'>
+  <div class='container-fluid'>
+    <!-- <div class='row'> -->
+    <div class='row wrapped-ul fade-repeat' ng-repeat-start="item in uploadedFiles">
+      <div class='col-xs-6 table-data-name'><b><u>File Name:</u></b>
+        <br> {{item.name}}</div>
+      <div class='col-xs-3 table-data-type'>
+        <br>
+      </div>
+      <div class='col-xs-3 table-data-right'>
+        <b><u>File Size:</u></b><br> {{item.size}}
+      </div>
+      <div class='col-xs-9 table-data-left accept-request'>
+        <br><i>File Type: {{item.type}}</i>
+      </div>
       <div class='col-xs-3'><br>**remaining**</div>
-      <!-- </div> -->
     </div>
     <br>
     <div ng-repeat-end></div>
     <br>
+    <!-- /container -->
+  </div>
+  <!-- .scroll-dl -->
 </div>

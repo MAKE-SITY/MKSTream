@@ -11,7 +11,8 @@ angular.module('connecting', [
   'webRTC',
   'packetHandlers',
   'fileUpload',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload) {
+  'modals',
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
@@ -21,10 +22,29 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
+    var savedClasses = 'btn btn-circle lightningHover';
 
+    $('#lightningBoltButton').mouseenter(function() {
+      savedClasses = $('#lightningBoltButton').attr('class');
+      $('#lightningBoltButton').attr('class', 'btn btn-circle lightningHover');
+    });
+
+    $('#lightningBoltButton').mouseleave(function() {
+      $('#lightningBoltButton').attr('class', savedClasses)
+      savedClasses = 'btn btn-circle lightningHover';
+    });
+
+
+    $scope.openModal = modals.openModal;
+     
     $('#lightningBoltButton').on('click', function() {
       copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
+      if (!savedClasses.includes('connectedToPeer')) {
+        if (window.location.href.includes('/room/')) {
+          savedClasses = 'btn btn-circle lightningHover waitingForConnection';
+        }
+      }
     });
 
     $('.currentUrlShow').removeClass('currentUrlHidden');
@@ -66,7 +86,7 @@ angular.module('connecting', [
       var succeed;
       try {
         succeed = document.execCommand("copy");
-      } catch(e) {
+      } catch (e) {
         succeed = false;
       }
       // restore original focus
@@ -94,6 +114,7 @@ angular.module('connecting', [
     console.log('connecting scope', $scope.offers);
 
     if (!fileTransfer.peer) {
+      $('#lightningBoltButton').addClass('waitingForConnection');
       fileTransfer.myItems = [];
 
       fileTransfer.conn = [];
@@ -116,6 +137,7 @@ angular.module('connecting', [
             fileTransfer.conn.push(conn);
             conn.on('data', function(data) {
               console.log('incoming packet');
+              $('#lightningBoltButton').addClass('connectedToPeer');
               if (data.type === 'file-accepted') {
                 packetHandlers.accepted(data, conn, $rootScope);
               } else if (data.type === 'file-offer') {
