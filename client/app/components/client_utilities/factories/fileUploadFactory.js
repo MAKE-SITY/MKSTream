@@ -1,13 +1,13 @@
 angular.module('utils.fileUpload', ['utils.fileReader'])
 
-.factory('fileUpload', ['fileReader', 'fileTransfer', 'webRTC', function(fileReader, fileTransfer, webRTC) {
-  var fileUploadObj = {};
+.factory('fileUpload', ['fileReader', 'fileTransfer', 'webRTC', 'linkGeneration', function(fileReader, fileTransfer, webRTC, linkGeneration) {
+  var fileUpload = {};
 
-  fileUploadObj.getFiles = function() {
+  fileUpload.getFiles = function() {
     return document.getElementById('filesId').files;
   };
 
-  fileUploadObj.convertFromBinary = function(data) {
+  fileUpload.convertFromBinary = function(data) {
     var kit = {};
     kit.href = URL.createObjectURL(data.file);
     kit.name = data.name;
@@ -15,7 +15,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     return kit;
   };
 
-  fileUploadObj.convertFileSize = function(num) {
+  fileUpload.convertFileSize = function(num) {
     if (num > 1000000000) {
       return (num / 1000000000).toFixed(2) + ' GB';
     } else if (num > 1000000) {
@@ -25,14 +25,21 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     }
   };
 
-  fileUploadObj.acceptFileOffer = function(offer) {
+  fileUpload.acceptFileOffer = function(offer) {
+    offer.fileKey = linkGeneration.fuid();
+    fileTransfer.incomingFileTransfers[offer.fileKey] = {
+      name: offer.name,
+      size: offer.size,
+      formattedSize: fileUpload.convertFileSize(offer.rawSize),
+      progress: 0
+    };
     fileTransfer.downloadQueue.push(offer);
     var index = fileTransfer.offers.indexOf(offer);
     fileTransfer.offers.splice(index, 1);
     webRTC.checkDownloadQueue();
   };
 
-  fileUploadObj.rejectFileOffer = function(offer) {
+  fileUpload.rejectFileOffer = function(offer) {
     var index = fileTransfer.offers.indexOf(offer);
     fileTransfer.offers.splice(index, 1);
   };
@@ -69,7 +76,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     return time;
   };
 
-  fileUploadObj.getTransferRate = function(transferObj) {
+  fileUpload.getTransferRate = function(transferObj) {
     var currentTime = Date.now();
     var timeToWait = 1000; // ms
     if (currentTime >= transferObj.nextTime) {
@@ -98,6 +105,6 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     }
   };
 
-  return fileUploadObj;
+  return fileUpload;
 
 }]);
