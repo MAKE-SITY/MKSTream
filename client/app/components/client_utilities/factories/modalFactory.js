@@ -4,11 +4,19 @@ angular.module('utils.modals', [])
 
   var modals = {};
 
-  modals.open = function(){
+  modals.openModal = function(template){
+    var templateUrl;
+    if(template === 'about'){
+      templateUrl = 'app/components/modals/aboutModalView.html'
+    } else if (template === 'guide') {
+      templateUrl = 'app/components/modals/guideModalView.html'
+    } else if (template === 'contact') {
+      templateUrl = 'app/components/modals/contactModalView.html'
+    }
     $uibModal.open({
-        animation: false,
-        templateUrl: 'app/components/modals/modalView.html',
-        controller: 'modalsController'
+        templateUrl: templateUrl,
+        controller: 'modalsController',
+        windowClass: 'informational-modal'
     });
     
   };

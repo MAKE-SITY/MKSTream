@@ -11,7 +11,8 @@ angular.module('connecting', [
   'webRTC',
   'packetHandlers',
   'fileUpload',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload) {
+  'modals',
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
@@ -21,7 +22,8 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-
+    $scope.openModal = modals.openModal;
+     
     $('#lightningBoltButton').on('click', function() {
       copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
