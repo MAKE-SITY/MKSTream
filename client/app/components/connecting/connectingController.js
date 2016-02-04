@@ -114,6 +114,7 @@ angular.module('connecting', [
     console.log('connecting scope', $scope.offers);
 
     if (!fileTransfer.peer) {
+      $('#lightningBoltButton').addClass('waitingForConnection');
       fileTransfer.myItems = [];
 
       fileTransfer.conn = [];
@@ -136,6 +137,7 @@ angular.module('connecting', [
             fileTransfer.conn.push(conn);
             conn.on('data', function(data) {
               console.log('incoming packet');
+              $('#lightningBoltButton').addClass('connectedToPeer');
               if (data.type === 'file-accepted') {
                 packetHandlers.accepted(data, conn, $rootScope);
               } else if (data.type === 'file-offer') {
