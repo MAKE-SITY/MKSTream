@@ -1,6 +1,12 @@
 angular.module('utils.fileUpload', ['utils.fileReader'])
 
-.factory('fileUpload', ['fileReader', 'fileTransfer', 'webRTC', 'linkGeneration', function(fileReader, fileTransfer, webRTC, linkGeneration) {
+.factory('fileUpload', [
+  'fileReader', 
+  'fileTransfer', 
+  'webRTC', 
+  'linkGeneration',
+  'Notification', 
+  function(fileReader, fileTransfer, webRTC, linkGeneration, Notification) {
   var fileUpload = {};
 
   fileUpload.getFiles = function() {
@@ -102,6 +108,13 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       rate: convertedRate,
       time: convertedTime
     };
+  };
+
+  fileUpload.successMessage = function(name){
+    Notification.success({
+      message: name + ' finished downloading',
+      positionX: 'center'
+    });
   };
 
   return fileUpload;
