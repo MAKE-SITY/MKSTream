@@ -64,9 +64,14 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     block.chunksReceived++;
     scope.$apply(function() {
       transferObj.progress += 16384;
+      transferObj.rate = fileUpload.getTransferRate(transferObj).rate;
+      transferObj.time = fileUpload.getTransferRate(transferObj).time;
+      if (transferObj.progress > transferObj.size) {
+        transferObj.progress = transferObj.size;
+        transferObj.rate = 0.00;
+      }
+      transferObj.percent = (transferObj.progress/transferObj.size*100).toFixed(2)
     });
-
-    fileUpload.getTransferRate(transferObj);
     
     if (transferObj.progress >= transferObj.size) {
       var lastBlob = new Blob(block);

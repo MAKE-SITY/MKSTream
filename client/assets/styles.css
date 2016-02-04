@@ -524,9 +524,9 @@ img::-moz-selection {
   text-align: right;
 }
 
-progress[value] {
+/*progress[value] {
   width: 100%;
-}
+}*/
 
 .accept-request {
   font-size: 0.875em;
@@ -578,4 +578,11 @@ progress[value] {
 /* The finishing CSS styles for the enter animation for loading ng-repeat*/
 .fade-repeat.ng-enter.ng-enter-active {
   opacity:1;
+}
+
+progress {
+    background-color: #f3f3f3;
+    border: 0;
+    height: 18px;
+    border-radius: 9px;
 }
