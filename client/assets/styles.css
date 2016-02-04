@@ -139,7 +139,7 @@ a:hover {
   height: auto;
   padding: 100px 0;
   text-align: center;
-  background: url(./purple2.jpg) bottom center no-repeat #000;
+  background: url(./flow1.jpg) bottom center no-repeat #000;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -421,11 +421,11 @@ img::-moz-selection {
 @-webkit-keyframes yellowPulse {
   from,
   to {
-    background-color: #969900;
+    background-color: #cbcc00;
     -webkit-box-shadow: 0 0 9px #fff
   }
   65% {
-    background-color: #c8cc00;
+    background-color: #e5e600;
     -webkit-box-shadow: 0 0 px #91bd09
   }
 }
@@ -433,11 +433,11 @@ img::-moz-selection {
 @-webkit-keyframes greenPulse {
   from,
   to {
-    background-color: #008000;
+    background-color: #00b300;
     -webkit-box-shadow: 0 0 9px #fff
   }
   65% {
-    background-color: #004d00;
+    background-color: #38e600;
     -webkit-box-shadow: 0 0 px #91bd09
   }
 }
