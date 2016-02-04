@@ -30,18 +30,14 @@ angular.module('home', [
       });
     };
 
-    
-
     $scope.uploadAlert = true;
 
     $scope.uploadedFiles = {};
 
     document.getElementById('filesId').addEventListener('change', function() {
-      
+
       $scope.uploadAlert = false;
       $('#lightningBoltButton').addClass('glowing');
-
-
 
       console.log('home input listener');
       var files = this.files;
@@ -60,7 +56,7 @@ angular.module('home', [
       }
 
 
-      fileTransfer.myItems.forEach(function(item, idx, collection){
+      fileTransfer.myItems.forEach(function(item, idx, collection) {
         $scope.uploadedFiles[idx] = {
           name: item.name,
           size: fileUpload.convertFileSize(item.size),
@@ -77,7 +73,6 @@ angular.module('home', [
         console.log('SENDER peer created');
         fileTransfer.peer.on('open', function(id) {
           disconnectingSenderId = id;
-          // TODO: create special link to send with post in data
           $http({
               method: 'POST',
               url: '/api/webrtc/users',
@@ -90,9 +85,9 @@ angular.module('home', [
               console.log('SENDER\'s POST response', result.data);
             });
         });
-
         fileTransfer.peer.on('connection', function(conn) {
-          // TODO: add file inside call to send
+          $('#lightningBoltButton').addClass('connectedToPeer');
+          // TODO: add text to show that user is connected
           fileTransfer.conn.push(conn);
           console.log('peerJS connection object', conn);
 
