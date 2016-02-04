@@ -22,12 +22,29 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
+    var savedClasses = 'btn btn-circle lightningHover';
+
+    $('#lightningBoltButton').mouseenter(function() {
+      savedClasses = $('#lightningBoltButton').attr('class');
+      $('#lightningBoltButton').attr('class', 'btn btn-circle lightningHover');
+    });
+
+    $('#lightningBoltButton').mouseleave(function() {
+      $('#lightningBoltButton').attr('class', savedClasses)
+      savedClasses = 'btn btn-circle lightningHover';
+    });
+
+
     $scope.openModal = modals.openModal;
      
     $('#lightningBoltButton').on('click', function() {
       copyToClipboard(document.getElementById("currentUrl"));
       $('#lightningBoltButton').removeClass('glowing');
-      $('#lightningBoltButton').addClass('waitingForConnection');
+      if (!savedClasses.includes('connectedToPeer')) {
+        if (window.location.href.includes('/room/')) {
+          savedClasses = 'btn btn-circle lightningHover waitingForConnection';
+        }
+      }
     });
 
     $('.currentUrlShow').removeClass('currentUrlHidden');
@@ -69,7 +86,7 @@ angular.module('connecting', [
       var succeed;
       try {
         succeed = document.execCommand("copy");
-      } catch(e) {
+      } catch (e) {
         succeed = false;
       }
       // restore original focus

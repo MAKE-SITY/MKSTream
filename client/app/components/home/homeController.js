@@ -37,6 +37,20 @@ angular.module('home', [
 
     $scope.uploadedFiles = {};
 
+    $('#lightningBoltButton').hover(function() {
+      $('#lightningBoltButton').addClass('lightningHover');
+    }, function() {
+      $('#lightningBoltButton').removeClass('lightningHover');
+    })
+
+    $('#lightningBoltButton').mousedown(function() {
+      $('#lightningBoltButton').addClass('clicked');
+    })
+
+    $('#lightningBoltButton').mouseup(function() {
+      $('#lightningBoltButton').removeClass('clicked');
+    })
+
     document.getElementById('filesId').addEventListener('change', function() {
 
       $scope.uploadAlert = false;

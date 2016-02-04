@@ -120,9 +120,13 @@ a:hover {
   color: white;
 }
 
-#lightningBoltButton:hover {
+
+.lightningHover {
   background-color: #e6e6e6;
   -webkit-box-shadow: 0 0 9px #fff;
+}
+.clicked {
+  background-color: black;
 }
 
 .navbar-custom .nav li.active {
@@ -238,7 +242,6 @@ a:hover {
   border: 2px solid #fff;
   border-radius: 100%!important;
   font-size: 40px;
-  background: 0 0;
 }
 
 @-webkit-keyframes pulse {
