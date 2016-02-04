@@ -31,6 +31,8 @@ angular.module('home', [
       });
     };
 
+    $scope.openModal = modals.openModal;
+
     $scope.uploadAlert = true;
 
     $scope.uploadedFiles = {};
