@@ -516,13 +516,7 @@ progress[value] {
     /*background: rgba(0, 0, 0, 0.5);*/
     border-radius: 5px;
 }
-.small {
-  transform: scale(0.89, 0.89);
-  -ms-transform: scale(0.89, 0.89); /* IE 9 */
-  -webkit-transform: scale(0.89, 0.89); /* Safari and Chrome */
-  -o-transform: scale(0.89, 0.89); /* Opera */
-  -moz-transform: scale(0.89, 0.89); /* Firefox */
-}
+
 
 .wrapped-ul {
     background: rgba(0, 0, 0, 0.5);
