@@ -508,7 +508,7 @@ progress[value] {
   cursor: pointer;
 }
 .scroll-dl {
-  height: 200px;
+  height: 400px;
   overflow: auto;
 }
 .wrapped-dl {
