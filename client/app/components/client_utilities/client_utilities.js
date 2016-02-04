@@ -4,5 +4,6 @@ angular.module('utils', [
   'utils.linkGeneration',
   'utils.webRTC',
   'utils.packetHandlers',
-  'utils.fileTransfer'
+  'utils.fileTransfer',
+  'utils.modals'
 ]);
