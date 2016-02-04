@@ -4,11 +4,11 @@
 }
 
 .navbar-custom {
-  background-color: transparent;
+  background: rgba(0, 0, 0, 0.2);
+
 }
 
 body {
-  background-color: #000;
   font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #fff;
   /*webkit-tap-highlight-color: rgba(255, 255, 255, .2);*/
@@ -106,7 +106,7 @@ a:hover {
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .nav li a:hover {
   /*color: rgba(255, 255, 255, .8);*/
-  color: #6e5494;
+  color: #b266ff;
   opacity: 0.8;
 }
 
@@ -131,7 +131,7 @@ a:hover {
 
 /* purple highlight*/
 .navbar-custom .nav li.active a {
-  background-color: rgba(255, 255, 255, .3);
+  background-color: #a64dff;
 }
 
 .intro {
@@ -151,7 +151,7 @@ a:hover {
   vertical-align: middle
 }
 
-/*.intro-text {
+.fading-in {
   -webkit-animation: fadein 2s;
   -moz-animation: fadein 2s;
   -ms-animation: fadein 2s;
@@ -202,7 +202,11 @@ a:hover {
   to {
     opacity: 1
   }
-}*/
+}
+
+.pointer-class {
+  cursor: pointer;
+}
 
 .currentUrlHidden {
   opacity: .01
