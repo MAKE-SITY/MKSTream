@@ -204,6 +204,10 @@ a:hover {
   }
 }*/
 
+.pointer-class {
+  cursor: pointer;
+}
+
 .currentUrlHidden {
   opacity: .01
 }
