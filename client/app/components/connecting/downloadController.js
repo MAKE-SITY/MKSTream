@@ -1,5 +1,6 @@
 angular.module('download', [
-  'utils'
+  'utils',
+  'ngAnimate'
 ])
 
 .controller('downloadController', [
