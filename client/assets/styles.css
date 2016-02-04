@@ -402,6 +402,12 @@ img::-moz-selection {
   color: #000
 }
 
+#dropZoneText {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 #fileLink {
   color: #fff;
   background-color: gray
