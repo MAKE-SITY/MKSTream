@@ -5,5 +5,6 @@ angular.module('utils', [
   'utils.webRTC',
   'utils.packetHandlers',
   'utils.fileTransfer',
-  'utils.modals'
+  'utils.modals',
+  'utils.notifications'
 ]);
