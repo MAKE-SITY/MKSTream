@@ -40,7 +40,6 @@ angular.module('connecting', [
      
     $('#lightningBoltButton').on('click', function() {
       linkGeneration.copyToClipboard(document.getElementById("currentUrl"));
-      $('#lightningBoltButton').removeClass('glowing');
       if (!savedClasses.includes('connectedToPeer')) {
         if (window.location.href.includes('/room/')) {
           savedClasses = 'btn btn-circle lightningHover waitingForConnection';
