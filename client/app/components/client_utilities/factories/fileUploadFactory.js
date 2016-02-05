@@ -111,12 +111,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     };
   };
 
-  fileUpload.successMessage = function(name){
-    Notification.success({
-      message: name + ' finished downloading',
-      positionX: 'center'
-    });
-  };
+
 
   return fileUpload;
 

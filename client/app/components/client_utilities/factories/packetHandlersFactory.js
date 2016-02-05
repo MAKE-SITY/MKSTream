@@ -1,7 +1,13 @@
 angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'utils.linkGeneration'])
 
 
-.factory('packetHandlers', ['webRTC', 'fileUpload', 'linkGeneration', 'fileTransfer', '$q', function(webRTC, fileUpload, linkGeneration, fileTransfer, $q) {
+.factory('packetHandlers', [
+  'webRTC', 
+  'fileUpload', 
+  'linkGeneration', 
+  'fileTransfer',
+  'notifications',
+  function(webRTC, fileUpload, linkGeneration, fileTransfer, notifications) {
   var packetHandler = {};
   var fileNumber = 0;
   var fullArray = [];
@@ -108,7 +114,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 var downloadAnchor = document.getElementById('file' + transferObj.fileNumber);
                 downloadAnchor.download = newFile.name;
                 downloadAnchor.href = newFile.href;
-                fileUpload.successMessage(newFile.name);
+                notifications.successMessage(newFile.name);
                 fileTransfer.downloadQueue.shift();
                 webRTC.checkDownloadQueue();
               });
