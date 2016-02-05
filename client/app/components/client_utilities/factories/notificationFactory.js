@@ -6,17 +6,19 @@ angular.module('utils.notifications', [
 
   var notifications = {};
 
+  var notificationPosX = 'center';
+
   notifications.successMessage = function(name){
     Notification.success({
       message: name + ' finished downloading',
-      positionX: 'center'
+      positionX: notificationPosX
     });
   };
 
   notifications.connectionLost = function(name){
     Notification.error({
       message: 'Connection Lost',
-      positionX: 'center'
+      positionX: notificationPosX
     });
   };
 

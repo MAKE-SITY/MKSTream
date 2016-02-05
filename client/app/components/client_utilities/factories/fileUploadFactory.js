@@ -105,12 +105,27 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       // console.log('TIME REMAINING:', convertedTime);
 
     }
+
+
     return {
       rate: convertedRate,
       time: convertedTime
     };
   };
 
+  fileUpload.receiveFiles = function(){
+    var files = this.files;
+    for (var i = 0; i < files.length; i++) {
+      if (fileTransfer.myItems.indexOf(files[i]) > -1) {
+        continue;
+      }
+      files[i].beenSent = false;
+      fileTransfer.myItems.push(files[i]);
+    }
+    fileTransfer.conn.forEach(function(connection) {
+      webRTC.clearQueue(fileTransfer.myItems, connection);
+    });
+  }
 
 
   return fileUpload;
