@@ -111,10 +111,7 @@ angular.module('connecting', [
       });
 
       document.getElementById('filesId').addEventListener('change', function() {
-        console.log('connecting input listener');
         fileUpload.receiveFiles.call(this);
-        //TODO: send files back
-
       });
     }
 

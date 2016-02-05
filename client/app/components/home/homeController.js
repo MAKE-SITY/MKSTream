@@ -53,7 +53,6 @@ angular.module('home', [
 
     document.getElementById('filesId').addEventListener('change', function() {
 
-
       $scope.uploadAlert = false;
       $('#lightningBoltButton').addClass('waitingForConnection');
 
