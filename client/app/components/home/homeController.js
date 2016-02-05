@@ -101,12 +101,13 @@ angular.module('home', [
             });
         });
         fileTransfer.peer.on('connection', function(conn) {
-          $('#lightningBoltButton').addClass('connectedToPeer');
-          // TODO: add text to show that user is connected
           fileTransfer.conn.push(conn);
           console.log('peerJS connection object', conn);
+          $('.currentConnectionState').text('Connecting...');
 
           conn.on('open', function() {
+            $('#lightningBoltButton').addClass('connectedToPeer');
+            $('.currentConnectionState').text('Connected!');
             fileTransfer.connected = true;
             fileTransfer.conn.forEach(function(connection) {
               webRTC.clearQueue(fileTransfer.myItems, connection);

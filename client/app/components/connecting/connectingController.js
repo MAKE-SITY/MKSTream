@@ -73,6 +73,7 @@ angular.module('connecting', [
 
       fileTransfer.peer.on('open', function(id) {
         disconnectingReceiverId = id;
+        $('.currentConnectionState').text('Connecting...');
         $http({
             method: 'POST',
             url: '/api/webrtc/users',
@@ -88,6 +89,7 @@ angular.module('connecting', [
             conn.on('data', function(data) {
               console.log('incoming packet');
               $('#lightningBoltButton').addClass('connectedToPeer');
+              $('.currentConnectionState').text('Connected!');
               if (data.type === 'file-accepted') {
                 packetHandlers.accepted(data, conn, $rootScope);
               } else if (data.type === 'file-offer') {
