@@ -15,7 +15,8 @@ angular.module('home', [
   'packetHandlers',
   'fileUpload',
   'modals',
-  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload, modals) {
+  'notifications',
+  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload, modals, notifications) {
     console.log('home controller loaded');
     fileTransfer.myItems = [];
     fileTransfer.conn = [];
@@ -124,6 +125,14 @@ angular.module('home', [
             } else if (data.type === 'file-chunk') {
               packetHandlers.chunk(data, $rootScope);
             }
+          });
+
+          conn.on('error', function(err){
+            console.log('connection error: ', err);
+          });
+
+          conn.on('close', function(){
+            notifications.connectionLost();
           });
         });
         generateLink();
