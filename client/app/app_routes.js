@@ -16,15 +16,14 @@ angular.module('clientRoutes', [])
       views: {
         'connecting':{  
           controller: 'connectingController'
-          // templateUrl: './app/components/connecting/featView.html'
         },
         'upload':{  
           controller: 'uploadController',
-          templateUrl: './app/components/connecting/uploadView.html'
+          templateUrl: './app/components/upload/uploadView.html'
         },
         'download':{
           controller: 'downloadController',
-          templateUrl: './app/components/connecting/downloadView.html'
+          templateUrl: './app/components/download/downloadView.html'
         }
       }
     });
