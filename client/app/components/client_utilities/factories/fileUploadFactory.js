@@ -62,7 +62,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
 
   var convertTime = function(timeInSeconds) {
     // expects seconds
-    var sec_num = parseInt(timeInSeconds, 10); // don't forget the second param
+    var sec_num = parseInt(timeInSeconds, 10);
     var hours = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -83,6 +83,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUpload.getTransferRate = function(transferObj) {
+    // takes the incoming transferObj which is expected to have certain properties
     var currentTime = Date.now();
     var timeToWait = 1000; // ms
     if (currentTime >= transferObj.nextTime) {
@@ -100,8 +101,8 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
 
       convertedRate = convertRate(rate);
       convertedTime = convertTime(timeRemaining);
-      console.log('RATE:', convertedRate);
-      console.log('TIME REMAINING:', convertedTime);
+      // console.log('RATE:', convertedRate);
+      // console.log('TIME REMAINING:', convertedTime);
 
     }
     return {
