@@ -15,13 +15,13 @@ Run application:
 `npm start`
 
 Check files for lint:
-'grunt jshint'
+`grunt jshint`
 
 Run client-side test specs:
-'karma start'
+`karma start`
 
 Run server-side test specs:
-'jasmine'
+`jasmine`
 
 ## Style Guide
 Access our [Style Guide here](https://github.com/MKSTeam/thesis/wiki/Style-Guide)
