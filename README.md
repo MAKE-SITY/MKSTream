@@ -3,6 +3,7 @@ Group thesis project for MakerSquare
 
 ## Getting Started
 [View our git workflow](https://github.com/MAKE-SITY/MKSTream/wiki/Git-Workflow)
+
 [View our commit styling guidelines](https://github.com/MAKE-SITY/MKSTream/wiki/Commit-Styling)
 
 ## Installing dependencies
