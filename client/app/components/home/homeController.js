@@ -53,25 +53,11 @@ angular.module('home', [
 
     document.getElementById('filesId').addEventListener('change', function() {
 
+
       $scope.uploadAlert = false;
       $('#lightningBoltButton').addClass('waitingForConnection');
 
-      console.log('home input listener');
-      var files = this.files;
-      for (var i = 0; i < files.length; i++) {
-        if (fileTransfer.myItems.indexOf(files[i]) > -1) {
-          continue;
-        }
-        files[i].beenSent = false;
-        fileTransfer.myItems.push(files[i]);
-      }
-
-      if (fileTransfer.connected) {
-        fileTransfer.conn.forEach(function(connection) {
-          webRTC.clearQueue(fileTransfer.myItems, connection);
-        });
-      }
-
+      fileUpload.receiveFiles.call(this);
 
       fileTransfer.myItems.forEach(function(item, idx, collection) {
         $scope.uploadedFiles[idx] = {
@@ -114,26 +100,7 @@ angular.module('home', [
               webRTC.clearQueue(fileTransfer.myItems, connection);
             });
           });
-
-
-          conn.on('data', function(data) {
-            console.log('incoming packet');
-            if (data.type === 'file-accepted') {
-              packetHandlers.accepted(data, conn, $rootScope);
-            } else if (data.type === 'file-offer') {
-              packetHandlers.offer(data, conn, $rootScope);
-            } else if (data.type === 'file-chunk') {
-              packetHandlers.chunk(data, $rootScope);
-            }
-          });
-
-          conn.on('error', function(err){
-            console.log('connection error: ', err);
-          });
-
-          conn.on('close', function(){
-            notifications.connectionLost();
-          });
+          packetHandlers.attachConnectionListeners(conn, $rootScope);
         });
         generateLink();
       }
@@ -144,7 +111,7 @@ angular.module('home', [
       };
 
       window.addEventListener('beforeunload', function() {
-        console.log("DISCONNECTED");
+        fileTransfer.peer.destroy();
         $http({
           method: 'POST',
           url: '/api/webrtc/deleteSenderObject',

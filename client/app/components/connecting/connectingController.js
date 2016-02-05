@@ -85,19 +85,11 @@ angular.module('connecting', [
           .then(function(res) {
             // expect res.data === sender id
             var conn = fileTransfer.peer.connect(res.data.senderID);
+            $('#lightningBoltButton').addClass('connectedToPeer');
+            $('.currentConnectionState').text('Connected!');
             fileTransfer.conn.push(conn);
-            conn.on('data', function(data) {
-              console.log('incoming packet');
-              $('#lightningBoltButton').addClass('connectedToPeer');
-              $('.currentConnectionState').text('Connected!');
-              if (data.type === 'file-accepted') {
-                packetHandlers.accepted(data, conn, $rootScope);
-              } else if (data.type === 'file-offer') {
-                packetHandlers.offer(data, conn, $rootScope);
-              } else if (data.type === 'file-chunk') {
-                packetHandlers.chunk(data, $rootScope);
-              }
-            });
+            packetHandlers.attachConnectionListeners(conn, $rootScope);
+
           });
       });
 
@@ -107,6 +99,7 @@ angular.module('connecting', [
       };
 
       window.addEventListener('beforeunload', function() {
+        fileTransfer.peer.destroy();
         $http({
           method: 'POST',
           url: '/api/webrtc/deleteReceiverId',
@@ -119,17 +112,7 @@ angular.module('connecting', [
 
       document.getElementById('filesId').addEventListener('change', function() {
         console.log('connecting input listener');
-        var files = this.files;
-        for (var i = 0; i < files.length; i++) {
-          if (fileTransfer.myItems.indexOf(files[i]) > -1) {
-            continue;
-          }
-          files[i].beenSent = false;
-          fileTransfer.myItems.push(files[i]);
-        }
-        fileTransfer.conn.forEach(function(connection) {
-          webRTC.clearQueue(fileTransfer.myItems, connection);
-        });
+        fileUpload.receiveFiles.call(this);
         //TODO: send files back
 
       });
