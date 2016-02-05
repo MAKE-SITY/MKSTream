@@ -16,10 +16,11 @@ body {
   padding-top: 50px;
 }
 
+
+
 .btn,
 .navbar-custom,
 h6 {
-  text-transform: uppercase;
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -247,7 +248,8 @@ a:hover {
     padding: 0
   }
   .intro .intro-body .brand-heading {
-    font-size: 100px
+    font-size: 100px;
+
   }
   .intro .intro-body .intro-text {
     font-size: 26px
@@ -567,4 +569,8 @@ progress {
     border: 0;
     height: 18px;
     border-radius: 9px;
+}
+
+.testing-class {
+  font-size: 4em;
 }
