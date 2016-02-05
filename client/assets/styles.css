@@ -434,18 +434,6 @@ img::-moz-selection {
   transform: scale(1.01, 1.01)
 }
 
-@-webkit-keyframes whitePulse {
-  from,
-  to {
-    background-color: transparent;
-    -webkit-box-shadow: 0 0 9px #fff
-  }
-  65% {
-    background-color: #6e5494;
-    -webkit-box-shadow: 0 0 px #91bd09
-  }
-}
-
 @-webkit-keyframes yellowPulse {
   from,
   to {
@@ -468,12 +456,6 @@ img::-moz-selection {
     background-color: #38e600;
     -webkit-box-shadow: 0 0 px #91bd09
   }
-}
-
-.glowing {
-  -webkit-animation-name: whitePulse;
-  -webkit-animation-duration: 1.5s;
-  -webkit-animation-iteration-count: infinite;
 }
 
 .waitingForConnection {
