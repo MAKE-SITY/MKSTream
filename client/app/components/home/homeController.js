@@ -53,7 +53,7 @@ angular.module('home', [
     document.getElementById('filesId').addEventListener('change', function() {
 
       $scope.uploadAlert = false;
-      $('#lightningBoltButton').addClass('glowing');
+      $('#lightningBoltButton').addClass('waitingForConnection');
 
       console.log('home input listener');
       var files = this.files;
