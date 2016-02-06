@@ -24,7 +24,7 @@ angular.module('home', [
 
     var disconnectingSenderId = null;
     var generateLink = function() {
-      $scope.hash = linkGeneration.guid().then(function(val) {
+      $scope.hash = linkGeneration.adjAdjAnimal().then(function(val) {
         $scope.hash = val;
         $state.go('room', {
           roomHash: $scope.hash

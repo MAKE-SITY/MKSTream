@@ -8,7 +8,7 @@ angular.module('utils.linkGeneration', [])
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   };
 
-  linkGeneration.guid = function() {
+  linkGeneration.adjAdjAnimal = function() {
     return adjAdjAnimal(); // global function from adjective-adjective-animal bower package, returns promise
   };
 
