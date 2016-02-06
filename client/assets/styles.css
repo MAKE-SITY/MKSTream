@@ -510,6 +510,8 @@ img::-moz-selection {
 
 progress[value] {
   width: 100%;
+  position: relative;
+  top: 2px;
 }
 
 .accept-request {
@@ -571,8 +573,12 @@ progress {
 
 .text-in-bar {
   position: relative;
-  top: -1.54em;
+  top: -1.4em;
 }
-.testing-class {
+
+.transferRate {
+  position: absolute;
+  left: -.9em;
+}.testing-class {
   font-size: 4em;
 }

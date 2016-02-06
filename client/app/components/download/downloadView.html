@@ -13,11 +13,12 @@
           <br> {{transfer.formattedSize}}</div>
         <div class='col-xs-8'>
           <progress value="{{transfer.progress}}" max="{{transfer.size}}"></progress>
-          <div class='text-in-bar'>{{transfer.percent}}</div>        
+          <div class='text-in-bar'>{{transfer.percent}}</div>
+          
         </div>
         <div class='col-xs-4 table-data-right'>
-        <div class='transfer-rate' ng-if='transfer.percent !== "100.00%"'>
-          {{transfer.rate}} {{transfer.time}}
+        <div ng-if='transfer.percent !== "100.00%"'>
+          <span class ='transferRate'>{{transfer.rate}}</span>{{transfer.time}}
         </div>
         <a href='' id='file{{$index}}' ng-if='transfer.percent === "100.00%"'>
           Download
