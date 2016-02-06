@@ -24,7 +24,7 @@ angular.module('home', [
 
     var disconnectingSenderId = null;
     var generateLink = function() {
-      $scope.hash = linkGeneration.guid().then(function(val) {
+      $scope.hash = linkGeneration.adjAdjAnimal().then(function(val) {
         $scope.hash = val;
         $state.go('room', {
           roomHash: $scope.hash
@@ -44,16 +44,6 @@ angular.module('home', [
       $('#alertMessage').text('Click the bolt to copy the link to your clipboard');
 
       fileUpload.receiveFiles.call(this);
-
-      fileTransfer.myItems.forEach(function(item, idx, collection) {
-        $scope.uploadedFiles[idx] = {
-          name: item.name,
-          size: fileUpload.convertFileSize(item.size),
-          type: item.type
-        };
-      });
-      $scope.$apply();
-
 
       if (!fileTransfer.peer) {
         lightningButton.activateLightningButton();

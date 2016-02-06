@@ -5,7 +5,7 @@ module.exports = function(grunt) {
       files: ['*.js', 'client/app/**/*.js', 'server/**/*.js', 'database/**/*.js', '*.json', 'spec/**/*.js'],
       options: {
         ignores: [
-          // (TODO: add lib files here)
+          
         ]
       }
     },
@@ -37,8 +37,8 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: ['client/app/**/*.js', 'client/assets/styles.css'],
-      tasks: ['uglify', 'cssmin']
+      files: ['client/app/**/*.js'],
+      tasks: ['jshint']
     }
   });
 
@@ -56,4 +56,5 @@ module.exports = function(grunt) {
   **************************************************************/
 
   grunt.registerTask('default', ['watch']);
+  grunt.registerTask('minall', ['uglify', 'cssmin']);
 };

@@ -20,11 +20,6 @@ angular.module('upload', [
     $scope.acceptFileOffer = fileUpload.acceptFileOffer;
     $scope.rejectFileOffer = fileUpload.rejectFileOffer;
     $scope.offers = fileTransfer.offers;
-    
-    console.log('upload scope', $scope.offers);
-    
-
-
-
+    $scope.uploadedFiles = fileTransfer.myItems;
 
   }]);

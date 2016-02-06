@@ -3,7 +3,7 @@
 
 <head>
   <link rel="shortcut icon" href="./assets/favicon-bolt.ico" />
-  <title></title>
+  <title>MKStream</title>
 
   <!-- All library files and app files minified -->
   <!-- // <script src='allmincode.js'></script> -->
@@ -20,19 +20,14 @@
   <script src='./../bower_components/localforage/dist/localforage.min.js'></script>
   <script src='./../bower_components/jquery/dist/jquery.min.js'></script>
   <script src='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.js'></script>
-  <link href='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css' rel="stylesheet">
-
-  <!-- CDNs -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+  <script src='./../bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
   
+  <!-- css stylesheeets -->
+  
+  <link href='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css' rel="stylesheet">
+  <link rel='stylesheet' href='./../bower_components/font-awesome/css/font-awesome.min.css'>
+  <link rel='stylesheet' href='./../bower_components/bootstrap/dist/css/bootstrap.min.css'>
+
 
   <!-- Add additional factories -->
   
@@ -91,15 +86,14 @@
           <li class="hidden">
             <a></a>
           </li>
-
           <li>
-            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-exclamation-circle fa-3x"></i></a>
+            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question fa-3x"></i></a>
           </li>
           <li>
-            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question-circle fa-3x"></i></a>
+            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-lightbulb-o fa-3x"></i></a>
           </li>
           <li>
-            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color"><i class="fa fa-github fa-3x"></i></a>
+            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a>
           </li>
         </ul>
       </div>
@@ -114,8 +108,8 @@
 
 
   <!-- Intro Header -->
-  <div ui-view='connecting'></div>
   <div ui-view></div>
+  <div ui-view='connecting'></div>
 
   <header class="intro intro-text">
     <div class="intro-body">
@@ -132,9 +126,8 @@
               </div>
             </div>
             <div class='col-md-4'>
-              <div class="col-md-12" id='transSection'>
                 <div id="dropZone">
-                  <h6 id='dropZoneText'>drag & drop or click to start</h6>
+                  <h6 id='dropZoneText'>drag and drop or click to start</h6>
                   <input type="file" id="filesId" name="files" multiple />
                   <output id="list"></output>
                 </div>
@@ -148,7 +141,6 @@
                 <br>
                 <!-- <input id="currentUrl" value=""> -->
                 <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
-              </div>
             </div>
             <div class='col-md-4'>
               <div class="col-md-12" id='dlSection'>
