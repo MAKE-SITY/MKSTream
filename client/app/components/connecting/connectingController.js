@@ -95,7 +95,10 @@ angular.module('connecting', [
       });
 
       document.getElementById('filesId').addEventListener('change', function() {
-        fileUpload.receiveFiles.call(this);
+        var self = this;
+        $scope.$apply(function(){
+          fileUpload.receiveFiles.call(self);
+        })
       });
     }
 
