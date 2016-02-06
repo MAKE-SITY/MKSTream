@@ -16,7 +16,8 @@ angular.module('home', [
   'fileUpload',
   'modals',
   'notifications',
-  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload, modals, notifications) {
+  'lightningButton',
+  function($scope, $http, $state, $stateParams, $location, $rootScope, fileTransfer, linkGeneration, webRTC, packetHandlers, fileUpload, modals, notifications, lightningButton) {
     console.log('home controller loaded');
     fileTransfer.myItems = [];
     fileTransfer.conn = [];
@@ -31,30 +32,16 @@ angular.module('home', [
       });
     };
 
-    $scope.openModal = modals.openModal;
+    $rootScope.openModal = modals.openModal;
 
-    $scope.uploadAlert = true;
 
     $scope.uploadedFiles = {};
 
-    $('#lightningBoltButton').hover(function() {
-      $('#lightningBoltButton').addClass('lightningHover');
-    }, function() {
-      $('#lightningBoltButton').removeClass('lightningHover');
-    })
-
-    $('#lightningBoltButton').mousedown(function() {
-      $('#lightningBoltButton').addClass('clicked');
-    })
-
-    $('#lightningBoltButton').mouseup(function() {
-      $('#lightningBoltButton').removeClass('clicked');
-    })
+    
 
     document.getElementById('filesId').addEventListener('change', function() {
-
-      $scope.uploadAlert = false;
-      $('#lightningBoltButton').addClass('waitingForConnection');
+      
+      $('#alertMessage').text('Click the bolt to copy the link to your clipboard');
 
       fileUpload.receiveFiles.call(this);
 
@@ -69,6 +56,9 @@ angular.module('home', [
 
 
       if (!fileTransfer.peer) {
+        lightningButton.activateLightningButton();
+        lightningButton.awaitingConnection();
+        lightningButton.addLinkToLightningButton();
 
         fileTransfer.peer = webRTC.createPeer();
         console.log('SENDER peer created');
@@ -88,13 +78,9 @@ angular.module('home', [
         });
         fileTransfer.peer.on('connection', function(conn) {
           fileTransfer.conn.push(conn);
-          console.log('peerJS connection object', conn);
-          $('.currentConnectionState').text('Connecting...');
+          lightningButton.connectedToPeer();
 
           conn.on('open', function() {
-            $('#lightningBoltButton').addClass('connectedToPeer');
-            $('.currentConnectionState').text('Connected!');
-            fileTransfer.connected = true;
             fileTransfer.conn.forEach(function(connection) {
               webRTC.clearQueue(fileTransfer.myItems, connection);
             });
