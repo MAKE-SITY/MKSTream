@@ -120,6 +120,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
         continue;
       }
       files[i].beenSent = false;
+      files[i].formattedSize = fileUpload.convertFileSize(files[i].size);
       fileTransfer.myItems.push(files[i]);
     }
     fileTransfer.conn.forEach(function(connection) {
