@@ -457,6 +457,18 @@ img::-moz-selection {
   }
 }
 
+@-webkit-keyframes redPulse {
+  from,
+  to {
+    background-color: #ff3333;
+    -webkit-box-shadow: 0 0 9px #fff
+  }
+  65% {
+    background-color: #e60000;
+    -webkit-box-shadow: 0 0 px #91bd09
+  }
+}
+
 .waitingForConnection {
   -webkit-animation-name: yellowPulse;
   -webkit-animation-duration: 1.5s;
@@ -465,6 +477,12 @@ img::-moz-selection {
 
 .connectedToPeer {
   -webkit-animation-name: greenPulse;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.disconnected {
+  -webkit-animation-name: redPulse;
   -webkit-animation-duration: 1.5s;
   -webkit-animation-iteration-count: infinite;
 }
