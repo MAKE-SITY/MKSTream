@@ -23,6 +23,11 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           scopeRef: scope
         };
         webRTC.sendDataInChunks(conn, sendData);
+        for (var i = 0; i < fileTransfer.myItems.length; i++) {
+          if (fileTransfer.myItems[i].name === data.name && fileTransfer.myItems[i].size === data.size) {
+            fileTransfer.myItems[i].status = "SENDING!!!";
+          }
+        }
       }
     });
   };
