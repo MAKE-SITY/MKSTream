@@ -21,6 +21,14 @@ angular.module('utils.modals', [])
     
   };
 
+  modals.badBrowser = function(){
+    $uibModal.open({
+      templateUrl: 'app/components/modals/badBrowserModalView.html',
+      controller: 'modalsController',
+      windowClass: 'informational-modal'
+    });
+  }
+
   return modals;
 
 }]);

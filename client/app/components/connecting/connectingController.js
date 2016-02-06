@@ -25,7 +25,7 @@ angular.module('connecting', [
      * follow the code below:
      */
 
-    
+    fileUpload.checkBrowser();
 
 
     $rootScope.openModal = modals.openModal;
