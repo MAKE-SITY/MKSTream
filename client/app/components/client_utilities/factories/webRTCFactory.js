@@ -143,7 +143,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
         name: first.name,
         size: first.rawSize,
         fileKey: first.fileKey,
-        type: 'file-accepted'
+        type: 'start-transfer'
       });
     }
   };
