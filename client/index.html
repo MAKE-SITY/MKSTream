@@ -3,7 +3,7 @@
 
 <head>
   <link rel="shortcut icon" href="./assets/favicon-bolt.ico" />
-  <title></title>
+  <title>MKStream</title>
 
   <!-- All library files and app files minified -->
   <!-- // <script src='allmincode.js'></script> -->
@@ -91,15 +91,14 @@
           <li class="hidden">
             <a></a>
           </li>
-
           <li>
-            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-exclamation-circle fa-3x"></i></a>
+            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question fa-3x"></i></a>
           </li>
           <li>
-            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question-circle fa-3x"></i></a>
+            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-lightbulb-o fa-3x"></i></a>
           </li>
           <li>
-            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color"><i class="fa fa-github fa-3x"></i></a>
+            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a>
           </li>
         </ul>
       </div>
@@ -114,8 +113,8 @@
 
 
   <!-- Intro Header -->
-  <div ui-view='connecting'></div>
   <div ui-view></div>
+  <div ui-view='connecting'></div>
 
   <header class="intro intro-text">
     <div class="intro-body">
@@ -132,9 +131,8 @@
               </div>
             </div>
             <div class='col-md-4'>
-              <div class="col-md-12" id='transSection'>
                 <div id="dropZone">
-                  <h6 id='dropZoneText'>drag & drop or click to start</h6>
+                  <h6 id='dropZoneText'>drag and drop or click to start</h6>
                   <input type="file" id="filesId" name="files" multiple />
                   <output id="list"></output>
                 </div>
@@ -148,7 +146,6 @@
                 <br>
                 <!-- <input id="currentUrl" value=""> -->
                 <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
-              </div>
             </div>
             <div class='col-md-4'>
               <div class="col-md-12" id='dlSection'>
