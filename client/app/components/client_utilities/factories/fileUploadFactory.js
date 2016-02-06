@@ -6,7 +6,8 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   'webRTC', 
   'linkGeneration',
   'Notification', 
-  function(fileReader, fileTransfer, webRTC, linkGeneration, Notification) {
+  'modals',
+  function(fileReader, fileTransfer, webRTC, linkGeneration, Notification, modals) {
   var fileUpload = {};
 
   fileUpload.getFiles = function() {
@@ -128,6 +129,13 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     });
   };
 
+  fileUpload.checkBrowser = function(){
+    var goodBrowser = util.browser !== 'Unsupported';
+    var supportsDataChannel = util.supports.data;
+    if(!goodBrowser || !supportsDataChannel){
+      modals.badBrowser();
+    }
+  };
 
   return fileUpload;
 

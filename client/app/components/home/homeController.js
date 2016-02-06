@@ -33,14 +33,12 @@ angular.module('home', [
     };
 
     $rootScope.openModal = modals.openModal;
-
-
-    $scope.uploadedFiles = {};
+    fileUpload.checkBrowser();
 
     
 
     document.getElementById('filesId').addEventListener('change', function() {
-      
+      fileUpload.checkBrowser();
       $('#alertMessage').text('Click the bolt to copy the link to your clipboard');
 
       fileUpload.receiveFiles.call(this);
