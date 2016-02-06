@@ -77,7 +77,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         transferObj.progress = transferObj.size;
         transferObj.rate = 0.00;
       }
-      transferObj.percent = (transferObj.progress/transferObj.size*100).toFixed(2).toString() + '%'
+      transferObj.percent = (transferObj.progress/transferObj.size*100).toFixed(2).toString() + '%';
     });
     
     if (transferObj.progress >= transferObj.size) {
@@ -151,7 +151,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       notifications.connectionLost();
       lightningButton.disconnected();
     });
-  }
+  };
 
   return packetHandlers;
 
