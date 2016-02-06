@@ -1,4 +1,6 @@
-# MKStream
+# ![MKSTream] (client/assets/logo_plain.png)
+<!--# ![MKSTream] (client/assets/logo.png)-->
+
 
 MKStream allows people to send files directly to each other through a secured and anonymous data-channel established by WebRTC's peer-connection. You can use our service across multiple browsers and acrosss multiple platforms with no plugins, no downloads, and no installs necessary.
 
