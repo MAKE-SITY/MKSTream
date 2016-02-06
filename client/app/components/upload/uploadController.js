@@ -21,6 +21,5 @@ angular.module('upload', [
     $scope.rejectFileOffer = fileUpload.rejectFileOffer;
     $scope.offers = fileTransfer.offers;
     $scope.uploadedFiles = fileTransfer.myItems;
-    $scope.status = fileTransfer.status;
     
   }]);

@@ -82,11 +82,12 @@ angular.module('utils.webRTC', ['utils.fileReader'])
           packet.size = details.size;
         } 
         details.conn.send(packet);
-        console.log(details.conn.bufferSize);
+        console.log('BufferSize:', details.conn.bufferSize);
         details.count++;
         if (details.size > details.offset + chunkSize) {
           details.offset += chunkSize;
           if(details.conn.bufferSize > 1000){
+            // if buffer queue exceeds 1000, wait for user's client to process first
             window.setTimeout(function(details) {
               chunker(details);
             }, 150, details);
@@ -125,6 +126,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
         conn.send({
           name: files[i].name,
           size: files[i].size,
+          fileKey: files[i].fileKey,
           type: 'file-offer'
         });
       }
