@@ -7,7 +7,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   'linkGeneration', 
   'fileTransfer',
   'notifications',
-  function(webRTC, fileUpload, linkGeneration, fileTransfer, notifications) {
+  'lightningButton',
+  function(webRTC, fileUpload, linkGeneration, fileTransfer, notifications, lightningButton) {
   var packetHandlers = {};
   var fileNumber = 0;
   var fullArray = [];
@@ -148,6 +149,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
     conn.on('close', function(){
       notifications.connectionLost();
+      lightningButton.disconnected();
     });
   }
 
