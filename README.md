@@ -14,8 +14,10 @@ MKStream allows people to send files directly to each other through a secured an
 **Note:**   
 For anonymity and security reasons, either peer closing or refreshing their MKStream tab destroys the connection and voids the current anonymous link. To share more files, just go back to [MKStream.club](https://www.mkstream.club/) and MKStream will be ready for you any time.
 
-# How does it work
-  - diagram & writeup coming!
+
+## How does it work
+# ![MKSTream] (client/assets/mkstream_architecture.png)
+	- writeup coming!
 
 # Contributing
 **MKStream is brought to you by:**  
