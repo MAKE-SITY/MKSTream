@@ -126,6 +126,7 @@ angular.module('utils.webRTC', ['utils.fileReader'])
         conn.send({
           name: files[i].name,
           size: files[i].size,
+          fileKey: files[i].fileKey,
           type: 'file-offer'
         });
       }

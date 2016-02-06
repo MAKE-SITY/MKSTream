@@ -33,7 +33,6 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUpload.acceptFileOffer = function(offer) {
-    offer.fileKey = linkGeneration.generateHash();
     fileTransfer.incomingFileTransfers[offer.fileKey] = {
       name: offer.name,
       size: offer.size,
@@ -120,6 +119,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       if (fileTransfer.myItems.indexOf(files[i]) > -1) {
         continue;
       }
+      files[i].fileKey = linkGeneration.generateHash();
       files[i].beenSent = false;
       files[i].formattedSize = fileUpload.convertFileSize(files[i].size);
       files[i].status = 'Pending...';

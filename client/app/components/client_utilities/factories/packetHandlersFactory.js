@@ -38,13 +38,14 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         name: data.name,
         size: fileUpload.convertFileSize(data.size),
         conn: conn,
+        fileKey: data.fileKey,
         rawSize: data.size
       };
       fileTransfer.offers.push(offer);
     });
   };
 
-  packetHandlers.chunk = function(data, scope) {
+  packetHandlers.chunk = function(data, conn, scope) {
     if (data.count === 0) {
       scope.$apply(function() {
         fileTransfer.incomingFileTransfers[data.id] = {
@@ -88,6 +89,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     if (transferObj.progress >= transferObj.size) {
       var lastBlob = new Blob(block);
       block = transferObj.buffer[blockIndex] = null;
+
       localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), lastBlob)
         .then(
           function(result) {
@@ -123,6 +125,11 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 notifications.successMessage(newFile.name);
                 fileTransfer.downloadQueue.shift();
                 webRTC.checkDownloadQueue();
+                // ping back to sender that it is complete.
+                conn.send({
+                  id: data.id,
+                  type: 'file-finished'
+                });
               });
           }
         );
@@ -136,6 +143,10 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     }
   };
 
+  packetHandlers.setFinishedStatus = function(data, conn, scope) {
+    fileTransfer.myItems;
+  }
+
   packetHandlers.attachConnectionListeners = function(conn, scope){
     conn.on('data', function(data) {
       console.log('incoming packet');
@@ -144,7 +155,9 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       } else if (data.type === 'file-offer') {
         packetHandlers.offer(data, conn, scope);
       } else if (data.type === 'file-chunk') {
-        packetHandlers.chunk(data, scope);
+        packetHandlers.chunk(data, conn, scope);
+      } else if (data.type === 'file-finished') {
+
       }
     });
 
