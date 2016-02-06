@@ -47,12 +47,12 @@ angular.module('utils.lightningButton', [])
     $('#lightningBoltButton').removeClass('connectedToPeer');
     $('#lightningBoltButton').addClass('disconnected');
     $('.currentConnectionState').text('Disconnected');
-  }
+  };
 
   lightningButton.awaitingConnection = function(){
      $('#lightningBoltButton').addClass('waitingForConnection');
      $('.currentConnectionState').text('Awaiting Connection...');
-  }
+  };
 
   return lightningButton;
 }]);

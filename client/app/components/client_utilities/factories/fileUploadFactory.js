@@ -125,7 +125,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     fileTransfer.conn.forEach(function(connection) {
       webRTC.clearQueue(fileTransfer.myItems, connection);
     });
-  }
+  };
 
 
   return fileUpload;

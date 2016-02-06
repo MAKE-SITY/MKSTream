@@ -7,11 +7,11 @@ angular.module('utils.modals', [])
   modals.openModal = function(template){
     var templateUrl;
     if(template === 'about'){
-      templateUrl = 'app/components/modals/aboutModalView.html'
+      templateUrl = 'app/components/modals/aboutModalView.html';
     } else if (template === 'guide') {
-      templateUrl = 'app/components/modals/guideModalView.html'
+      templateUrl = 'app/components/modals/guideModalView.html';
     } else if (template === 'contact') {
-      templateUrl = 'app/components/modals/contactModalView.html'
+      templateUrl = 'app/components/modals/contactModalView.html';
     }
     $uibModal.open({
         templateUrl: templateUrl,
@@ -23,4 +23,4 @@ angular.module('utils.modals', [])
 
   return modals;
 
-}])
+}]);

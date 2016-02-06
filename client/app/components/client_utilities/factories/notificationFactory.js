@@ -24,4 +24,4 @@ angular.module('utils.notifications', [
 
   return notifications;
 
-}])
+}]);
