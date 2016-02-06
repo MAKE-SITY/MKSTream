@@ -4,7 +4,7 @@ angular.module('utils.linkGeneration', [])
   var linkGeneration = {};
 
   var s4 = function() {
-    //this is a random hash generator
+    //this is a random 4-charactder hash generator
     return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   };
 
@@ -12,7 +12,7 @@ angular.module('utils.linkGeneration', [])
     return adjAdjAnimal(); // global function from adjective-adjective-animal bower package, returns promise
   };
 
-  linkGeneration.fuid = function() {
+  linkGeneration.generateHash = function() {
     return s4() + s4() + s4() + s4();
   };
 
