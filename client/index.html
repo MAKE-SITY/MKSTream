@@ -37,6 +37,7 @@
   <!-- Add additional factories -->
   
   <script src='./app/components/client_utilities/client_utilities.js'></script>
+  <script src='./app/components/client_utilities/factories/lightningButtonFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileUploadFactory.js'></script>
   <script src='./app/components/client_utilities/factories/linkGenerationFactory.js'></script>
@@ -65,7 +66,7 @@
   <link href="./assets/styles.css" rel="stylesheet">
 </head>
 
-<body ng-controller='homeController' class="intro fading-in">
+<body class="intro fading-in">
 <!-- <body> -->
 
   <!-- Navigation -->
@@ -114,6 +115,7 @@
 
   <!-- Intro Header -->
   <div ui-view='connecting'></div>
+  <div ui-view></div>
 
   <header class="intro intro-text">
     <div class="intro-body">
@@ -136,8 +138,7 @@
                   <input type="file" id="filesId" name="files" multiple />
                   <output id="list"></output>
                 </div>
-                <p class="intro-text" ng-hide="!uploadAlert">A free, lightning fast file sharing service</p>
-                <p class="intro-text" id="alertMessage" ng-show="!uploadAlert">Click the bolt to copy the link to your clipboard</p>
+                <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
 
                 <div class="btn btn-circle" id="lightningBoltButton">
                   <i class="fa fa-bolt"></i>

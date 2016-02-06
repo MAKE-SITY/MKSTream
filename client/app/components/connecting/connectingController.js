@@ -13,7 +13,8 @@ angular.module('connecting', [
   'fileUpload',
   'modals',
   'linkGeneration',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration) {
+  'lightningButton',
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration, lightningButton) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
@@ -23,29 +24,12 @@ angular.module('connecting', [
      * if arriving from a link,
      * follow the code below:
      */
-    var savedClasses = 'btn btn-circle lightningHover';
 
-    $('#lightningBoltButton').mouseenter(function() {
-      savedClasses = $('#lightningBoltButton').attr('class');
-      $('#lightningBoltButton').attr('class', 'btn btn-circle lightningHover');
-    });
-
-    $('#lightningBoltButton').mouseleave(function() {
-      $('#lightningBoltButton').attr('class', savedClasses)
-      savedClasses = 'btn btn-circle lightningHover';
-    });
+    
 
 
-    $scope.openModal = modals.openModal;
+    $rootScope.openModal = modals.openModal;
      
-    $('#lightningBoltButton').on('click', function() {
-      linkGeneration.copyToClipboard(document.getElementById("currentUrl"));
-      if (!savedClasses.includes('connectedToPeer')) {
-        if (window.location.href.includes('/room/')) {
-          savedClasses = 'btn btn-circle lightningHover waitingForConnection';
-        }
-      }
-    });
 
     $('.currentUrlShow').removeClass('currentUrlHidden');
 
@@ -64,7 +48,8 @@ angular.module('connecting', [
     console.log('connecting scope', $scope.offers);
 
     if (!fileTransfer.peer) {
-      $('#lightningBoltButton').addClass('waitingForConnection');
+      lightningButton.activateLightningButton();
+      lightningButton.awaitingConnection();
       fileTransfer.myItems = [];
 
       fileTransfer.conn = [];
@@ -85,8 +70,7 @@ angular.module('connecting', [
           .then(function(res) {
             // expect res.data === sender id
             var conn = fileTransfer.peer.connect(res.data.senderID);
-            $('#lightningBoltButton').addClass('connectedToPeer');
-            $('.currentConnectionState').text('Connected!');
+            lightningButton.connectedToPeer();
             fileTransfer.conn.push(conn);
             packetHandlers.attachConnectionListeners(conn, $rootScope);
 
