@@ -18,6 +18,10 @@ Run application:
 Check files for lint:
 `grunt jshint`
 
+Install karma-cli jasmine globally:
+`npm install -g karma-cli`
+`npm install -g jasmine`
+
 Run client-side test specs:
 `karma start`
 

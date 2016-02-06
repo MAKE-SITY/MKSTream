@@ -1,4 +1,4 @@
-.intro,
+  .intro,
 body,
 html {
   height: 100%;
@@ -19,7 +19,6 @@ body {
 .btn,
 .navbar-custom,
 h6 {
-  text-transform: uppercase;
   font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -134,11 +133,11 @@ a:hover {
   color: white;
 }
 
-
 .lightningHover {
   background-color: #e6e6e6;
   -webkit-box-shadow: 0 0 9px #fff;
 }
+
 .clicked {
   background-color: black;
 }
@@ -247,7 +246,7 @@ a:hover {
     padding: 0
   }
   .intro .intro-body .brand-heading {
-    font-size: 100px
+    font-size: 100px;
   }
   .intro .intro-body .intro-text {
     font-size: 26px
@@ -506,11 +505,14 @@ img::-moz-selection {
   text-align: right;
 }
 
-/*progress[value] {
+progress[value] {
   width: 100%;
-}*/
+  position: relative;
+  top: 2px;
+}
 
 .accept-request {
+  text-align: left;
   font-size: 0.875em;
 }
 
@@ -539,32 +541,62 @@ img::-moz-selection {
   border-radius: 5px;
 }
 
+
 /* The starting CSS styles for the enter animation for loading views*/
+
 .fade-view.ng-enter {
-  transition:1.0s linear all;
-  opacity:0;
+  transition: 1.0s linear all;
+  opacity: 0;
 }
 
+
 /* The finishing CSS styles for the enter animation for loading views*/
+
 .fade-view.ng-enter.ng-enter-active {
-  opacity:1;
+  opacity: 1;
 }
+
 
 /* The starting CSS styles for the enter animation for loading ng-repeat*/
 
 .fade-repeat.ng-enter {
-  transition:0.5s linear all;
-  opacity:0;
+  transition: 0.5s linear all;
+  opacity: 0;
 }
 
+
 /* The finishing CSS styles for the enter animation for loading ng-repeat*/
+
 .fade-repeat.ng-enter.ng-enter-active {
-  opacity:1;
+  opacity: 1;
 }
 
 progress {
     background-color: #f3f3f3;
-    border: 0;
-    height: 18px;
-    border-radius: 9px;
+    height: 1em;
 }
+
+.text-in-bar {
+  position: relative;
+  top: -1.4em;
+}
+
+.transferRate {
+  position: absolute;
+  left: -.9em;
+}.testing-class {
+  font-size: 4em;
+}
+
+.about-modal {
+  color: black;
+}
+
+img {
+  display: block;
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  border: 1px;
+  box-shadow: 5px 5px 2px #888888;
+  padding: 10px;
