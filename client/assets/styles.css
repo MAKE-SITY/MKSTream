@@ -606,8 +606,8 @@ progress {
   font-size: 4em;
 }
 
-.about-modal {
-  color: black;
+.modal-content {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 img {
