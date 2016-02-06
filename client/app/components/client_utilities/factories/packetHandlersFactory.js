@@ -136,8 +136,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       console.log('incoming packet');
       if (data.type === 'start-transfer') {
         packetHandlers.startTransfer(data, conn, scope);
-        // TODO: Update DOM after status update
-        fileTransfer.status = 'SENDING!!!!!!!';
       } else if (data.type === 'file-offer') {
         packetHandlers.offer(data, conn, scope);
       } else if (data.type === 'file-chunk') {

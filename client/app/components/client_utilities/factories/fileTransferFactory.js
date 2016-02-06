@@ -9,7 +9,6 @@ angular.module('utils.fileTransfer', [])
   fileTransfer.finishedTransfers = [];
   fileTransfer.offers = [];
   fileTransfer.downloadQueue = [];
-  fileTransfer.status = 'Pending...';
   return fileTransfer;
   
 });

@@ -122,6 +122,8 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       }
       files[i].beenSent = false;
       files[i].formattedSize = fileUpload.convertFileSize(files[i].size);
+      files[i].status = 'Pending...';
+      console.log(files[i]);
       fileTransfer.myItems.push(files[i]);
     }
     fileTransfer.conn.forEach(function(connection) {
