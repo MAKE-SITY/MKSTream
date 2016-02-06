@@ -64,6 +64,7 @@ angular.module('home', [
             })
             .then(function(result) {
               console.log('SENDER\'s POST response', result.data);
+              notifications.tabReminder();
             });
         });
         fileTransfer.peer.on('connection', function(conn) {

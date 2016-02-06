@@ -73,7 +73,7 @@ angular.module('connecting', [
             lightningButton.connectedToPeer();
             fileTransfer.conn.push(conn);
             packetHandlers.attachConnectionListeners(conn, $rootScope);
-
+            notifications.tabReminder();
           });
       });
 
