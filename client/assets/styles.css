@@ -1,4 +1,4 @@
-.intro,
+  .intro,
 body,
 html {
   height: 100%;
@@ -15,8 +15,6 @@ body {
   /*webkit-tap-highlight-color: rgba(255, 255, 255, .2);*/
   padding-top: 50px;
 }
-
-
 
 .btn,
 .navbar-custom,
@@ -135,11 +133,11 @@ a:hover {
   color: white;
 }
 
-
 .lightningHover {
   background-color: #e6e6e6;
   -webkit-box-shadow: 0 0 9px #fff;
 }
+
 .clicked {
   background-color: black;
 }
@@ -249,7 +247,6 @@ a:hover {
   }
   .intro .intro-body .brand-heading {
     font-size: 100px;
-
   }
   .intro .intro-body .intro-text {
     font-size: 26px
@@ -544,27 +541,34 @@ progress[value] {
   border-radius: 5px;
 }
 
+
 /* The starting CSS styles for the enter animation for loading views*/
+
 .fade-view.ng-enter {
-  transition:1.0s linear all;
-  opacity:0;
+  transition: 1.0s linear all;
+  opacity: 0;
 }
 
+
 /* The finishing CSS styles for the enter animation for loading views*/
+
 .fade-view.ng-enter.ng-enter-active {
-  opacity:1;
+  opacity: 1;
 }
+
 
 /* The starting CSS styles for the enter animation for loading ng-repeat*/
 
 .fade-repeat.ng-enter {
-  transition:0.5s linear all;
-  opacity:0;
+  transition: 0.5s linear all;
+  opacity: 0;
 }
 
+
 /* The finishing CSS styles for the enter animation for loading ng-repeat*/
+
 .fade-repeat.ng-enter.ng-enter-active {
-  opacity:1;
+  opacity: 1;
 }
 
 progress {
@@ -583,3 +587,16 @@ progress {
 }.testing-class {
   font-size: 4em;
 }
+
+.about-modal {
+  color: black;
+}
+
+img {
+  display: block;
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  border: 1px;
+  box-shadow: 5px 5px 2px #888888;
+  padding: 10px;
