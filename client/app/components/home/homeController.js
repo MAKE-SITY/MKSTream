@@ -40,8 +40,10 @@ angular.module('home', [
     document.getElementById('filesId').addEventListener('change', function() {
       fileUpload.checkBrowser();
       $('#alertMessage').text('Click the bolt to copy the link to your clipboard');
-
-      fileUpload.receiveFiles.call(this);
+      var self = this;
+      $rootScope.$apply(function() {
+        fileUpload.receiveFiles.call(self);
+      });
 
       if (!fileTransfer.peer) {
         lightningButton.activateLightningButton();
