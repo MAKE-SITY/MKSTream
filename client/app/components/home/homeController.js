@@ -45,16 +45,6 @@ angular.module('home', [
 
       fileUpload.receiveFiles.call(this);
 
-      fileTransfer.myItems.forEach(function(item, idx, collection) {
-        $scope.uploadedFiles[idx] = {
-          name: item.name,
-          size: fileUpload.convertFileSize(item.size),
-          type: item.type
-        };
-      });
-      $scope.$apply();
-
-
       if (!fileTransfer.peer) {
         lightningButton.activateLightningButton();
         lightningButton.awaitingConnection();
