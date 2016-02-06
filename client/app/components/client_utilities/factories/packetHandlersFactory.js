@@ -12,7 +12,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   var packetHandlers = {};
   var fileNumber = 0;
   var fullArray = [];
-  packetHandlers.accepted = function(data, conn, scope) {
+  packetHandlers.startTransfer = function(data, conn, scope) {
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
         var sendData = {
@@ -134,10 +134,12 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   packetHandlers.attachConnectionListeners = function(conn, scope){
     conn.on('data', function(data) {
       console.log('incoming packet');
-      if (data.type === 'file-accepted') {
-        packetHandlers.accepted(data, conn, scope);
+      if (data.type === 'start-transfer') {
+        packetHandlers.startTransfer(data, conn, scope);
+        // ping back to sender to say accepted
       } else if (data.type === 'file-offer') {
         packetHandlers.offer(data, conn, scope);
+        // ping back to sender awaiting accepting
       } else if (data.type === 'file-chunk') {
         packetHandlers.chunk(data, scope);
       }
