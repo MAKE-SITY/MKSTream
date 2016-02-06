@@ -515,6 +515,7 @@ progress[value] {
 }
 
 .accept-request {
+  text-align: left;
   font-size: 0.875em;
 }
 
