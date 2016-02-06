@@ -25,7 +25,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         webRTC.sendDataInChunks(conn, sendData);
         for (var i = 0; i < fileTransfer.myItems.length; i++) {
           if (fileTransfer.myItems[i].name === data.name && fileTransfer.myItems[i].size === data.size) {
-            fileTransfer.myItems[i].status = "SENDING!!!";
+            fileTransfer.myItems[i].status = "Sending...";
           }
         }
       }
@@ -126,8 +126,9 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 fileTransfer.downloadQueue.shift();
                 webRTC.checkDownloadQueue();
                 // ping back to sender that it is complete.
+                console.log('DATA?', data);
                 conn.send({
-                  id: data.id,
+                  fileKey: data.id,
                   type: 'file-finished'
                 });
               });
@@ -143,10 +144,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     }
   };
 
-  packetHandlers.setFinishedStatus = function(data, conn, scope) {
-    fileTransfer.myItems;
-  }
-
   packetHandlers.attachConnectionListeners = function(conn, scope){
     conn.on('data', function(data) {
       console.log('incoming packet');
@@ -157,7 +154,16 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       } else if (data.type === 'file-chunk') {
         packetHandlers.chunk(data, conn, scope);
       } else if (data.type === 'file-finished') {
-
+        console.log('MY ITEMS', fileTransfer.myItems);
+        for (var j = 0; j < fileTransfer.myItems.length; j++) {
+          console.log('MYITEMS FILEKEY', fileTransfer.myItems[j].fileKey);
+          console.log('DATA FILEKEY', data.fileKey);
+          if (fileTransfer.myItems[j].fileKey === data.fileKey) {
+            scope.$apply(function() {
+              fileTransfer.myItems[j].status = 'File finished sending';
+            })
+          }
+        }
       }
     });
 
