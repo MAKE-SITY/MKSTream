@@ -3,8 +3,8 @@ angular.module('utils.lightningButton', [])
 .factory('lightningButton', ['linkGeneration', function(linkGeneration){
   var lightningButton = {};
 
+  var savedClasses = 'btn btn-circle lightningHover';
   lightningButton.activateLightningButton = function(){
-    var savedClasses = 'btn btn-circle lightningHover';
 
     $('#lightningBoltButton').mouseenter(function() {
       savedClasses = $('#lightningBoltButton').attr('class');

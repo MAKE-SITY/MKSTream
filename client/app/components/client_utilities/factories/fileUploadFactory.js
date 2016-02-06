@@ -32,7 +32,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUpload.acceptFileOffer = function(offer) {
-    offer.fileKey = linkGeneration.fuid();
+    offer.fileKey = linkGeneration.generateHash();
     fileTransfer.incomingFileTransfers[offer.fileKey] = {
       name: offer.name,
       size: offer.size,
