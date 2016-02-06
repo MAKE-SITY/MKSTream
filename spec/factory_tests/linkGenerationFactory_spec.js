@@ -10,10 +10,10 @@ describe('linkGeneration Factory', function() {
     });
   });
 
-  describe('linkGenerationObj', function() {
-    it("Should return an object with two methods", function() {
+  describe('linkGeneration', function() {
+    it("Should return an object with three properties", function() {
       var myObj = Object.keys(factory).length;
-      expect(myObj).toEqual(2);
+      expect(myObj).toEqual(3);
     });
 
     it("Should have a method called guid", function() {
