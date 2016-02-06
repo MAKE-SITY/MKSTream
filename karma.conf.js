@@ -19,6 +19,7 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+      'bower_components/angular-ui-notification/dist/angular-ui-notification.min.js',
       'client/lib/nochunkbufferfixpeer.min.js',
       'client/app/**/*.js',
       'spec/factory_tests/**/*.js',
@@ -60,7 +61,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode

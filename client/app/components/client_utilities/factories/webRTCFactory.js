@@ -86,9 +86,15 @@ angular.module('utils.webRTC', ['utils.fileReader'])
         details.count++;
         if (details.size > details.offset + chunkSize) {
           details.offset += chunkSize;
-          window.setTimeout(function(details) {
-            chunker(details);
-          }, 0, details);
+          if(details.conn.bufferSize > 1000){
+            window.setTimeout(function(details) {
+              chunker(details);
+            }, 150, details);
+          } else {
+            window.setTimeout(function(details) {
+              chunker(details);
+            }, 0, details);
+          }
         } else {
           console.log('File finished sending!');
         }

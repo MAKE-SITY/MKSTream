@@ -6,5 +6,6 @@ angular.module('utils', [
   'utils.packetHandlers',
   'utils.fileTransfer',
   'utils.modals',
-  'utils.notifications'
+  'utils.notifications',
+  'utils.lightningButton'
 ]);

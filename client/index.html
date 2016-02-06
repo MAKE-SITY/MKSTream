@@ -37,6 +37,7 @@
   <!-- Add additional factories -->
   
   <script src='./app/components/client_utilities/client_utilities.js'></script>
+  <script src='./app/components/client_utilities/factories/lightningButtonFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileUploadFactory.js'></script>
   <script src='./app/components/client_utilities/factories/linkGenerationFactory.js'></script>
@@ -65,7 +66,7 @@
   <link href="./assets/styles.css" rel="stylesheet">
 </head>
 
-<body ng-controller='homeController' class="intro fading-in">
+<body class="intro fading-in">
 <!-- <body> -->
 
   <!-- Navigation -->
@@ -75,9 +76,9 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
           <i class="fa fa-bars"></i>
         </button>
-        <a class="nav navbar-brand pointer-class">
-          <i class="fa fa-bolt"></i> <span class="light">Start</span> MK STREAM'N
-        </a>
+        
+           <div class="testing-class">MKStream</div>
+        
       </div>
 
 
@@ -92,13 +93,13 @@
           </li>
 
           <li>
-            <a class="pointer-class about-color" ng-click="openModal('about')">About</a>
+            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color"><i class="fa fa-github fa-3x"></i></a>
           </li>
           <li>
-            <a class="pointer-class guide-color" ng-click="openModal('guide')">Guide</a>
+            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-exclamation-circle fa-3x"></i></a>
           </li>
           <li>
-            <a class="pointer-class contact-color" ng-click="openModal('contact')">Contact</a>
+            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question-circle fa-3x"></i></a>
           </li>
         </ul>
       </div>
@@ -114,6 +115,7 @@
 
   <!-- Intro Header -->
   <div ui-view='connecting'></div>
+  <div ui-view></div>
 
   <header class="intro intro-text">
     <div class="intro-body">
@@ -131,14 +133,12 @@
             </div>
             <div class='col-md-4'>
               <div class="col-md-12" id='transSection'>
-                <h3 class="brand-heading">MK Stream</h3>
                 <div id="dropZone">
                   <h6 id='dropZoneText'>drag & drop or click to start</h6>
                   <input type="file" id="filesId" name="files" multiple />
                   <output id="list"></output>
                 </div>
-                <p class="intro-text" ng-hide="!uploadAlert">A free, lightning fast file sharing service</p>
-                <p class="intro-text" id="alertMessage" ng-show="!uploadAlert">Click the bolt to copy the link to your clipboard</p>
+                <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
 
                 <div class="btn btn-circle" id="lightningBoltButton">
                   <i class="fa fa-bolt"></i>

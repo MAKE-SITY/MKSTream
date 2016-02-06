@@ -7,7 +7,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   'linkGeneration', 
   'fileTransfer',
   'notifications',
-  function(webRTC, fileUpload, linkGeneration, fileTransfer, notifications) {
+  'lightningButton',
+  function(webRTC, fileUpload, linkGeneration, fileTransfer, notifications, lightningButton) {
   var packetHandlers = {};
   var fileNumber = 0;
   var fullArray = [];
@@ -76,7 +77,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         transferObj.progress = transferObj.size;
         transferObj.rate = 0.00;
       }
-      transferObj.percent = (transferObj.progress/transferObj.size*100).toFixed(2)
+      transferObj.percent = (transferObj.progress/transferObj.size*100).toFixed(2).toString() + '%'
     });
     
     if (transferObj.progress >= transferObj.size) {
@@ -148,6 +149,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
     conn.on('close', function(){
       notifications.connectionLost();
+      lightningButton.disconnected();
     });
   }
 

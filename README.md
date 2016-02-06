@@ -3,6 +3,7 @@ Group thesis project for MakerSquare
 
 ## Getting Started
 [View our git workflow](https://github.com/MAKE-SITY/MKSTream/wiki/Git-Workflow)
+
 [View our commit styling guidelines](https://github.com/MAKE-SITY/MKSTream/wiki/Commit-Styling)
 
 ## Installing dependencies
@@ -15,13 +16,17 @@ Run application:
 `npm start`
 
 Check files for lint:
-'grunt jshint'
+`grunt jshint`
+
+Install karma-cli jasmine globally:
+`npm install -g karma-cli`
+`npm install -g jasmine`
 
 Run client-side test specs:
-'karma start'
+`karma start`
 
 Run server-side test specs:
-'jasmine'
+`jasmine`
 
 ## Style Guide
 Access our [Style Guide here](https://github.com/MKSTeam/thesis/wiki/Style-Guide)
