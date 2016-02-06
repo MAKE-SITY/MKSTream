@@ -9,7 +9,7 @@ MKStream allows people to send files directly to each other through a secured an
 
 **3. Transfer data  |**  Your url and your file(s) will be available for transfer as long as you keep your MKStream tab open. When both people have the unique url loaded, a file will appear in your receiving section. Clicking accept on a file begins the transfer and readies it for you to download. While connected, feel fre
 
-**  Note:**   
+**Note:**   
 For anonymity and security reasons, either peer closing or refreshing their MKStream tab destroys the connection and voids the current anonymous link. To share more files, just go back to [MKStream.club](https://www.mkstream.club/) and MKStream will be ready for you any time.
 
 ## How does it work
