@@ -119,8 +119,6 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     for (var i = 0; i < files.length; i++) {
       alreadyUploaded = false;
       for(var j = 0; j < fileTransfer.myItems.length; j++){
-        console.log(fileTransfer.myItems[j].name, fileTransfer.myItems[j].size, 'myItems')
-        console.log(files[i].name, files[i].size, 'input');
         if(fileTransfer.myItems[j].name === files[i].name && fileTransfer.myItems[j].size === files[i].size){
           alreadyUploaded = true;
           break;
