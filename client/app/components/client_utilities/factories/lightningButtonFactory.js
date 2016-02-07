@@ -1,10 +1,10 @@
 angular.module('utils.lightningButton', [])
 
-.factory('lightningButton', ['linkGeneration', function(linkGeneration){
+.factory('lightningButton', ['linkGeneration', function(linkGeneration) {
   var lightningButton = {};
 
   var savedClasses = 'btn btn-circle lightningHover';
-  lightningButton.activateLightningButton = function(){
+  lightningButton.activateLightningButton = function() {
 
     $('#lightningBoltButton').mouseenter(function() {
       savedClasses = $('#lightningBoltButton').attr('class');
@@ -26,7 +26,7 @@ angular.module('utils.lightningButton', [])
 
   };
 
-  lightningButton.addLinkToLightningButton = function(){
+  lightningButton.addLinkToLightningButton = function() {
     $('#lightningBoltButton').on('click', function() {
       linkGeneration.copyToClipboard(document.getElementById("currentUrl"));
       if (!savedClasses.includes('connectedToPeer')) {
@@ -37,21 +37,21 @@ angular.module('utils.lightningButton', [])
     });
   };
 
-  lightningButton.connectedToPeer = function(){
+  lightningButton.connectedToPeer = function() {
     $('#lightningBoltButton').removeClass('waitingForConnection');
     $('#lightningBoltButton').addClass('connectedToPeer');
     $('.currentConnectionState').text('Connected!');
   };
 
-  lightningButton.disconnected = function(){
+  lightningButton.disconnected = function() {
     $('#lightningBoltButton').removeClass('connectedToPeer');
     $('#lightningBoltButton').addClass('disconnected');
     $('.currentConnectionState').text('Disconnected');
   };
 
-  lightningButton.awaitingConnection = function(){
-     $('#lightningBoltButton').addClass('waitingForConnection');
-     $('.currentConnectionState').text('Awaiting Connection...');
+  lightningButton.awaitingConnection = function() {
+    $('#lightningBoltButton').addClass('waitingForConnection');
+    $('.currentConnectionState').text('Awaiting Connection...');
   };
 
   return lightningButton;

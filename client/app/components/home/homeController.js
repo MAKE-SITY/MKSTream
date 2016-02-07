@@ -35,7 +35,7 @@ angular.module('home', [
     $rootScope.openModal = modals.openModal;
     fileUpload.checkBrowser();
 
-    
+
 
     document.getElementById('filesId').addEventListener('change', function() {
       fileUpload.checkBrowser();
@@ -100,4 +100,5 @@ angular.module('home', [
     });
 
 
-  }]);
+  }
+]);

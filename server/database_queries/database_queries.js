@@ -53,5 +53,4 @@ exportObj.removeReceiverFromSender = function(linkHash, receiverID) {
   );
 };
 
-
 module.exports = exportObj;
