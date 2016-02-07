@@ -5,9 +5,9 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   'fileTransfer', 
   'webRTC', 
   'linkGeneration',
-  'Notification', 
+  'notifications', 
   'modals',
-  function(fileReader, fileTransfer, webRTC, linkGeneration, Notification, modals) {
+  function(fileReader, fileTransfer, webRTC, linkGeneration, notifications, modals) {
   var fileUpload = {};
 
   fileUpload.getFiles = function() {
@@ -115,10 +115,21 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
 
   fileUpload.receiveFiles = function(){
     var files = this.files;
+    var alreadyUploaded;
     for (var i = 0; i < files.length; i++) {
-      if (fileTransfer.myItems.indexOf(files[i]) > -1) {
-        continue;
+      alreadyUploaded = false;
+      for(var j = 0; j < fileTransfer.myItems.length; j++){
+        console.log(fileTransfer.myItems[j].name, fileTransfer.myItems[j].size, 'myItems')
+        console.log(files[i].name, files[i].size, 'input');
+        if(fileTransfer.myItems[j].name === files[i].name && fileTransfer.myItems[j].size === files[i].size){
+          alreadyUploaded = true;
+          break;
+        }
       }
+      if (alreadyUploaded) {
+        notifications.alreadyUploaded();
+        continue;
+      };
       files[i].fileKey = linkGeneration.generateHash();
       files[i].beenSent = false;
       files[i].formattedSize = fileUpload.convertFileSize(files[i].size);
