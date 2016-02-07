@@ -15,11 +15,27 @@ angular.module('utils.notifications', [
     });
   };
 
-  notifications.connectionLost = function(name){
+  notifications.connectionLost = function(){
     Notification.error({
       message: 'Connection Lost',
       positionX: notificationPosX
     });
+  };
+
+  notifications.tabReminder = function(){
+    Notification.warning({
+      message: 'If you place this tab in the background your connection will slow down. ' +
+                'Please move this tab to a new window.',
+      positionX: notificationPosX,
+      delay: false
+    });
+  };
+
+  notifications.alreadyUploaded = function(){
+    Notification.error({
+      message: 'You already uploaded that!',
+      positionX: notificationPosX
+    })
   };
 
   return notifications;
