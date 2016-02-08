@@ -48,6 +48,10 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   fileUpload.rejectFileOffer = function(offer) {
     var index = fileTransfer.offers.indexOf(offer);
     fileTransfer.offers.splice(index, 1);
+    offer.conn.send({
+      type: 'file-rejected',
+      fileKey: offer.fileKey
+    });
   };
 
 
@@ -125,7 +129,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
         }
       }
       if (alreadyUploaded) {
-        notifications.alreadyUploaded();
+        notifications.alreadyUploaded(files[i].name);
         continue;
       };
       files[i].fileKey = linkGeneration.generateHash();

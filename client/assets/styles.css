@@ -556,3 +556,8 @@ img {
   height: 80px;
   width: 300px;
 }
+
+.mk-upload, .mk-download {
+  margin-bottom: 5px;
+}
+

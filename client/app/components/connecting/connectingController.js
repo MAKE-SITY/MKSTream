@@ -71,10 +71,12 @@ angular.module('connecting', [
           .then(function(res) {
             // expect res.data === sender id
             var conn = fileTransfer.peer.connect(res.data.senderID);
-            lightningButton.connectedToPeer();
             fileTransfer.conn.push(conn);
             packetHandlers.attachConnectionListeners(conn, $rootScope);
             notifications.tabReminder();
+            conn.on('open', function(){
+              lightningButton.connectedToPeer();
+            });
           });
       });
 

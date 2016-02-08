@@ -139,7 +139,6 @@ angular.module('utils.webRTC', ['utils.fileReader'])
       console.log('download queue empty');
     }
     else if(!first.sending){
-      console.log('starting download');
       first.sending = true;
       first.conn.send({
         name: first.name,
