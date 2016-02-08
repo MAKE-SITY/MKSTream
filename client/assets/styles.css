@@ -21,7 +21,7 @@ h6 {
 }
 
 h6 {
-  margin: 0 0 35px;
+  margin: 0;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -330,8 +330,9 @@ img::-moz-selection {
   width: 100%;
   height: 100%;
   opacity: 0;
-  margin-top: -43px;
-  cursor: pointer
+  position: relative;
+  cursor: pointer;
+  z-index: 101;
 }
 
 #dropZone {
@@ -343,12 +344,13 @@ img::-moz-selection {
   border-width: 3px;
   border-style: dotted;
   margin-top: 15%;
+  perspective: 500px;
 }
 
 #dropZoneText {
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  top: -50%;
+  z-index: 100;
 }
 
 #fileLink {
@@ -549,8 +551,8 @@ img {
   padding: 10px;
 }
 
-.buttonsBox {
-}
 
-.displayBox {
+.mkstream-logo {
+  height: 80px;
+  width: 300px;
 }
