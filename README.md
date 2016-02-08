@@ -2,7 +2,7 @@
 <!--# ![MKSTream] (client/assets/logo.png)-->
 
 
-MKStream allows people to send files directly to each other through a secured and anonymous data-channel established by WebRTC's peer-connection. You can use our service across multiple browsers and acrosss multiple platforms with no plugins, no downloads, and no installs necessary.
+MKStream allows people to send files directly to each other through a secured and anonymous data-channel established by WebRTC's peer-connection. You can use our service across multiple browsers and across multiple platforms with no plugins, no downloads, and no installs necessary.
 
 # How to use MKStream
 **1. Upload files  |**  Visit [MKStream.club](https://www.mkstream.club/) and upload your file(s) by clicking the drop-zone and/or dragging and dropping a file into the drop-zone.
