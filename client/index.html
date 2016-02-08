@@ -4,24 +4,33 @@
 <head>
   <link rel="shortcut icon" href="./assets/favicon-bolt.ico" />
   <title>MKStream</title>
+
   <!-- All library files and app files minified -->
   <!-- // <script src='allmincode.js'></script> -->
+
   <!-- bower components -->
   <script src='./../bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js'></script>
   <script src='./../bower_components/angular/angular.min.js'></script>
   <script src='./../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
   <script src='./../bower_components/angular-animate/angular-animate.min.js'></script>
   <script src='/../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'></script>
+
   <script src='./lib/nochunkbufferfixpeer.min.js'></script>
+  
   <script src='./../bower_components/localforage/dist/localforage.min.js'></script>
   <script src='./../bower_components/jquery/dist/jquery.min.js'></script>
   <script src='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.js'></script>
   <script src='./../bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+  
   <!-- css stylesheeets -->
+  
   <link href='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css' rel="stylesheet">
   <link rel='stylesheet' href='./../bower_components/font-awesome/css/font-awesome.min.css'>
   <link rel='stylesheet' href='./../bower_components/bootstrap/dist/css/bootstrap.min.css'>
+
+
   <!-- Add additional factories -->
+  
   <script src='./app/components/client_utilities/client_utilities.js'></script>
   <script src='./app/components/client_utilities/factories/lightningButtonFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
@@ -32,92 +41,116 @@
   <script src='./app/components/client_utilities/factories/fileTransferFactory.js'></script>
   <script src='./app/components/client_utilities/factories/modalFactory.js'></script>
   <script src='./app/components/client_utilities/factories/notificationFactory.js'></script>
+  
+
   <!-- Add additional controller scripts -->
+  
   <script src='./app/components/connecting/connectingController.js'></script>
   <script src='./app/components/upload/uploadController.js'></script>
   <script src='./app/components/download/downloadController.js'></script>
   <script src='./app/components/home/homeController.js'></script>
   <script src='./app/components/modals/modalController.js'></script>
+
   <!-- Added module and routes -->
+  
   <script src='./app/app_routes.js'></script>
   <script src='./app/app_modules.js'></script>
+  
+
   <!-- <link href="./assets/styles.min.css" rel="stylesheet"> -->
   <link href="./assets/styles.css" rel="stylesheet">
 </head>
 
-<body class="intro fading-in">
+  <body class="intro fading-in">
   <!-- <body> -->
-  <!-- Navigation -->
-  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="testing-class">MKStream</div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+          
+             <div class="testing-class">MKStream</div>
+          
+        </div>
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul class="nav navbar-nav">
+
+
+            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+            <li class="hidden">
+              <a></a>
+            </li>
+            <li>
+              <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question fa-3x"></i></a>
+            </li>
+            <li>
+              <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-lightbulb-o fa-3x"></i></a>
+            </li>
+            <li>
+              <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- /.navbar-collapse -->
       </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-        <ul class="nav navbar-nav">
-          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-          <li class="hidden">
-            <a></a>
-          </li>
-          <li>
-            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question fa-3x"></i></a>
-          </li>
-          <li>
-            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-lightbulb-o fa-3x"></i></a>
-          </li>
-          <li>
-            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a>
-          </li>
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-  </nav>
-  <!-- Intro Header -->
-  <div ui-view></div>
-  <div ui-view='connecting'></div>
-  <div class="intro intro-text">
-    <div class="intro-body">
-      <div class="container-fluid">
-        <div class="row">
+
+
+      <!-- /.container -->
+    </nav>
+
+
+    <!-- Intro Header -->
+    <div ui-view></div>
+    <div ui-view='connecting'></div>
+
+    <div class="intro intro-text">
+      <div class="intro-body">
+        <div class="container-fluid">
           <div class="row">
-            <div class='col-md-4'>
-              <div class="col-md-12" id='ulSection'>
-                <div class='row'>
-                  <div ui-view='upload' class="fade-view"></div>
+
+            <div class="row">
+              <div class='col-md-4'>
+                <div class="col-md-12" id='ulSection'> 
+                  <div class='row'>          
+                    <div ui-view='upload' class="fade-view"></div>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-4'>
+                  <div id="dropZone">
+                    <h6 id='dropZoneText'>drag and drop or click to start</h6>
+                    <input type="file" id="filesId" name="files" multiple />
+                    <output id="list"></output>
+                  </div>
+                  <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
+
+                  <div class="btn btn-circle" id="lightningBoltButton">
+                    <i class="fa fa-bolt"></i>
+                  </div>
+                  <h3 class="currentConnectionState"></h3>
+                  <br>
+                  <br>
+                  <!-- <input id="currentUrl" value=""> -->
+                  <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
+              </div>
+              <div class='col-md-4'>
+                <div class="col-md-12" id='dlSection'>
+                  <div ui-view='download' class="fade-view"></div>
                 </div>
               </div>
             </div>
-            <div class='col-md-4'>
-              <div id="dropZone">
-                <h6 id='dropZoneText'>drag and drop or click to start</h6>
-                <input type="file" id="filesId" name="files" multiple />
-                <output id="list"></output>
-              </div>
-              <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
-              <div class="btn btn-circle" id="lightningBoltButton">
-                <i class="fa fa-bolt"></i>
-              </div>
-              <h3 class="currentConnectionState"></h3>
-              <br>
-              <br>
-              <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
             </div>
-            <div class='col-md-4'>
-              <div class="col-md-12" id='dlSection'>
-                <div ui-view='download' class="fade-view"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
 
+  </body>
 </html>

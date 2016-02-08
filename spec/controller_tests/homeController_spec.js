@@ -1,31 +1,31 @@
 xdescribe('homeController', function() {
   var $scope,
-    $http,
-    // $state,
-    // $stateParams,
-    $location,
-    $rootScope,
-    fileTransfer,
-    linkGeneration,
-    webRTC,
-    packetHandlers;
+      $http,
+      // $state,
+      // $stateParams,
+      $location,
+      $rootScope,
+      fileTransfer,
+      linkGeneration,
+      webRTC,
+      packetHandlers;
 
   beforeEach(function() {
-    module('home');
+      module('home');
+  
+      inject(function($injector) {
+        $rootScope = $injector.get('$rootScope');
+        $scope = $rootScope.$new();
+        $http = $injector.get('$http');
+        // $state = $injector.get('$state');
+        // $stateParams = $injector.get('$stateParams');
+        $location = $injector.get('$location');
+        fileTransfer = $injector.get('fileTransfer');
+        linkGeneration = $injector.get('linkGeneration');
+        webRTC = $injector.get('webRTC');
+        packetHandlers = $injector.get('packetHandlers');
 
-    inject(function($injector) {
-      $rootScope = $injector.get('$rootScope');
-      $scope = $rootScope.$new();
-      $http = $injector.get('$http');
-      // $state = $injector.get('$state');
-      // $stateParams = $injector.get('$stateParams');
-      $location = $injector.get('$location');
-      fileTransfer = $injector.get('fileTransfer');
-      linkGeneration = $injector.get('linkGeneration');
-      webRTC = $injector.get('webRTC');
-      packetHandlers = $injector.get('packetHandlers');
-
-    });
+      });
   });
 
   describe('home', function() {
