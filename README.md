@@ -50,18 +50,21 @@ MONGOLAB_URI='(your mongodb uri)'
 
 # Testing
 
-You may need to globally install these testing-related libraries first:
+## Executing tests
+
+`npm test` - Run client-side tests then server-side tests.
+
+To execute client and server tests separately, you may need to globally install some packages:
 
 `sudo npm install -g karma-cli`
 
 `sudo npm install -g jasmine`
 
-## Executing tests
-Run client-side test specs:
-`karma start`
+Executing tests individually:
 
-Run server-side test specs:
-`jasmine`
+`karma start` - Run client side tests.
+
+`jasmine` - Run server side tests.
 
 # Grunt Scripts
 
@@ -86,5 +89,3 @@ Access our [Style Guide here](https://github.com/MKSTeam/thesis/wiki/Style-Guide
 
 # Press Release
 Access our [Press Release here](https://github.com/MKSTeam/thesis/wiki/Press-Release)
-
-
