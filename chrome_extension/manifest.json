@@ -5,17 +5,14 @@
   "version": "1.0",
   "homepage_url": "https://mkstream.club",
   "browser_action": {
-    "default_icon": "./chrome_icon.png",
-    "default_title": "Start shareing with MKSTream",
-    "default_popup": "./popup.html"
+    "default_icon": "./bolt_only.png",
+    "default_title": "transfer files on mkstream.club"
   },
   "background": {
-    "page": "./background.html",
-    "scripts": ["./background.js"],
-    "persistent": false
+    "scripts": ["./background.js"]
   },
-  "permissions": ["tabs", 
-    "storage", 
-    "notifications"
+  "permissions": [
+    "windows",
+    "tabs"
   ]
 }
