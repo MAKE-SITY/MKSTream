@@ -48,7 +48,7 @@ angular.module('utils.linkGeneration', [])
 
     // copy the selection
     return document.execCommand("copy");
-  }
+  };
 
   return linkGeneration;
 

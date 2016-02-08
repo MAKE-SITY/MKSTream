@@ -66,7 +66,9 @@ describe("Server", function() {
 
   it("should be able to delete a particular receiverID from a sender", function(done) {
     dbQueries.removeReceiverFromSender('Test Hash MKS', 'Test Receiver MKS').then(function() {
-      User.find({linkHash: 'Test Hash MKS'}, function(err, user) {
+      User.find({
+        linkHash: 'Test Hash MKS'
+      }, function(err, user) {
         if (err) {
           return err;
         }
@@ -91,6 +93,5 @@ describe("Server", function() {
       });
     });
   });
-
 
 });
