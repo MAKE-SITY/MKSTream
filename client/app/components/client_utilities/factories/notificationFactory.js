@@ -27,13 +27,13 @@ angular.module('utils.notifications', [
       message: 'If you place this tab in the background your connection will slow down. ' +
                 'Please move this tab to a new window.',
       positionX: notificationPosX,
-      delay: false
+      delay: 20000
     });
   };
 
-  notifications.alreadyUploaded = function(){
+  notifications.alreadyUploaded = function(name){
     Notification.error({
-      message: 'You already uploaded that!',
+      message: 'You already uploaded ' + name,
       positionX: notificationPosX
     })
   };

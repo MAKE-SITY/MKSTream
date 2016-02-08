@@ -65,15 +65,10 @@
   <!-- <body> -->
 
     <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-custom" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-            <i class="fa fa-bars"></i>
-          </button>
-          
-             <div class="testing-class">MKStream</div>
-          
+          <img src="./assets/logo_plain.png" class="mkstream-logo">
         </div>
 
 
@@ -111,23 +106,21 @@
     <div ui-view></div>
     <div ui-view='connecting'></div>
 
-    <div class="intro intro-text">
-      <div class="intro-body">
         <div class="container-fluid">
-          <div class="row">
 
             <div class="row">
               <div class='col-md-4'>
-                <div class="col-md-12" id='ulSection'> 
+                <div id='ulSection'> 
                   <div class='row'>          
                     <div ui-view='upload' class="fade-view"></div>
                   </div>
                 </div>
               </div>
               <div class='col-md-4'>
+                <div class="buttonsBox">
                   <div id="dropZone">
-                    <h6 id='dropZoneText'>drag and drop or click to start</h6>
                     <input type="file" id="filesId" name="files" multiple />
+                    <h6 id='dropZoneText'>drag and drop or click to start</h6>
                     <output id="list"></output>
                   </div>
                   <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
@@ -135,22 +128,19 @@
                   <div class="btn btn-circle" id="lightningBoltButton">
                     <i class="fa fa-bolt"></i>
                   </div>
+                </div>
+                <div class="displayBox">
                   <h3 class="currentConnectionState"></h3>
-                  <br>
-                  <br>
-                  <!-- <input id="currentUrl" value=""> -->
                   <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
+                </div>
               </div>
               <div class='col-md-4'>
-                <div class="col-md-12" id='dlSection'>
+                <div id='dlSection'>
                   <div ui-view='download' class="fade-view"></div>
                 </div>
               </div>
             </div>
-            </div>
         </div>
-      </div>
-    </div>
 
   </body>
 </html>

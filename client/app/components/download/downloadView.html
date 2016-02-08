@@ -1,11 +1,11 @@
-<div class='header-text'>Downloads
+<div class='header-text'>Incoming Files
   <hr class='header-bar'>
 </div>
 
 <div class='scroll-dl'>
   <div class='container-fluid'>
       <!-- download file after accepted -->
-      <div class='row wrapped-dl fade-repeat' ng-repeat-start="transfer in incomingFileTransfers">
+      <div class='row wrapped-dl fade-repeat mk-download' ng-repeat="transfer in incomingFileTransfers">
         <div class='col-xs-6 table-data-name'><b><u>File Name:</u></b>
           <br> {{transfer.name}}</div>
         <div class='col-xs-3 table-data-type'>{{transfer.type}}</div>
@@ -25,11 +25,8 @@
         </a>
         </div>
       </div>
-      <hr>
-      <br>
-      <div ng-repeat-end></div>
       <!-- accept file to download -->
-      <div class='row wrapped-dl fade-repeat' ng-repeat-start="offer in offers">
+      <div class='row wrapped-dl fade-repeat mk-download' ng-repeat="offer in offers">
         <div class='col-xs-9 table-data-name'><b><u>File Name:</u></b>
           <br>{{offer.name}}</div>
         <div class='col-xs-3 table-data-right'><b><u>File Size:</u></b>
@@ -41,8 +38,6 @@
         <div class='col-xs-2' class='table-data-right data-rejectbtn'><a href='' ng-click="rejectFileOffer(offer)">Reject</a></div>
         <hr>
       </div>
-      <br>
-      <div ng-repeat-end></div>
     <!-- /container -->
   </div>
   <!-- .scroll-dl -->
