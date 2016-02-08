@@ -349,7 +349,7 @@ img::-moz-selection {
 
 #dropZoneText {
   position: relative;
-  top: -50%;
+  top: -55%;
   z-index: 100;
 }
 

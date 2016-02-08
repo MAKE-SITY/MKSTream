@@ -16,12 +16,12 @@ describe('linkGeneration Factory', function() {
       expect(myObj).toEqual(3);
     });
 
-    it("Should have a method called guid", function() {
-      expect(factory.guid).toBeDefined();
+    it("Should have a method called adjAdjAnimal", function() {
+      expect(factory.adjAdjAnimal).toBeDefined();
     });
 
-    it("Should have a method called fuid", function() {
-      expect(factory.fuid).toBeDefined();
+    it("Should have a method called generateHash", function() {
+      expect(factory.generateHash).toBeDefined();
     });
   });
 });
