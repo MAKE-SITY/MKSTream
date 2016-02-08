@@ -61,98 +61,86 @@
   <link href="./assets/styles.css" rel="stylesheet">
 </head>
 
-<body class="intro fading-in">
-<!-- <body> -->
+  <body class="intro fading-in">
+  <!-- <body> -->
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-          <i class="fa fa-bars"></i>
-        </button>
-        
-           <div class="testing-class">MKStream</div>
-        
-      </div>
-
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-        <ul class="nav navbar-nav">
-
-
-          <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-          <li class="hidden">
-            <a></a>
-          </li>
-          <li>
-            <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question fa-3x"></i></a>
-          </li>
-          <li>
-            <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-lightbulb-o fa-3x"></i></a>
-          </li>
-          <li>
-            <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a>
-          </li>
-        </ul>
-      </div>
-
-
-      <!-- /.navbar-collapse -->
-    </div>
-
-
-    <!-- /.container -->
-  </nav>
-
-
-  <!-- Intro Header -->
-  <div ui-view></div>
-  <div ui-view='connecting'></div>
-
-  <header class="intro intro-text">
-    <div class="intro-body">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-
-          <div class="row">
-            <div class='col-md-4'>
-              <div class="col-md-12" id='ulSection'> 
-                <div class='row'>          
-                  <div ui-view='upload' class="fade-view"></div>
-                </div>
-              </div>
-            </div>
-            <div class='col-md-4'>
-                <div id="dropZone">
-                  <h6 id='dropZoneText'>drag and drop or click to start</h6>
-                  <input type="file" id="filesId" name="files" multiple />
-                  <output id="list"></output>
-                </div>
-                <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
-
-                <div class="btn btn-circle" id="lightningBoltButton">
-                  <i class="fa fa-bolt"></i>
-                </div>
-                <h3 class="currentConnectionState"></h3>
-                <br>
-                <br>
-                <!-- <input id="currentUrl" value=""> -->
-                <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
-            </div>
-            <div class='col-md-4'>
-              <div class="col-md-12" id='dlSection'>
-                <div ui-view='download' class="fade-view"></div>
-              </div>
-            </div>
-          </div>
-          </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <img src="./assets/logo_plain_300_white.png" class="mkstream-logo">
         </div>
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+          <ul class="nav navbar-nav">
+
+
+            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+            <li class="hidden">
+              <a></a>
+            </li>
+            <li>
+              <a class="pointer-class contact-color" ng-click="openModal('contact')"><i class="fa fa-question fa-3x"></i></a>
+            </li>
+            <li>
+              <a class="pointer-class about-color" ng-click="openModal('about')"><i class="fa fa-lightbulb-o fa-3x"></i></a>
+            </li>
+            <li>
+              <a href="https://www.github.com/make-sity/mkstream" class="pointer-class guide-color" target="_blank"><i class="fa fa-github-alt fa-3x"></i></a>
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- /.navbar-collapse -->
       </div>
-    </div>
-  </header>
 
 
+      <!-- /.container -->
+    </nav>
+
+
+    <!-- Intro Header -->
+    <div ui-view></div>
+    <div ui-view='connecting'></div>
+
+        <div class="container-fluid">
+
+            <div class="row">
+              <div class='col-md-4'>
+                <div id='ulSection'> 
+                  <div class='row'>          
+                    <div ui-view='upload' class="fade-view"></div>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-4'>
+                <div class="buttonsBox">
+                  <div id="dropZone">
+                    <input type="file" id="filesId" name="files" multiple />
+                    <h6 id='dropZoneText'>drag and drop or click to start</h6>
+                    <output id="list"></output>
+                  </div>
+                  <p class="intro-text" id="alertMessage">A free, lightning fast file sharing service</p>
+
+                  <div class="btn btn-circle" id="lightningBoltButton">
+                    <i class="fa fa-bolt"></i>
+                  </div>
+                </div>
+                <div class="displayBox">
+                  <h3 class="currentConnectionState"></h3>
+                  <div id='currentUrl' class="currentUrlShow currentUrlHidden" value="">Awaiting link generation</div>
+                </div>
+              </div>
+              <div class='col-md-4'>
+                <div id='dlSection'>
+                  <div ui-view='download' class="fade-view"></div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+  </body>
 </html>

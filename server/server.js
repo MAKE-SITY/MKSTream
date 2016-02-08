@@ -7,5 +7,3 @@ require('./config/middleware.js')(app, express);
 
 var server = app.listen(port);
 console.log('Now listening on port: ' + port);
-
-app.use('/bower_components', express.static(__dirname + './../bower_components'));

@@ -14,7 +14,8 @@ angular.module('connecting', [
   'modals',
   'linkGeneration',
   'lightningButton',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration, lightningButton) {
+  'notifications',
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration, lightningButton, notifications) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
@@ -25,7 +26,7 @@ angular.module('connecting', [
      * follow the code below:
      */
 
-    
+    fileUpload.checkBrowser();
 
 
     $rootScope.openModal = modals.openModal;
@@ -70,10 +71,12 @@ angular.module('connecting', [
           .then(function(res) {
             // expect res.data === sender id
             var conn = fileTransfer.peer.connect(res.data.senderID);
-            lightningButton.connectedToPeer();
             fileTransfer.conn.push(conn);
             packetHandlers.attachConnectionListeners(conn, $rootScope);
-
+            notifications.tabReminder();
+            conn.on('open', function(){
+              lightningButton.connectedToPeer();
+            });
           });
       });
 

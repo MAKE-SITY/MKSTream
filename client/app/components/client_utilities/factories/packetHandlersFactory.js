@@ -12,7 +12,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
   var packetHandlers = {};
   var fileNumber = 0;
   var fullArray = [];
-  packetHandlers.accepted = function(data, conn, scope) {
+  packetHandlers.startTransfer = function(data, conn, scope) {
     fileTransfer.myItems.forEach(function(val) {
       if (val.name === data.name && val.size === data.size) {
         var sendData = {
@@ -23,6 +23,11 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
           scopeRef: scope
         };
         webRTC.sendDataInChunks(conn, sendData);
+        for (var i = 0; i < fileTransfer.myItems.length; i++) {
+          if (fileTransfer.myItems[i].name === data.name && fileTransfer.myItems[i].size === data.size) {
+            fileTransfer.myItems[i].status = "Sending...";
+          }
+        }
       }
     });
   };
@@ -33,13 +38,14 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         name: data.name,
         size: fileUpload.convertFileSize(data.size),
         conn: conn,
+        fileKey: data.fileKey,
         rawSize: data.size
       };
       fileTransfer.offers.push(offer);
     });
   };
 
-  packetHandlers.chunk = function(data, scope) {
+  packetHandlers.chunk = function(data, conn, scope) {
     if (data.count === 0) {
       scope.$apply(function() {
         fileTransfer.incomingFileTransfers[data.id] = {
@@ -83,6 +89,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     if (transferObj.progress >= transferObj.size) {
       var lastBlob = new Blob(block);
       block = transferObj.buffer[blockIndex] = null;
+
       localforage.setItem(data.id + ':' + transferObj.chunkCount.toString(), lastBlob)
         .then(
           function(result) {
@@ -118,6 +125,12 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 notifications.successMessage(newFile.name);
                 fileTransfer.downloadQueue.shift();
                 webRTC.checkDownloadQueue();
+                // ping back to sender that it is complete.
+                console.log('DATA?', data);
+                conn.send({
+                  fileKey: data.id,
+                  type: 'file-finished'
+                });
               });
           }
         );
@@ -131,15 +144,39 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
     }
   };
 
+  packetHandlers.finished = function(data, scope){
+    for (var j = 0; j < fileTransfer.myItems.length; j++) {
+      if (fileTransfer.myItems[j].fileKey === data.fileKey) {
+        scope.$apply(function() {
+          fileTransfer.myItems[j].status = 'File finished sending';
+        });
+      }
+    }
+  };
+
+  packetHandlers.rejected = function(data, scope){
+    for (var j = 0; j < fileTransfer.myItems.length; j++) {
+      if (fileTransfer.myItems[j].fileKey === data.fileKey) {
+        scope.$apply(function() {
+          fileTransfer.myItems[j].status = 'File rejected';
+        });
+      }
+    }
+  };
+
   packetHandlers.attachConnectionListeners = function(conn, scope){
     conn.on('data', function(data) {
       console.log('incoming packet');
-      if (data.type === 'file-accepted') {
-        packetHandlers.accepted(data, conn, scope);
+      if (data.type === 'start-transfer') {
+        packetHandlers.startTransfer(data, conn, scope);
       } else if (data.type === 'file-offer') {
         packetHandlers.offer(data, conn, scope);
       } else if (data.type === 'file-chunk') {
-        packetHandlers.chunk(data, scope);
+        packetHandlers.chunk(data, conn, scope);
+      } else if (data.type === 'file-finished') {
+        packetHandlers.finished(data, scope);
+      } else if (data.type === 'file-rejected') {
+        packetHandlers.rejected(data, scope);
       }
     });
 

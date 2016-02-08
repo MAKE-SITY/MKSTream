@@ -5,8 +5,9 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   'fileTransfer', 
   'webRTC', 
   'linkGeneration',
-  'Notification', 
-  function(fileReader, fileTransfer, webRTC, linkGeneration, Notification) {
+  'notifications', 
+  'modals',
+  function(fileReader, fileTransfer, webRTC, linkGeneration, notifications, modals) {
   var fileUpload = {};
 
   fileUpload.getFiles = function() {
@@ -32,7 +33,6 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   };
 
   fileUpload.acceptFileOffer = function(offer) {
-    offer.fileKey = linkGeneration.generateHash();
     fileTransfer.incomingFileTransfers[offer.fileKey] = {
       name: offer.name,
       size: offer.size,
@@ -48,6 +48,10 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
   fileUpload.rejectFileOffer = function(offer) {
     var index = fileTransfer.offers.indexOf(offer);
     fileTransfer.offers.splice(index, 1);
+    offer.conn.send({
+      type: 'file-rejected',
+      fileKey: offer.fileKey
+    });
   };
 
 
@@ -115,11 +119,24 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
 
   fileUpload.receiveFiles = function(){
     var files = this.files;
+    var alreadyUploaded;
     for (var i = 0; i < files.length; i++) {
-      if (fileTransfer.myItems.indexOf(files[i]) > -1) {
-        continue;
+      alreadyUploaded = false;
+      for(var j = 0; j < fileTransfer.myItems.length; j++){
+        if(fileTransfer.myItems[j].name === files[i].name && fileTransfer.myItems[j].size === files[i].size){
+          alreadyUploaded = true;
+          break;
+        }
       }
+      if (alreadyUploaded) {
+        notifications.alreadyUploaded(files[i].name);
+        continue;
+      };
+      files[i].fileKey = linkGeneration.generateHash();
       files[i].beenSent = false;
+      files[i].formattedSize = fileUpload.convertFileSize(files[i].size);
+      files[i].status = 'Waiting for response...';
+      console.log(files[i]);
       fileTransfer.myItems.push(files[i]);
     }
     fileTransfer.conn.forEach(function(connection) {
@@ -127,6 +144,13 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
     });
   };
 
+  fileUpload.checkBrowser = function(){
+    var goodBrowser = util.browser !== 'Unsupported';
+    var supportsDataChannel = util.supports.data;
+    if(!goodBrowser || !supportsDataChannel){
+      modals.badBrowser();
+    }
+  };
 
   return fileUpload;
 
