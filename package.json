@@ -5,9 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "nf start",
-    "test": "jasmine && karma start",
-    "stest": "jasmine",
-    "ctest": "karma start",
+    "test": "karma start && jasmine",
     "postinstall": "bower install"
   },
   "repository": {
