@@ -14,7 +14,8 @@ angular.module('connecting', [
   'modals',
   'linkGeneration',
   'lightningButton',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration, lightningButton) {
+  'notifications',
+  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration, lightningButton, notifications) {
     console.log('connecting controller loaded');
     /**
      * if arriving from redirect,
