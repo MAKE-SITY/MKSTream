@@ -16,10 +16,20 @@ angular.module('connecting', [
   'lightningButton',
   function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload, modals, linkGeneration, lightningButton) {
     console.log('connecting controller loaded');
+    /**
+     * if arriving from redirect,
+     * sender has access to their own peer object,
+     * becasue it's on the fileTransfer
+     *
+     * if arriving from a link,
+     * follow the code below:
+     */
 
     fileUpload.checkBrowser();
 
+
     $rootScope.openModal = modals.openModal;
+     
 
     $('.currentUrlShow').removeClass('currentUrlHidden');
 
@@ -86,9 +96,9 @@ angular.module('connecting', [
 
       document.getElementById('filesId').addEventListener('change', function() {
         var self = this;
-        $scope.$apply(function() {
+        $scope.$apply(function(){
           fileUpload.receiveFiles.call(self);
-        });
+        })
       });
     }
 

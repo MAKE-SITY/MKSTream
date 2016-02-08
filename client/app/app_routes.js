@@ -3,24 +3,25 @@ angular.module('clientRoutes', [])
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider
-    .otherwise('/');
+  .otherwise('/');
 
   $stateProvider
     .state('home', {
       url: '/',
-      controller: 'homeController'
+      controller: 'homeController',
+      templateUrl: './app/components/home/homeView.html'
     })
-    .state('room', {
-      url: '/room/:roomHash',
+     .state('room', {
+      url: '/room/:roomHash', 
       views: {
-        'connecting': {
+        'connecting':{  
           controller: 'connectingController'
         },
-        'upload': {
+        'upload':{  
           controller: 'uploadController',
           templateUrl: './app/components/upload/uploadView.html'
         },
-        'download': {
+        'download':{
           controller: 'downloadController',
           templateUrl: './app/components/download/downloadView.html'
         }

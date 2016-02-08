@@ -1,12 +1,12 @@
 angular.module('utils.modals', [])
 
-.factory('modals', ['$uibModal', function($uibModal) {
+.factory('modals', ['$uibModal', function($uibModal){
 
   var modals = {};
 
-  modals.openModal = function(template) {
+  modals.openModal = function(template){
     var templateUrl;
-    if (template === 'about') {
+    if(template === 'about'){
       templateUrl = 'app/components/modals/aboutModalView.html';
     } else if (template === 'guide') {
       templateUrl = 'app/components/modals/guideModalView.html';
@@ -14,20 +14,20 @@ angular.module('utils.modals', [])
       templateUrl = 'app/components/modals/contactModalView.html';
     }
     $uibModal.open({
-      templateUrl: templateUrl,
-      controller: 'modalsController',
-      windowClass: 'informational-modal'
+        templateUrl: templateUrl,
+        controller: 'modalsController',
+        windowClass: 'informational-modal'
     });
-
+    
   };
 
-  modals.badBrowser = function() {
+  modals.badBrowser = function(){
     $uibModal.open({
       templateUrl: 'app/components/modals/badBrowserModalView.html',
       controller: 'modalsController',
       windowClass: 'informational-modal'
     });
-  };
+  }
 
   return modals;
 
