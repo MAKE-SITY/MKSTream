@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var uri = (process.env.MONGOLAB_URI || 'mongodb://localhost/test');
+var uri = (process.env.MONGOLAB_URI || 'mongodb://localhost/MKStream');
 
 var options = {
   server: {
