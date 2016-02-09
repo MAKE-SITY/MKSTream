@@ -75,6 +75,7 @@ Executing tests individually:
 Output: /client/allmincode.js 
 
 Automatically concats and minifies all required libraries and application code in specific order.  See Gruntfile.js for details.
+
 NOTE: For development purposes, it is easier to comment back in all the bower components and comment out allmincode.js.  When you are ready to finalize and deploy, run the uglify task again and use only allmincode.js to server the smallest file to the user.
 
 `grunt cssmin` - output: /client/assets/styles.min.css
