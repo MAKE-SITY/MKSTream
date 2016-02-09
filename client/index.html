@@ -2,13 +2,14 @@
 <html ng-app='MKSTream'>
 
 <head>
-  <link rel="shortcut icon" href="./assets/favicon-bolt.ico" />
+  <link rel="shortcut icon" href="./assets/favicon-bolt.ico">
   <title>MKStream</title>
 
   <!-- All library files and app files minified -->
-  <!-- // <script src='allmincode.js'></script> -->
+  <script src='allmincode.js'></script>
 
   <!-- bower components -->
+  <!--
   <script src='./../bower_components/adjective-adjective-animal/dist/adjective-adjective-animal.min.js'></script>
   <script src='./../bower_components/angular/angular.min.js'></script>
   <script src='./../bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
@@ -21,16 +22,10 @@
   <script src='./../bower_components/jquery/dist/jquery.min.js'></script>
   <script src='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.js'></script>
   <script src='./../bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
-  
-  <!-- css stylesheeets -->
-  
-  <link href='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css' rel="stylesheet">
-  <link rel='stylesheet' href='./../bower_components/font-awesome/css/font-awesome.min.css'>
-  <link rel='stylesheet' href='./../bower_components/bootstrap/dist/css/bootstrap.min.css'>
-
+  -->
 
   <!-- Add additional factories -->
-  
+  <!--
   <script src='./app/components/client_utilities/client_utilities.js'></script>
   <script src='./app/components/client_utilities/factories/lightningButtonFactory.js'></script>
   <script src='./app/components/client_utilities/factories/fileReaderFactory.js'></script>
@@ -41,24 +36,33 @@
   <script src='./app/components/client_utilities/factories/fileTransferFactory.js'></script>
   <script src='./app/components/client_utilities/factories/modalFactory.js'></script>
   <script src='./app/components/client_utilities/factories/notificationFactory.js'></script>
-  
+  -->
 
   <!-- Add additional controller scripts -->
-  
+  <!--
   <script src='./app/components/connecting/connectingController.js'></script>
   <script src='./app/components/upload/uploadController.js'></script>
   <script src='./app/components/download/downloadController.js'></script>
   <script src='./app/components/home/homeController.js'></script>
   <script src='./app/components/modals/modalController.js'></script>
+  -->
 
   <!-- Added module and routes -->
-  
+  <!--
   <script src='./app/app_routes.js'></script>
   <script src='./app/app_modules.js'></script>
-  
+  -->  
 
-  <!-- <link href="./assets/styles.min.css" rel="stylesheet"> -->
-  <link href="./assets/styles.css" rel="stylesheet">
+  <!-- css stylesheeets -->
+  
+  <link rel='stylesheet' href='./../bower_components/angular-ui-notification/dist/angular-ui-notification.min.css'>
+  <link rel='stylesheet' href='./../bower_components/font-awesome/css/font-awesome.min.css'>
+  <link rel='stylesheet' href='./../bower_components/bootstrap/dist/css/bootstrap.min.css'>
+  <link rel='stylesheet' href='./assets/styles.css'>
+
+  <!-- minified css does not work for all included libs yet
+  <link rel='stylesheet' href='./assets/styles.min.css'>
+  -->
 </head>
 
   <body class="intro fading-in">
