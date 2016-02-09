@@ -125,8 +125,6 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 notifications.successMessage(newFile.name);
                 fileTransfer.downloadQueue.shift();
                 webRTC.checkDownloadQueue();
-                // ping back to sender that it is complete.
-                console.log('DATA?', data);
                 conn.send({
                   fileKey: data.id,
                   type: 'file-finished'
@@ -166,7 +164,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
 
   packetHandlers.attachConnectionListeners = function(conn, scope){
     conn.on('data', function(data) {
-      console.log('incoming packet');
+      // console.log('incoming packet');
       if (data.type === 'start-transfer') {
         packetHandlers.startTransfer(data, conn, scope);
       } else if (data.type === 'file-offer') {
