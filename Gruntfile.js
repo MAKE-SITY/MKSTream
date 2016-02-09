@@ -35,7 +35,12 @@ module.exports = function(grunt) {
     cssmin: {
       target: {
         files: {
-          'client/assets/styles.min.css': ['client/assets/styles.css']
+          'client/assets/styles.min.css': [
+          'bower_components/angular-ui-notification/dist/angular-ui-notification.min.css',
+          'bower_components/font-awesome/css/font-awesome.min.css',
+          'bower_components/bootstrap/dist/css/bootstrap.min.css',
+          'client/assets/styles.css'
+          ]
         }
       }
     },
