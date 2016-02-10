@@ -15,9 +15,12 @@ MKStream allows people to send files directly to each other through a secured an
 For anonymity and security reasons, either peer closing or refreshing their MKStream tab destroys the connection and voids the current anonymous link. To share more files, just go back to [MKStream.club](https://www.mkstream.club/) and MKStream will be ready for you any time.
 
 
-## How does it work
+## How it works
 # ![MKSTream] (client/assets/mkstream_architecture.png)
-	- writeup coming!
+
+When someone first shares a file, two things occur.  First, a signal is sent to our PeerJS server to have it listen for another peer to connect with.  Second, a unique link is generated and a signal is sent to our server to store the room is stored in our database.
+
+When another user visits that link, it signals our server to check if the room exists in the database.  If so, the second peer will signal the same PeerJS server and look for the connection to the peer that generated the link.  Once a handshake is established, the direct data channel between the two peers is open.
 
 # Contributing
 **MKStream is brought to you by:**  
