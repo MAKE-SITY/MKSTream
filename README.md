@@ -20,7 +20,7 @@ For anonymity and security reasons, either peer closing or refreshing their MKSt
 
 When someone first shares a file, two things occur.  First, a signal is sent to our PeerJS server to have it listen for another peer to connect with.  Second, a unique link is generated and a signal is sent to our server to store the room in our database.
 
-When another user visits that link, it signals our server to check if the room exists in the database.  If so, the second peer will signal the same PeerJS server and look for the connection to the peer that generated the link.  Once a handshake is established, the direct data channel between the two peers is open.
+When another user visits that link, it signals our server to check if the room exists in the database.  If so, the second peer will signal the same PeerJS server and look for the connection to the peer that generated the link.  Once a handshake is established, WebRTC will establish the direct data channel between the two peers.
 
 # Contributing
 **MKStream is brought to you by:**  
