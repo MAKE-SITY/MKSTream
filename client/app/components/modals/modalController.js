@@ -3,7 +3,5 @@ angular.module('modals', [
 ])
 
 .controller('modalsController', ['$scope', 'modals', function($scope, modals){
-  console.log('hhhhhhh');
-
 
 }]);
