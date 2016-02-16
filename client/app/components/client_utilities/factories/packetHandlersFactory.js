@@ -64,6 +64,11 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       });
       fileNumber++;
     }
+    if (data.count % 200 === 0) {
+      // ping back progress to sender every 500 packets
+      conn.send((fileTransfer.incomingFileTransfers[data.id].progress / fileTransfer.incomingFileTransfers[data.id].size * 100).toFixed(2));
+    }
+
     var blockSize = 5000;
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     var blockIndex = Math.floor(data.count/blockSize);
@@ -127,7 +132,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 webRTC.checkDownloadQueue();
                 conn.send({
                   fileKey: data.id,
-                  type: 'file-finished'
+                  type: 'file-finished',
+                  progress: '100%'
                 });
               });
           }
@@ -175,6 +181,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         packetHandlers.finished(data, scope);
       } else if (data.type === 'file-rejected') {
         packetHandlers.rejected(data, scope);
+      } else {
+        console.log('RECEIVING EVERY 500 PACKETS, PROGRESS:', data);
       }
     });
 
