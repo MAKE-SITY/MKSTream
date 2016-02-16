@@ -65,7 +65,7 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       fileNumber++;
     }
     if (data.count % 200 === 0) {
-      // ping back progress to sender every 500 packets
+      // ping back progress to sender every 200 packets
       conn.send((fileTransfer.incomingFileTransfers[data.id].progress / fileTransfer.incomingFileTransfers[data.id].size * 100).toFixed(2));
     }
 
