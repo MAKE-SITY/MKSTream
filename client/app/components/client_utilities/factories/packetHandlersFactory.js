@@ -64,6 +64,15 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       });
       fileNumber++;
     }
+    if (data.count % 200 === 0) {
+      // ping back progress to sender every 200 packets
+      conn.send({
+        type: 'file-ping',
+        id: data.id,
+        progress: fileTransfer.incomingFileTransfers[data.id].progress
+      })
+    }
+
     var blockSize = 5000;
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     var blockIndex = Math.floor(data.count/blockSize);
@@ -127,7 +136,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 webRTC.checkDownloadQueue();
                 conn.send({
                   fileKey: data.id,
-                  type: 'file-finished'
+                  type: 'file-finished',
+                  progress: transferObj.size
                 });
               });
           }
@@ -147,6 +157,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       if (fileTransfer.myItems[j].fileKey === data.fileKey) {
         scope.$apply(function() {
           fileTransfer.myItems[j].status = 'File finished sending';
+          fileTransfer.myItems[j].progress = data.progress;
+          fileTransfer.myItems[j].percent = '100%'
         });
       }
     }
@@ -175,6 +187,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         packetHandlers.finished(data, scope);
       } else if (data.type === 'file-rejected') {
         packetHandlers.rejected(data, scope);
+      } else if (data.type === 'file-ping') {
+        packetHandlers.pingProgress(data, scope)
       }
     });
 
@@ -187,6 +201,17 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       lightningButton.disconnected();
     });
   };
+
+  packetHandlers.pingProgress = function(data, scope) {
+    for (var k = 0; k < fileTransfer.myItems.length; k++) {
+      if (fileTransfer.myItems[k].fileKey === data.id) {
+        scope.$apply(function() {
+          fileTransfer.myItems[k].progress = data.progress;
+          fileTransfer.myItems[k].percent = (data.progress / fileTransfer.myItems[k].size * 100).toFixed(2) + "%"
+        });
+      }
+    }
+  }
 
   return packetHandlers;
 
