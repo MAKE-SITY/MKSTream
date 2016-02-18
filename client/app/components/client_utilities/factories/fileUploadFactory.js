@@ -137,7 +137,7 @@ angular.module('utils.fileUpload', ['utils.fileReader'])
       files[i].formattedSize = fileUpload.convertFileSize(files[i].size);
       files[i].status = 'Waiting for response...';
       files[i].progress = 0;
-      files[i].percent = (files[i].progress / files[i].size * 100).toFixed(2);
+      files[i].percent = (files[i].progress / files[i].size * 100).toFixed(2) + '%';
       fileTransfer.myItems.push(files[i]);
     }
     fileTransfer.conn.forEach(function(connection) {
