@@ -8,7 +8,8 @@ angular.module('clientRoutes', [])
   $stateProvider
     .state('home', {
       url: '/',
-      controller: 'homeController'
+      controller: 'homeController',
+      templateUrl: './app/components/home/homeView.html'
     })
      .state('room', {
       url: '/room/:roomHash', 
