@@ -529,6 +529,7 @@ progress {
 .text-in-bar {
   position: relative;
   top: -1.4em;
+  text-align: center;
 }
 
 .transferRate {
@@ -548,7 +549,6 @@ img {
   border: 1px;
   padding: 10px;
 }
-
 
 .mkstream-logo {
   height: 80px;

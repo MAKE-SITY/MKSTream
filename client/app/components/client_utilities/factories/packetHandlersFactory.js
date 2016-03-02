@@ -64,10 +64,12 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       });
       fileNumber++;
     }
+
     var blockSize = 5000;
     var transferObj = fileTransfer.incomingFileTransfers[data.id];
     var blockIndex = Math.floor(data.count/blockSize);
     var relativeIndex = data.count % blockSize;
+
     if(!transferObj.buffer[blockIndex]){
       transferObj.buffer[blockIndex] = [];
       transferObj.buffer[blockIndex].chunksReceived = 0;
@@ -85,6 +87,17 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       }
       transferObj.percent = (transferObj.progress/transferObj.size*100).toFixed(2).toString() + '%';
     });
+
+    if (data.count % 200 === 0) {
+      // ping back progress to sender every 200 packets
+      conn.send({
+        type: 'file-ping',
+        id: data.id,
+        progress: transferObj.progress,
+        rate: transferObj.rate,
+        time: transferObj.time
+      })
+    }
     
     if (transferObj.progress >= transferObj.size) {
       var lastBlob = new Blob(block);
@@ -127,7 +140,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
                 webRTC.checkDownloadQueue();
                 conn.send({
                   fileKey: data.id,
-                  type: 'file-finished'
+                  type: 'file-finished',
+                  progress: transferObj.size
                 });
               });
           }
@@ -147,6 +161,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       if (fileTransfer.myItems[j].fileKey === data.fileKey) {
         scope.$apply(function() {
           fileTransfer.myItems[j].status = 'File finished sending';
+          fileTransfer.myItems[j].progress = data.progress;
+          fileTransfer.myItems[j].percent = '100.00%'
         });
       }
     }
@@ -175,6 +191,8 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
         packetHandlers.finished(data, scope);
       } else if (data.type === 'file-rejected') {
         packetHandlers.rejected(data, scope);
+      } else if (data.type === 'file-ping') {
+        packetHandlers.pingProgress(data, scope)
       }
     });
 
@@ -187,6 +205,19 @@ angular.module('utils.packetHandlers', ['utils.webRTC', 'utils.fileUpload', 'uti
       lightningButton.disconnected();
     });
   };
+
+  packetHandlers.pingProgress = function(data, scope) {
+    for (var k = 0; k < fileTransfer.myItems.length; k++) {
+      if (fileTransfer.myItems[k].fileKey === data.id) {
+        scope.$apply(function() {
+          fileTransfer.myItems[k].progress = data.progress;
+          fileTransfer.myItems[k].rate = data.rate;
+          fileTransfer.myItems[k].time = data.time;
+          fileTransfer.myItems[k].percent = (data.progress / fileTransfer.myItems[k].size * 100).toFixed(2) + "%"
+        });
+      }
+    }
+  }
 
   return packetHandlers;
 
