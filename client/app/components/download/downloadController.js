@@ -5,14 +5,9 @@ angular.module('download', [
 
 .controller('downloadController', [
   '$scope',
-  '$http',
-  '$stateParams',
-  '$rootScope',
   'fileTransfer',
-  'webRTC',
-  'packetHandlers',
   'fileUpload',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload) {
+  function($scope, fileTransfer, fileUpload) {
     console.log('download controller loaded');
 
     $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers;
