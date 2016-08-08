@@ -5,14 +5,9 @@ angular.module('upload', [
 
 .controller('uploadController', [
   '$scope',
-  '$http',
-  '$stateParams',
-  '$rootScope',
   'fileTransfer',
-  'webRTC',
-  'packetHandlers',
   'fileUpload',
-  function($scope, $http, $stateParams, $rootScope, fileTransfer, webRTC, packetHandlers, fileUpload) {
+  function($scope, fileTransfer, fileUpload) {
     console.log('upload controller loaded');
 
     $scope.incomingFileTransfers = fileTransfer.incomingFileTransfers;
