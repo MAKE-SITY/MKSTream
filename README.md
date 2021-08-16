@@ -1,4 +1,4 @@
-# ![MKSTream] (client/assets/logo_plain.png)
+# ![MKSTream](client/assets/logo_plain.png)
 <!--# ![MKSTream] (client/assets/logo.png)-->
 
 
@@ -16,7 +16,7 @@ For anonymity and security reasons, either peer closing or refreshing their MKSt
 
 
 ## How it works
-# ![MKSTream] (client/assets/mkstream_architecture.png)
+# ![MKSTream](client/assets/mkstream_architecture.png)
 
 When someone first shares a file, two things occur.  First, a signal is sent to our PeerJS server to have it listen for another peer to connect with.  Second, a unique link is generated and a signal is sent to our server to store the room in our database.
 
